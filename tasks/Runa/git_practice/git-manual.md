@@ -67,3 +67,26 @@ Include a type at the beginning of the message to describe the change.
 > **Benefit / メリット**:
 > Makes it easy to understand the purpose
 > 履歴を確認する際にそれぞれの変更の目的を理解しやすくなる
+
+## 5. How to Resolve Merge Conflicts / コンフリクトの解消方法
+
+### Steps to Resolve / 解消の手順
+
+1. **Pull the latest changes / 最新の変更を取り込む**:
+  - Fetch and Merge the latest version from the remote repository.
+  - リモートから最新の変更を取得してマージを試みる
+  - `git pull origin main`
+
+2. **Identify the conflict / 変更を選択する**:
+  - Open the files marked as 'both modified' in VS Code.
+  - Vs Codeとかで両方が変更されましたと表示されているファイルを開く
+
+3. **Choose the changes / 変更を選択する変更を選択する**:
+  - Use VS Code UI to choose button
+  - Vs Codeのボタンを使い選択する（現在の変更とか両方の残すなど）
+
+4. **Commit the fix / 修正を記録する**:
+  - After resolving stage the file and commit.
+  - 解消したらファイルをステージしてコミットする
+  - `git add <file>`
+  - `git commit -m "fix: resolve merge conflict"`
