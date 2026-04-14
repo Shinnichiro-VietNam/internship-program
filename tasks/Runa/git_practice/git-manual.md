@@ -48,7 +48,15 @@ Created by: Runa
   - ローカルの変更をGitHubにアップする
 - **git pull**:
   - Bring the latest remote status to your local machine.
-  - リモートの最新情報を取得する
+  - リモートの最新情報を取得する(他人の変更をもらう)
+
+### Staged vs　Unstaged
+- Staged(ステージング済み)
+  - Added to the staging area via `git add` and ready to be committed.
+  - `git add`によって保存するリストに追加され、コミットする準備が整った状態
+- Unstaged(未ステージング)
+  - Changes that have not been added with `git add` yet.
+  - まだ`git add`していない状態
 
 ---
 
