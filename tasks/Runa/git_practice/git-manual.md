@@ -1,9 +1,19 @@
 # Git Manual
 Created by: Runa
 
-## 1.OverView　/　概要
-- This is a summary of basic Git workflows and rules
-- Gitのルールと使い方について
+## 1.KeyKey Concepts / 基本概要
+
+### Version control system / バージョンコントロールシステム
+- A version contral system is a tool that records and manages changes to files, allowing you to track history, revert to previous versions, and collaborate safely with others.
+- バージョン管理システムとは、ファイルの変更履歴を記録・管理し、過去の状態に戻したり、複数人で安全に作業できるようにする仕組み
+
+### Centralized / 集中型(CVS,Subversion)
+- A system where a single central server stores all history, and everyone works by accessing it.
+- １つの中央サーバーで履歴を管理し、全員がそこにアクセスして作業する方法
+
+### Distributed / 分散型(Git,Mercurial)
+- A system where each user has a full copy of the repository, and history is managed in a distributed way.
+- 各自が完全な履歴を持つリポジトリを持ち、分散して管理する方法
 
 ---
 
@@ -68,6 +78,8 @@ Include a type at the beginning of the message to describe the change.
 > Makes it easy to understand the purpose
 > 履歴を確認する際にそれぞれの変更の目的を理解しやすくなる
 
+---
+
 ## 5. How to Resolve Merge Conflicts / コンフリクトの解消方法
 
 ### Steps to Resolve / 解消の手順
@@ -91,6 +103,8 @@ Include a type at the beginning of the message to describe the change.
   - `git add <file>`
   - `git commit -m "fix: resolve merge conflict"`
 
+---
+
 ##　6. Undoing changes / 変更をもとに戻す
 Methods to undo mistakes or go back to a previous state.
 ミスを修正したり、以前の状態に戻したりする方法
@@ -111,6 +125,8 @@ Methods to undo mistakes or go back to a previous state.
 - **revert**:
   - Used on GitHub when others have already seen the changes.
   - すでにみんながみているGitHub上で上書きする時
+
+---
 
 ## 7. Git Rebase / リベース
 
