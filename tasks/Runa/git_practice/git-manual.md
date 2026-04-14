@@ -104,3 +104,10 @@ Methods to undo mistakes or go back to a previous state.
 ### 3. Undo a published commit (revert) / 公開済みコミットを打ち消す
 - `git revert <commit_id>`
 
+### Key Difference / 使い分けのポイント
+- **reset**:
+ - Used to "rewing time" within my own locak PC.
+ - 自分のPCの中だけで時間を巻き戻すときに使う
+- **revert**:
+  - Used on GitHub when others have already seen the changes.
+  - すでにみんながみているGitHub上で上書きする時
