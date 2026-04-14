@@ -111,3 +111,17 @@ Methods to undo mistakes or go back to a previous state.
 - **revert**:
   - Used on GitHub when others have already seen the changes.
   - すでにみんながみているGitHub上で上書きする時
+
+## 7. Git Rebase / リベース
+
+### What is Rebase? / リベースとは？
+Rebase is the process of moving or combining a sequence of commits to a new base commit.
+リベースとは、コミットの履歴を別のコミットの上に移動させ、一本の線につなぎ直す操作
+
+### Basic Command / 基本コマンド
+1. `git checkout feature/my-task`
+2. `git rebase main`
+
+> **Note / 注意**:
+> Avoid rebasing branches that have already been pushed and are being used by others.
+> すでにGitHubにプッシュし他の人と共有しているブランチでリベースを行わないこと（履歴が書き換わってしまうから）
