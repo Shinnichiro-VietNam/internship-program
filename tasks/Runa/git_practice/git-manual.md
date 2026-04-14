@@ -4,7 +4,7 @@ Created by: Runa
 ## 1.KeyKey Concepts / 基本概要
 
 ### Version control system / バージョンコントロールシステム
-- A version contral system is a tool that records and manages changes to files, allowing you to track history, revert to previous versions, and collaborate safely with others.
+- A version control system is a tool that records and manages changes to files, allowing you to track history, revert to previous versions, and collaborate safely with others.
 - バージョン管理システムとは、ファイルの変更履歴を記録・管理し、過去の状態に戻したり、複数人で安全に作業できるようにする仕組み
 
 ### Centralized / 集中型(CVS,Subversion)
