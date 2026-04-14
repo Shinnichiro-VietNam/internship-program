@@ -46,6 +46,9 @@ Created by: Runa
 - **git push**:
   - Upload local changes to GitHub.
   - ローカルの変更をGitHubにアップする
+- **git pull**:
+  - Bring the latest remote status to your local machine.
+  - リモートの最新情報を取得する
 
 ---
 
