@@ -16,6 +16,18 @@ Created by: Runa
 - A system where each user has a full copy of the repository, and history is managed in a distributed way.
 - 各自が完全な履歴を持つリポジトリを持ち、分散して管理する方法
 
+> **Benefit / メリット**:
+> Offline Capability / オフライン作業が可能
+  - Commit locally without a server. Send all data when back online.
+  - サーバー無しでコミットが可能、ネット復帰時に一括送信
+> High Performance / 高速な動作
+  - Most operations are local, ensuring near-instant execution without network lag.
+  - 自分のPC内で処理が終わるため通信待ちがなく瞬時に完了する
+> Redundancy & Safety / 高い安全性とバックアップ
+  - Every user has a full backup, so the entire project can be restored if the server fails.
+  - 全員が全履歴のコピーを持つため、サーバー故障時も完全復元が可能になる
+
+
 ---
 
 ## 2.Basic Commands / 基本コマンド
