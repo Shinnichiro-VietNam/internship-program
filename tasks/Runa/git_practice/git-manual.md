@@ -141,3 +141,18 @@ Rebase is the process of moving or combining a sequence of commits to a new base
 > **Note / 注意**:
 > Avoid rebasing branches that have already been pushed and are being used by others.
 > すでにGitHubにプッシュし他の人と共有しているブランチでリベースを行わないこと（履歴が書き換わってしまうから）
+
+## 8.Branch Management / ブランチ管理
+
+- **git branch**:
+  - List local branches. The current branch is highlighted.
+  - ローカルブランチの一覧を表示する
+- **git branch [branch_name]**:
+  - Create a new branch with the specified name.
+  - 指定した名前で新しいブランチを作成する
+- **git branch -a**:
+  - List all branches (both local and remote).
+  - ローカルとリモートの両方を含む、すべてのブランチを確認する
+- **git branch -r**:
+  - List remote branches only.
+  - リモートブランチのみを確認します。
