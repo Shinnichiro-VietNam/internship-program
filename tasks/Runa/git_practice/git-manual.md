@@ -94,7 +94,7 @@ Include a type at the beginning of the message to describe the change.
   - Code changes that neither fix a bug nor add a feature.
   - バグ修正や新機能追加ではないコードの構造変更
 - **chore:**
-  - Maintenance taskes
+  - Maintenance tasks
   - その他雑務
 
 > **Benefit / メリット**:
