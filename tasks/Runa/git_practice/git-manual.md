@@ -7,7 +7,10 @@ Created by: Runa
 - This is a summary of basic Git workflows and rules
 - Gitのルールと使い方について
 
+---
+
 ## 2.Basic Commands / 基本コマンド
+
 - **git clone**:
   - Copy a remoto repository to my local machine.
   - リモートリポジトリーをローカルにコピーする
@@ -23,6 +26,24 @@ Created by: Runa
 - **git push**:
   - Upload local changes to GitHub.
   - ローカルの変更をGitHubにアップする
+
+---
+
+## 3.Branch Naming Rule / ブランチ命名規則
+
+Often used to organize projects
+
+- **feature/**:
+  - Adding new features or completing assignments.
+  - 新機能の追加や課題の作成
+- **fix/**:
+  - Bug fixes.
+  - バクの修正
+- **docs/**:
+  - Updates to documentation.
+  - ドキュメントの更新のみ
+
+---
 
 ### Version control system / バージョンコントロールシステム
 
