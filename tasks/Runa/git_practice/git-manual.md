@@ -1,38 +1,30 @@
 # Git Manual
+
 Created by: Runa
 
 ## 1.KeyKey Concepts / 基本概要
 
 ### Version control system / バージョンコントロールシステム
+
 - A version control system is a tool that records and manages changes to files, allowing you to track history, revert to previous versions, and collaborate safely with others.
 - バージョン管理システムとは、ファイルの変更履歴を記録・管理し、過去の状態に戻したり、複数人で安全に作業できるようにする仕組み
 
 ### Centralized / 集中型(CVS,Subversion)
+
 - A system where a single central server stores all history, and everyone works by accessing it.
 - １つの中央サーバーで履歴を管理し、全員がそこにアクセスして作業する方法
 
 ### Distributed / 分散型(Git,Mercurial)
+
 - A system where each user has a full copy of the repository, and history is managed in a distributed way.
 - 各自が完全な履歴を持つリポジトリを持ち、分散して管理する方法
-
-> **Benefit / メリット**:
-> Offline Capability / オフライン作業が可能
-  - Commit locally without a server. Send all data when back online.
-  - サーバー無しでコミットが可能、ネット復帰時に一括送信
-> High Performance / 高速な動作
-  - Most operations are local, ensuring near-instant execution without network lag.
-  - 自分のPC内で処理が終わるため通信待ちがなく瞬時に完了する
-> Redundancy & Safety / 高い安全性とバックアップ
-  - Every user has a full backup, so the entire project can be restored if the server fails.
-  - 全員が全履歴のコピーを持つため、サーバー故障時も完全復元が可能になる
-
 
 ---
 
 ## 2.Basic Commands / 基本コマンド
 
 - **git clone**:
-  - Copy a remote repository to my local machine.
+  - Copy a remoto repository to my local machine.
   - リモートリポジトリーをローカルにコピーする
 - **git checkout -b [branch name]**:
   - Create a new branch
