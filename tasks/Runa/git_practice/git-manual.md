@@ -172,3 +172,31 @@ Rebase is the process of moving or combining a sequence of commits to a new base
 - **git branch -r**:
   - List remote branches only.
   - リモートブランチのみを確認します。
+
+## 9.Elements of Git / Gitの要素
+
+- Working Directory:
+  - The actual location where you are editing the file
+  - 実際にファイルを編集している場所
+- Staging Area:
+  - The location where you are preparing the commits
+  - コミットを準備する場所
+- Repository:
+  - Where the change history is saved
+  - 変更履歴が保存される場所
+
+## 10.Tools and Platforms / Gitツールとプラットフォーム
+
+- **Platforms**: GitHub, GitLab, Bitbucket
+- **GUI Tools**: Source Tree, GitKraken, Vs Code built in functions
+
+## 11.Main vs Supporting
+
+- **Main Branches**:
+  - `main`: Always ready for release, production use
+  - `develop`: Mainline of development
+
+- **Supporting branches**:
+  - `feature/`: for new features
+  - `release/`: for release preparation
+  - `hotfix/`: for emergency correction
