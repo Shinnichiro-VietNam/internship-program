@@ -24,7 +24,7 @@ Created by: Runa
 ## 2.Basic Commands / 基本コマンド
 
 - **git clone**:
-  - Copy a remoto repository to my local machine.
+  - Copy a remote repository to my local machine.
   - リモートリポジトリーをローカルにコピーする
 - **git checkout -b [branch name]**:
   - Create a new branch
