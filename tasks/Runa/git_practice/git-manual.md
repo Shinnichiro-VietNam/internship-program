@@ -90,3 +90,17 @@ Include a type at the beginning of the message to describe the change.
   - 解消したらファイルをステージしてコミットする
   - `git add <file>`
   - `git commit -m "fix: resolve merge conflict"`
+
+##　6. Undoing changes / 変更をもとに戻す
+Methods to undo mistakes or go back to a previous state.
+ミスを修正したり、以前の状態に戻したりする方法
+
+### 1. Undo the last commit / 直前のコミットを取り消す（作業内容は残す）
+- `git reset --soft HEAD~1`
+
+### 2. Discard all changes / すべての変更を捨ててもとに戻す
+- `git reset --hard HEAD`
+
+### 3. Undo a published commit (revert) / 公開済みコミットを打ち消す
+- `git revert <commit_id>`
+
