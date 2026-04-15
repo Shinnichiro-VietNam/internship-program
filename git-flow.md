@@ -12,7 +12,7 @@
   - the base for the next version
   - 次のバージョンの基盤
 
-## Supporting Branches / 作業ブランチ
+## Sub Branches / 作業ブランチ
 * **Feature branches**:
   - branch for additional features
   - 追加機能などのブランチ
@@ -38,3 +38,30 @@
 1. create a `hotfix` from the `main` / `main`から`hotfix`を作る
 2. once you've finished the `feature`, send a pull request to `hotfix` / `feature`が終わったら`hotfix`にプルリクを送る
 3. merge `hotfix` into `main` and `develop` / `hotfix`を`main`と`develop`にmerge
+
+## Deployable Branch Strategies / デプロイ可能なブランチ戦略
+Methods for maintaining a state where you can safely release to the production environment at any time.
+いつでも安全に本番環境へリリースできる状態を維持するための方法
+
+1. GitHub Flow
+- Features
+  - The `main branch` is always deployable.
+  - It is widely adopted and popular among many web development teams.
+  - 常に`main`ブランチがデブロイ可能
+  - 多くのWEB開発チームで採用されている最も人気が高い
+
+2. Trunk-Based Development(TBD)
+- Features
+  - Everyone works on a single branch.
+  - Because everyone always shares the latest code, merge conflicts do not occur.
+  - A strategy that prioritizes speed
+  - 全員が１つのブランチで作業する
+  - 常に最新のコードを全員が共有するためマージ地獄がおこらない
+  - スピードを重視した戦略
+
+3. GitFlow
+- Features
+  - This is suitable for situations where you need to ensure a precise release timing for mobile apps or embedded software.
+  - Even after development is complete, you must go through the steps of `develop` → `release` → `main`.
+  - モバイルアプリや組み込むソフトなどリリースタイミングをしっかりさせるときに適している
+  - 開発が終わっても`develop`→`release`→`main`と段階を踏まなければならない
