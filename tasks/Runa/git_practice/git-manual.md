@@ -236,6 +236,9 @@ Rebase is the process of moving or combining a sequence of commits to a new base
 - **git branch -r**:
   - List remote branches only.
   - リモートブランチのみを確認します。
+- **git checkout [branch name]**:
+  - Switching Branches
+  - ブランチの切り替えを行う時
 
 ## 9.Elements of Git / Gitの要素
 
