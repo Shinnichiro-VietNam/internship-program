@@ -41,6 +41,7 @@ Using AI tools (e.g., ChatGPT, GitHub Copilot) is strictly limited. Consult your
 - [PHP Syntax and Basics](https://www.phptutorial.net/) - recommended for beginners.
 - [PHP Control Structures Guide](https://www.php.net/manual/en/language.control-structures.php)
 - [W3Schools PHP Tutorial](https://www.w3schools.com/php/) - for interactive learning and examples.
+- [Flowchart Tutorial](https://www.lucidchart.com/pages/flowchart) - for understanding flowchart symbols and design.
 - [Flowchart Drawing Tools](https://www.draw.io/) - for creating control flow diagrams.
 
 ---
