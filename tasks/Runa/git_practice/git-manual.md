@@ -48,6 +48,15 @@ Created by: Runa
   - Upload local changes to GitHub.
   - ローカルの変更をGitHubにアップする
 
+  ### VS Code Command（GUI）
+
+| Commands | VS Code operation|
+| :--- | :--- |
+| **add** | **[+]** Click icon |
+| **commit** | input message ➜ **[commits]** |
+| **push / pull** | **[Change synchronization]** click |
+| **checkout** | left down **branch name** click |
+
 ---
 
 ## 3.Branch Naming Rule / ブランチ命名規則
