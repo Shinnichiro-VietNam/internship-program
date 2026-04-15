@@ -5,28 +5,31 @@ Created by: Runa
 ## 1.Key Concepts / 基本概要
 
 ### Version control system / バージョンコントロールシステム
+
 - A version contral system is a tool that records and manages changes to files, allowing you to track history, revert to previous versions, and collaborate safely with others.
 - バージョン管理システムとは、ファイルの変更履歴を記録・管理し、過去の状態に戻したり、複数人で安全に作業できるようにする仕組み
 
 ### Centralized / 集中型(CVS,Subversion)
+
 - A system where a single central server stores all history, and everyone works by accessing it.
 - １つの中央サーバーで履歴を管理し、全員がそこにアクセスして作業する方法
 
 ### Distributed / 分散型(Git,Mercurial)
+
 - A system where each user has a full copy of the repository, and history is managed in a distributed way.
 - 各自が完全な履歴を持つリポジトリを持ち、分散して管理する方法
 
 > **Benefit / メリット**:
 > Offline Capability / オフライン作業が可能
-  - Commit locally without a server. Send all data when back online.
-  - サーバー無しでコミットが可能、ネット復帰時に一括送信
-> High Performance / 高速な動作
-  - Most operations are local, ensuring near-instant execution without network lag.
-  - 自分のPC内で処理が終わるため通信待ちがなく瞬時に完了する
-> Redundancy & Safety / 高い安全性とバックアップ
-  - Every user has a full backup, so the entire project can be restored if the server fails.
-  - 全員が全履歴のコピーを持つため、サーバー故障時も完全復元が可能になる
 
+- Commit locally without a server. Send all data when back online.
+- サーバー無しでコミットが可能、ネット復帰時に一括送信
+  > High Performance / 高速な動作
+- Most operations are local, ensuring near-instant execution without network lag.
+- 自分のPC内で処理が終わるため通信待ちがなく瞬時に完了する
+  > Redundancy & Safety / 高い安全性とバックアップ
+- Every user has a full backup, so the entire project can be restored if the server fails.
+- 全員が全履歴のコピーを持つため、サーバー故障時も完全復元が可能になる
 
 ---
 
@@ -50,12 +53,12 @@ Created by: Runa
 
   ### VS Code Command（GUI）
 
-| Commands | VS Code operation|
-| :--- | :--- |
-| **add** | **[+]** Click icon |
-| **commit** | input message ➜ **[commits]** |
+| Commands        | VS Code operation                  |
+| :-------------- | :--------------------------------- |
+| **add**         | **[+]** Click icon                 |
+| **commit**      | input message ➜ **[commits]**      |
 | **push / pull** | **[Change synchronization]** click |
-| **checkout** | left down **branch name** click |
+| **checkout**    | left down **branch name** click    |
 
 ---
 
@@ -114,6 +117,7 @@ Often used to organize projects
   - リモートの最新情報を取得する(他人の変更をもらう)
 
 ### Staged vs　Unstaged
+
 - Staged(ステージング済み)
   - Added to the staging area via `git add` and ready to be committed.
   - `git add`によって保存するリストに追加され、コミットする準備が整った状態
@@ -124,6 +128,7 @@ Often used to organize projects
 ---
 
 ## 3.Branch Naming Rule / ブランチ命名規則
+
 Often used to organize projects
 
 - **feature/**:
@@ -139,6 +144,7 @@ Often used to organize projects
 ---
 
 ## 4. Conventional Commits / コミットメッセージのルール
+
 Include a type at the beginning of the message to describe the change.
 
 - **feat:**
@@ -171,23 +177,27 @@ Include a type at the beginning of the message to describe the change.
 ### Steps to Resolve / 解消の手順
 
 1. **Pull the latest changes / 最新の変更を取り込む**:
-  - Fetch and Merge the latest version from the remote repository.
-  - リモートから最新の変更を取得してマージを試みる
-  - `git pull origin main`
+
+- Fetch and Merge the latest version from the remote repository.
+- リモートから最新の変更を取得してマージを試みる
+- `git pull origin main`
 
 2. **Identify the conflict / 変更を選択する**:
-  - Open the files marked as 'both modified' in VS Code.
-  - Vs Codeとかで両方が変更されましたと表示されているファイルを開く
+
+- Open the files marked as 'both modified' in VS Code.
+- Vs Codeとかで両方が変更されましたと表示されているファイルを開く
 
 3. **Choose the changes / 変更を選択する変更を選択する**:
-  - Use VS Code UI to choose button
-  - Vs Codeのボタンを使い選択する（現在の変更とか両方の残すなど）
+
+- Use VS Code UI to choose button
+- Vs Codeのボタンを使い選択する（現在の変更とか両方の残すなど）
 
 4. **Commit the fix / 修正を記録する**:
-  - After resolving stage the file and commit.
-  - 解消したらファイルをステージしてコミットする
-  - `git add <file>`
-  - `git commit -m "fix: resolve merge conflict"`
+
+- After resolving stage the file and commit.
+- 解消したらファイルをステージしてコミットする
+- `git add <file>`
+- `git commit -m "fix: resolve merge conflict"`
 
 ---
 
@@ -199,15 +209,19 @@ Methods to undo mistakes or go back to a previous state.
 ミスを修正したり、以前の状態に戻したりする方法
 
 ### 1. Undo the last commit / 直前のコミットを取り消す（作業内容は残す）
+
 - `git reset --soft HEAD~1`
 
 ### 2. Discard all changes / すべての変更を捨ててもとに戻す
+
 - `git reset --hard HEAD`
 
 ### 3. Undo a published commit (revert) / 公開済みコミットを打ち消す
+
 - `git revert <commit_id>`
 
 ### Key Difference / 使い分けのポイント
+
 - **reset**:
   - Used to "rewind time" within my own local PC.
   - 自分のPCの中だけで時間を巻き戻すときに使う
@@ -220,10 +234,12 @@ Methods to undo mistakes or go back to a previous state.
 ## 7. Git Rebase / リベース
 
 ### What is Rebase? / リベースとは？
+
 Rebase is the process of moving or combining a sequence of commits to a new base commit.
 リベースとは、コミットの履歴を別のコミットの上に移動させ、一本の線につなぎ直す操作
 
 ### Basic Command / 基本コマンド
+
 1. `git checkout feature/my-task`
 2. `git rebase main`
 
@@ -264,12 +280,7 @@ Rebase is the process of moving or combining a sequence of commits to a new base
   - Where the change history is saved
   - 変更履歴が保存される場所
 
-## 10.Tools and Platforms / Gitツールとプラットフォーム
-
-- **Platforms**: GitHub, GitLab, Bitbucket
-- **GUI Tools**: Source Tree, GitKraken, Vs Code built in functions
-
-## 11.Main vs Supporting
+## 10.Main vs Supporting
 
 - **Main Branches**:
   - `main`: Always ready for release, production use
