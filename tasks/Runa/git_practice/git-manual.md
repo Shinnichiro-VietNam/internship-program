@@ -227,9 +227,6 @@ Rebase is the process of moving or combining a sequence of commits to a new base
 - **git branch**:
   - List local branches. The current branch is highlighted.
   - ローカルブランチの一覧を表示する
-- **git branch [branch_name]**:
-  - Create a new branch with the specified name.
-  - 指定した名前で新しいブランチを作成する
 - **git branch -a**:
   - List all branches (both local and remote).
   - ローカルとリモートの両方を含む、すべてのブランチを確認する
@@ -239,6 +236,12 @@ Rebase is the process of moving or combining a sequence of commits to a new base
 - **git checkout [branch name]**:
   - Switching Branches
   - ブランチの切り替えを行う時
+- **git checkout -b [new branch name]**
+  - Create a new branch while you are in an existing branch and switch to it simultaneously.
+  - 既存のブランチにいる状態で新しいブランチを作って同時に切り替える
+- **git checkout -b [mew branch name] [base branch]**
+  - When creating by specifying a particular branch
+  - 特定のブランチを指定して作成する場合
 
 ## 9.Elements of Git / Gitの要素
 
