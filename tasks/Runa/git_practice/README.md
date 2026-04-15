@@ -15,10 +15,12 @@ Welcome! This guide will help you get comfortable with Git and GitHub. By the en
    - Create and checkout your own branch.
    - Make changes, commit them, and push to the remote repository.
 
-3. **Create a Git Manual**
+3. **Create Git Documentation**
    - Add a new file named `git-manual.md`.
+   - Add a new file named `git-flow.md` to document GitFlow concepts.
    - Summarize Git usage and workflow in your own words.
-   - Include examples of common commands:
+   - In `git-flow.md`, describe the main branches (e.g., `main`, `develop`), feature branches, and deployable branch strategies. (refer to the Git Flow resource linked below for guidance).
+   - Include examples of common commands in `git-manual.md`:
      - `git clone`
      - `git checkout -b`
      - `git commit`
@@ -38,6 +40,7 @@ Welcome! This guide will help you get comfortable with Git and GitHub. By the en
 
 - [Git Workflow Basics (Qiita)](https://qiita.com/Sicut_study/items/0318cc136c189b179b7f)
 - [Git Branching and Collaboration (Zenn)](https://zenn.dev/getgotgoto/articles/506bcfbcd55149)
+- [Git Flow](https://qiita.com/ta-ke-no-bu/items/a9854deb61419a0d64c7) - includes main branches, feature/sub branches, and deployable branch strategies.
 
 ---
 
@@ -48,5 +51,6 @@ By completing these assignments, you should be able to:
 - Navigate and understand the repository structure.
 - Create, commit, and push changes to a Git repository.
 - Write a `git-manual.md` summarizing Git usage and workflow.
+- Write a `git-flow.md` describing GitFlow, main/sub branches, and deployable branches.
 - Resolve simple merge conflicts.
 - Collaborate effectively using branches and pull requests.
