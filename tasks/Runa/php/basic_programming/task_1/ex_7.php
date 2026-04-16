@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ex_6</title>
+    <title>ex_7</title>
 </head>
 <body>
-    <h1>Calculate S(n) = 1/1×2 + 1/2×3 +…+ 1/n x (n + 1)</h1>
+    <h1>Calculate S(n) = ½ + 2/3 + ¾ + …. + n / n + 1 </h1>
     <ul>
-        <li>Sum of 1/(k*(k+1)) for k=1 to n.</li>
+        <li>Sum of k/(k+1) for k=1 to n.</li>
         <li>Use a for loop.</li>
     </ul>
 
@@ -23,7 +23,7 @@
         $sum = 0.0;
 
         for ($k = 1; $k <= $n; $k++) {
-            $sum += 1.0 / ($k * ($k + 1));
+            $sum += $k / ($k + 1);
         }
         echo "<h2>Sum: $sum</h2>";
     } else {
