@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ex_2</title>
+    <title>ex_5</title>
 </head>
 <body>
     <h1>Calculate S(n) = 1 + 1/3 + 1/5 + … + 1/(2n + 1)</h1>
