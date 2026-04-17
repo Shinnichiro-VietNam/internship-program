@@ -26,11 +26,10 @@
     {
         $n = (int)$_POST['n'];
         $sum = 0;
+        $factorial = 1;
+
         for ($i = 1; $i <= $n; $i++) {
-            $factorial = 1;
-            for ($j = 1; $j <= $i; $j++) {
-                $factorial *= $j;
-            }
+            $factorial *= $i;
             $sum += $factorial;
         }
         echo "<h2>Total: $sum</h2>";
