@@ -22,7 +22,7 @@
     //empty("0") は true (空である) と判定され、計算がスキップされてしまうのを防ぐためです。
     //The reason for not using empty() is that when the user enters "0"
     //This is to prevent the calculation from being skipped, as empty("0") would be judged as true (empty).
-    if (isset($_POST['x']) && $_POST['x'] !== "" && isset($_POST['n']) && $_POST['n'] !== "")
+    if (isset($_POST['n']) && $_POST['n'] !== "")
     {
         $n = (int)$_POST['n'];
         $sum = 0;
