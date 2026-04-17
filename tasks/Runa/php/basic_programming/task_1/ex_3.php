@@ -18,8 +18,8 @@
     </form>
 
     <?php
-    if (!empty($_POST['n'])) {
-        $n = $_POST['n'];
+    if (isset($_POST['n']) && $_POST['n'] !== "") {
+        $n = (int)$_POST['n'];
         $sum = 0.0;
 
         for ($i = 1; $i <= $n; $i++) {

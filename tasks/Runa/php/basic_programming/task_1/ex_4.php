@@ -18,7 +18,7 @@
     </form>
 
     <?php
-    if (!empty($_POST['n'])) {
+    if (isset($_POST['n']) && $_POST['n'] !== "") {
         $n = (int)$_POST['n'];
         $sum = 0.0;
 
