@@ -20,7 +20,7 @@
     </form>
 
     <?php
-    if ($_POST['n'] !== "") {
+    if (isset($_POST['x']) && isset($_POST['n'])) {
         $x = (int)$_POST['x'];
         $n = (int)$_POST['n'];
         $sum = 1;
