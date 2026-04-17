@@ -19,14 +19,12 @@
     </form>
 
     <?php
-    if ($_POST['n'] !== "") {
+    if (isset($_POST['n']) && $_POST['n'] !== "") {
         $n = (int)$_POST['n'];
         $sum = 0;
+        $d = 0;
         for ($i = 1; $i <= $n; $i++) {
-            $d = 0;
-            for ($j = 1; $j <= $i; $j++) {
-                $d += $j;
-            }
+            $d += $i;
             $sum += 1 / $d;
         }
         echo "<h2>Total: $sum</h2>";
