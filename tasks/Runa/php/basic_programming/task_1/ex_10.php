@@ -20,7 +20,11 @@
     </form>
 
     <?php
-    if (isset($_POST['x']) && $_POST['x'] !== "" && isset($_POST['n']) && $_POST['n'] !== "") {
+    $emptyCheck = function($value) {
+        return isset($value) && $value !== '';
+    };
+
+    if ($emptyCheck($_POST['x']) && $emptyCheck($_POST['n'])) {
         $x = (int)$_POST['x'];
         $n = (int)$_POST['n'];
         $sum = 1;
