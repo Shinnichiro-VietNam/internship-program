@@ -29,3 +29,9 @@
 - **Private**
   - It can only be accessed from within the class it self
   - そのクラス自身からしかアクセスできない
+
+## Interface vs Abstract / インターフェース　ｖｓ　抽象クラス
+| Feature / 特徴 | Interface / インターフェース | Abstract / 抽象クラス |
+| Role / 役割 | Define what can be done. / なにができるかを定義 | Define the commonalities of what they are. /何であるかの共通項を定義 |
+| Contents / 中身 | Method definition only. / メソッドの定義のみ | I can also write concrete code ./ 具体的なコードも書ける |
+| Multiple use / 複数利用 | Multiple implementations are possible. / 複数実装が可能 | Only one can be inherited. / 1つしか継承できない |
