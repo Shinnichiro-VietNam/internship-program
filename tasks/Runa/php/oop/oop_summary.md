@@ -18,3 +18,14 @@
 | **Inheritance / 継承** | Create a new class by reusing the function ality of an existing class./ 既存のクラスの機能を再利用して新しいクラスを作る。| `extends`|
 | **Abstraction / 抽象化** | It hides the complex details and only shows the necessary operations. / 複雑な中身を隠し必要な操作だけを見せる。| `abstract` `interface`|
 | **Polymorphism / ポリモーフィズム** | Even with the same command, the behavior changes depending on the object. / 同じ命令でもオブジェクトによって動きが変わる。 | `implements` |
+
+## Visibility / アクセス修飾子の使い分け
+- **Public**
+  - Accessible from anywhere
+  - どこからでもアクセス可能
+- **Protected**
+  - Accessible from the class itself and from classes that inherit it
+  - そのクラス自身と、継承したクラスからあくせすが可能
+- **Private**
+  - It can only be accessed from within the class it self
+  - そのクラス自身からしかアクセスできない
