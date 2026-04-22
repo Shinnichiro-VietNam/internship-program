@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ex_2</title>
+    <title>ex_4</title>
 </head>
 <body>
     <h1>Calculate S(n) = ½ + ¼ + … + 1/2n</h1>
@@ -18,7 +18,7 @@
     </form>
 
     <?php
-    if (!empty($_POST['n'])) {
+    if (isset($_POST['n']) && $_POST['n'] !== "") {
         $n = (int)$_POST['n'];
         $sum = 0.0;
 

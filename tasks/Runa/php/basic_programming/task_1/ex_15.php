@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ex_5</title>
+    <title>ex_15</title>
 </head>
 <body>
-    <h1>Calculate S(n) = 1 + 1/3 + 1/5 + … + 1/(2n + 1)</h1>
+    <h1>Calculate S(n) = 1 + 1/1 + 2 + 1/ 1 + 2 + 3 + ….. + 1/ 1 + 2 + 3 + …. + N</h1>
     <ul>
-        <li>Sum of odd denominators.</li>
-        <li>Use a for loop.</li>
+        <li>Complex sum involving cumulative sums.</li>
+        <li>Use nested loops.</li>
+        <li>Draw a flowchart for the control structure using draw.io.</li>
     </ul>
 
     <form method="post">
@@ -20,12 +21,13 @@
     <?php
     if (isset($_POST['n']) && $_POST['n'] !== "") {
         $n = (int)$_POST['n'];
-        $sum = 0.0;
-
-        for ($i = 0; $i <= $n; $i++) {
-            $sum += 1.0 / ($i * 2 + 1);
+        $sum = 0;
+        $d = 0;
+        for ($i = 1; $i <= $n; $i++) {
+            $d += $i;
+            $sum += 1 / $d;
         }
-        echo "<h2>Sum: $sum</h2>";
+        echo "<h2>Total: $sum</h2>";
     } else {
         echo "Enter a number";
     }
