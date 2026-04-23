@@ -1,6 +1,16 @@
 # OOP CONCEPTS SUMMARY
 
 ## What is Object-oriented programming / オブジェクト思考とは
+- Definition / 定義
+  - A development methodology that manages data and its associated methods as a unit called a "class".
+  - データとそれに関連するメソッドを 「クラス」という単位でまとめて管理する開発手法
+
+- History / 歴史
+  - OOP was developed by Alan Kay in the 1960s and was conceived as a means to address the complexity of programming in particular.
+  - OOPは1960年代後半にアラン・ケイ氏によって開発され、特にプログラミングの複雑さに対応する手段として考案された。
+
+
+## OOP Advantages / OOPの利点
 - Because it has a reusable function / 再利用性があるから
 - Because it increases conservation / 保守性が高まるから
 - Because it's also expandable / 拡張性もあるから
@@ -10,6 +20,7 @@
   - Blue print. It has properties and methods. / 設計図　属性とメソッドを持つ
 - 2. Object
   - A physical entity created from a blueprint. / 設計図から作られた実体
+  - An instance of a class / クラスのインスタンス
 
 ## Four Pillars of OOP / OOPの４大原則
 | Principle / 原則 | Mean / 意味 | Keywords / キーワード |
@@ -32,6 +43,7 @@
 
 ## Interface vs Abstract / インターフェース　ｖｓ　抽象クラス
 | Feature / 特徴 | Interface / インターフェース | Abstract / 抽象クラス |
+| :--- | :--- | :--- |
 | Role / 役割 | Define what can be done. / なにができるかを定義 | Define the commonalities of what they are. /何であるかの共通項を定義 |
 | Contents / 中身 | Method definition only. / メソッドの定義のみ | I can also write concrete code ./ 具体的なコードも書ける |
 | Multiple use / 複数利用 | Multiple implementations are possible. / 複数実装が可能 | Only one can be inherited. / 1つしか継承できない |
