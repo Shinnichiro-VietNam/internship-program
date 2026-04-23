@@ -1,3 +1,60 @@
+<?php
+class CustomDate {
+    private $day;
+    private $month;
+    private $year;
+
+    public function __construct($day, $month, $year) {
+        if (!checkdate($month, $day, $year)) {
+            throw new Exception ("Enter date in current format.");
+        }
+        $this -> day = $day;
+        $this -> month = $month;
+        $this -> year = $year;
+    }
+
+    public function isValidDate() {
+        return checkdate($this -> month, $this -> day, $this -> year);
+    }
+
+    public function isLeapYear() {
+        if ($this -> year % 400 == 0) {
+            return true;
+        } else if ($this -> year % 100 == 0) {
+            return false;
+        } else if ($this -> year % 4 == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getNextDate() {
+        $nextDay = $this -> day;
+        $nextMonth = $this -> month;
+        $nextYear = $this -> year;
+
+        $maxDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if ($this -> isLeapYear()) {
+            $maxDays[1] = 29;
+        }
+
+
+    }
+}
+
+
+
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,23 +68,30 @@
     </header>
 
     <main>
-        <form method="post">
-            <div>
-                <label>Year:</label>
-                <input type="number" name="year" placeholder="yyyy" required>
-            </div>
-            <div>
-                <label>Month:</label>
-                <input type="number" name="month" placeholder="mm" required>
-            </div>
-            <div>
-                <label>Day:</label>
-                <input type="number" name="day" placeholder="dd" required>
-            </div>
-            <button type="submit">Calculate Next Date</button>
-        </form>
+        <section>
+            <form method="post">
+                <div>
+                    <label>Year:</label>
+                    <input type="number" name="year" placeholder="yyyy" required>
+                </div>
+                <div>
+                    <label>Month:</label>
+                    <input type="number" name="month" placeholder="mm" required>
+                </div>
+                <div>
+                    <label>Day:</label>
+                    <input type="number" name="day" placeholder="dd" required>
+                </div>
+                <button type="submit">Calculate Next Date</button>
+            </form>
 
-        
+            <div>
+                <?php if(isset($results)): ?>
+                    <h3>Next Date</h3>
+                    <p><?php echo $results; ?></p>
+                <?php endif; ?>
+            </div>
+        </section>
     </main>
 
     <footer>
