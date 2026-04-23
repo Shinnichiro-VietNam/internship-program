@@ -40,12 +40,41 @@ class CustomDate {
             $maxDays[1] = 29;
         }
 
+        $nextDay++;
+
+        if ($nextDay > $maxDays[$this -> month -1]) {
+            $nextDay = 1;
+            $nextMonth++;
+
+            if ($nextMonth > 12) {
+                $nextMonth = 1;
+                $nextYear++;
+            }
+        }
+
+        return new CustomDate($nextDay, $nextMonth, $nextYear);
 
     }
+
+    public function display() {
+        return "{$this -> year}-{$this -> month}-{$this -> day}";
+    }
 }
+?>
 
-
-
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    try {
+        $day = $_POST["day"];
+        $month = $_POST["month"];
+        $year = $_POST["year"];
+        $date = new CustomDate($day, $month, $year);
+        $nextDate = $date -> getNextDate();
+        $results = $nextDate -> display();
+    } catch (Exception $e) {
+        $results = $e -> getMessage();
+    }
+}
 ?>
 
 
