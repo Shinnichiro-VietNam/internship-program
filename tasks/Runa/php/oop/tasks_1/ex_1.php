@@ -130,6 +130,7 @@ class Fraction {
                             <li>Maximum: <?php echo $results['max']; ?></li>
                         </ul>
                 <?php endif; ?>
+            </div>
         </section>
     </main>
 
