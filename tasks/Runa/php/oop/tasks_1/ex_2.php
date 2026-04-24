@@ -8,21 +8,21 @@ class CustomDate {
         if (!checkdate($month, $day, $year)) {
             throw new Exception ("Enter date in current format.");
         }
-        $this -> day = $day;
-        $this -> month = $month;
-        $this -> year = $year;
+        $this->day = $day;
+        $this->month = $month;
+        $this->year = $year;
     }
 
     public function isValidDate() {
-        return checkdate($this -> month, $this -> day, $this -> year);
+        return checkdate($this->month, $this->day, $this->year);
     }
 
     public function isLeapYear() {
-        if ($this -> year % 400 == 0) {
+        if ($this->year % 400 == 0) {
             return true;
-        } else if ($this -> year % 100 == 0) {
+        } else if ($this->year % 100 == 0) {
             return false;
-        } else if ($this -> year % 4 == 0) {
+        } else if ($this->year % 4 == 0) {
             return true;
         } else {
             return false;
@@ -30,19 +30,19 @@ class CustomDate {
     }
 
     public function getNextDate() {
-        $nextDay = $this -> day;
-        $nextMonth = $this -> month;
-        $nextYear = $this -> year;
+        $nextDay = $this->day;
+        $nextMonth = $this->month;
+        $nextYear = $this->year;
 
         $maxDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-        if ($this -> isLeapYear()) {
+        if ($this->isLeapYear()) {
             $maxDays[1] = 29;
         }
 
         $nextDay++;
 
-        if ($nextDay > $maxDays[$this -> month -1]) {
+        if ($nextDay > $maxDays[$this->month - 1]) {
             $nextDay = 1;
             $nextMonth++;
 
@@ -57,7 +57,7 @@ class CustomDate {
     }
 
     public function display() {
-        return "{$this -> year}-{$this -> month}-{$this -> day}";
+        return "{$this->year}-{$this->month}-{$this->day}";
     }
 }
 ?>
@@ -69,10 +69,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $month = $_POST["month"];
         $year = $_POST["year"];
         $date = new CustomDate($day, $month, $year);
-        $nextDate = $date -> getNextDate();
-        $results = $nextDate -> display();
+        $nextDate = $date->getNextDate();
+        $results = $nextDate->display();
     } catch (Exception $e) {
-        $results = $e -> getMessage();
+        $results = $e->getMessage();
     }
 }
 ?>
