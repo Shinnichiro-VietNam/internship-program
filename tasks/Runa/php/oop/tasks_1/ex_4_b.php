@@ -80,9 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['points'])) {
 }
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
