@@ -20,17 +20,17 @@ class Fraction {
             if ($this->denominator === 0) {
                 throw new Exception("Denominator cannot be zero.");
             }
-            $this -> simplify();
+            $this->simplify();
         }
 
     private function simplify(): void {
-        $gcd = $this -> gcd($this -> numerator, $this -> denominator);
-        $this -> numerator /= $gcd;
-        $this -> denominator /= $gcd;
+        $gcd = $this->gcd($this->numerator, $this->denominator);
+        $this->numerator /= $gcd;
+        $this->denominator /= $gcd;
 
-        if ($this -> denominator < 0) {
-            $this -> numerator = -$this -> numerator;
-            $this -> denominator = -$this -> denominator;
+        if ($this->denominator < 0) {
+            $this->numerator = -$this->numerator;
+            $this->denominator = -$this->denominator;
         }
     }
 
@@ -38,39 +38,39 @@ class Fraction {
         if ($b == 0) {
             return abs($a);
         }
-        return $this -> gcd($b, $a % $b);
+        return $this->gcd($b, $a % $b);
     }
 
     public function add(Fraction $other): Fraction {
-        $newN = $this -> numerator * $other -> denominator + $other -> numerator * $this -> denominator;
-        $newD = $this -> denominator * $other -> denominator;
+        $newN = $this->numerator * $other->denominator + $other->numerator * $this->denominator;
+        $newD = $this->denominator * $other->denominator;
         return new Fraction($newN, $newD);
     }
 
     public function subtract(Fraction $other): Fraction {
-        $newN = $this -> numerator * $other -> denominator - $other -> numerator * $this -> denominator;
-        $newD = $this -> denominator * $other -> denominator;
+        $newN = $this->numerator * $other->denominator - $other->numerator * $this->denominator;
+        $newD = $this->denominator * $other->denominator;
         return new Fraction($newN, $newD);
     }
 
     public function multiply(Fraction $other): Fraction {
-        $newN = $this -> numerator * $other -> numerator;
-        $newD = $this -> denominator * $other -> denominator;
+        $newN = $this->numerator * $other->numerator;
+        $newD = $this->denominator * $other->denominator;
         return new Fraction($newN, $newD);
     }
 
     public function divide(Fraction $other): Fraction {
-        if ($other -> numerator == 0) {
-            throw new Exception ("divider cannot be zero.");
+        if ($other->numerator == 0) {
+            throw new Exception("divider cannot be zero.");
         }
-        $newN = $this -> numerator * $other -> denominator;
-        $newD = $this -> denominator * $other -> numerator;
+        $newN = $this->numerator * $other->denominator;
+        $newD = $this->denominator * $other->numerator;
         return new Fraction($newN, $newD);
     }
 
     public function compare(Fraction $other): int {
-        $value1 = $this -> numerator / $this -> denominator;
-        $value2 = $other -> numerator / $other -> denominator;
+        $value1 = $this->numerator / $this->denominator;
+        $value2 = $other->numerator / $other->denominator;
 
         if ($value1 > $value2) {
             return 1;
@@ -82,7 +82,7 @@ class Fraction {
     }
 
     public function display(): string {
-        return $this -> numerator . "/" . $this -> denominator;
+        return $this->numerator . "/" . $this->denominator;
     }
 }
 
@@ -103,14 +103,14 @@ class Fraction {
                 $fraction2 = new Fraction($numerator2, $denominator2);
 
                 $results = new FractionResults(
-                    $fraction1 -> add($fraction2) -> display(),
-                    $fraction1 -> subtract($fraction2) -> display(),
-                    $fraction1 -> multiply($fraction2) -> display(),
-                    $fraction1 -> divide($fraction2) -> display(),
-                    ($fraction1 -> compare($fraction2) >= 0) ? $fraction1 -> display() : $fraction2 -> display()
+                    $fraction1->add($fraction2)->display(),
+                    $fraction1->subtract($fraction2)->display(),
+                    $fraction1->multiply($fraction2)->display(),
+                    $fraction1->divide($fraction2)->display(),
+                    ($fraction1->compare($fraction2) >= 0) ? $fraction1->display() : $fraction2->display()
                 );
             } catch (Exception $e) {
-                echo "Error: " . $e -> getMessage();
+                echo "Error: " . $e->getMessage();
             }
         } else {
             echo "Please fill in all fields.";
