@@ -1,23 +1,24 @@
 <?php
+declare(strict_types=1);
+
 class CustomDate {
-    private $day;
-    private $month;
-    private $year;
+    private static array $monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    public function __construct($day, $month, $year) {
-        if (!checkdate($month, $day, $year)) {
-            throw new Exception ("Enter date in current format.");
+    public function __construct(
+            private int $day,
+            private int $month,
+            private int $year
+        ) {
+            if (!checkdate($this->month, $this->day, $this->year)) {
+                throw new Exception("Enter date in correct format.");
+            }
         }
-        $this->day = $day;
-        $this->month = $month;
-        $this->year = $year;
-    }
 
-    public function isValidDate() {
+    public function isValidDate(): bool {
         return checkdate($this->month, $this->day, $this->year);
     }
 
-    public function isLeapYear() {
+    public function isLeapYear(): bool {
         if ($this->year % 400 == 0) {
             return true;
         } else if ($this->year % 100 == 0) {
@@ -29,7 +30,7 @@ class CustomDate {
         }
     }
 
-    public function getNextDate() {
+    public function getNextDate(): CustomDate {
         $nextDay = $this->day;
         $nextMonth = $this->month;
         $nextYear = $this->year;
@@ -56,7 +57,7 @@ class CustomDate {
 
     }
 
-    public function display() {
+    public function display(): string {
         return "{$this->year}-{$this->month}-{$this->day}";
     }
 }
@@ -65,9 +66,9 @@ class CustomDate {
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $day = $_POST["day"];
-        $month = $_POST["month"];
-        $year = $_POST["year"];
+        $day = (int)$_POST["day"];
+        $month = (int)$_POST["month"];
+        $year = (int)$_POST["year"];
         $date = new CustomDate($day, $month, $year);
         $nextDate = $date->getNextDate();
         $results = $nextDate->display();
