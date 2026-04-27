@@ -1,27 +1,28 @@
 <?php
+declare(strict_types=1);
 class IntegerArray {
-    private $elements;
+    private array $elements;
 
-    public function __construct($input) {
+    public function __construct(string $input) {
         $raw = explode(',', $input);
         $filtered = array_filter(array_map('trim', $raw), 'strlen');
-        $this -> elements = array_map('intval', $filtered); // If a user mistakenly enters consecutive commas like 5,,8, `intval` will convert the empty string to 0, so this is to prevent that.
+        $this->elements = array_map('intval', $filtered); // If a user mistakenly enters consecutive commas like 5,,8, `intval` will convert the empty string to 0, so this is to prevent that.
     }
 
-    public function sortAscending() {
-        sort($this -> elements);
+    public function sortAscending(): void {
+        sort($this->elements);
     }
 
-    public function displayArray() {
-        return implode(', ', $this -> elements);
+    public function displayArray(): string  {
+        return implode(', ', $this->elements);
     }
 }
 $results = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputArray = $_POST['input_array'];
     $integerArray = new IntegerArray($inputArray);
-    $integerArray -> sortAscending();
-    $results = $integerArray -> displayArray();
+    $integerArray->sortAscending();
+    $results = $integerArray->displayArray();
 }
 ?>
 

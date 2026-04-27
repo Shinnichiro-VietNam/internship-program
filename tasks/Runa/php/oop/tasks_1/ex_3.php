@@ -1,46 +1,47 @@
 <?php
+declare(strict_types=1);
 class Student {
-    private $fullName;
-    private $mathScore;
-    private $literatureScore;
+    private string $fullName;
+    private float $mathScore;
+    private float $literatureScore;
 
-    public function __construct($fullName, $mathScore, $literatureScore) {
+    public function __construct(string $fullName, float $mathScore, float $literatureScore) {
         $this -> fullName = $fullName;
         $this-> setMathScore($mathScore);
         $this -> setLiteratureScore($literatureScore);
     }
 
-    public function getFullName() {
+    public function getFullName(): string {
         return $this -> fullName;
     }
 
-    public function setMathScore($score) {
+    public function setMathScore(float $score) {
         if ($score < 0) {
             throw new Exception("Math score must be a positive number greater than or equal to 0.");
         }
         $this -> mathScore = $score;
     }
 
-    public function getMathScore() {
+    public function getMathScore(): float {
         return $this -> mathScore;
     }
 
-    public function setLiteratureScore($score) {
+    public function setLiteratureScore(float $score) {
         if ($score < 0) {
             throw new Exception("Literature score must be a positive number greater than or equal to 0.");
         }
         $this -> literatureScore = $score;
     }
 
-    public function getLiteratureScore() {
+    public function getLiteratureScore(): float {
         return $this -> literatureScore;
     }
 
-    public function calculateAverage() {
+    public function calculateAverage(): float {
         return ($this -> mathScore + $this -> literatureScore) / 2;
     }
 
-    public function displayInfo() {
+    public function displayInfo(): array {
         $average = $this -> calculateAverage();
         return [
             'name' => $this -> getFullName(),
@@ -54,8 +55,8 @@ class Student {
 $results = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
-    $math = $_POST['math'];
-    $literature = $_POST['literature'];
+    $math = (float) $_POST['math'];
+    $literature = (float) $_POST['literature'];
 
     $student = new Student($name, $math, $literature);
     $results = $student->displayInfo();

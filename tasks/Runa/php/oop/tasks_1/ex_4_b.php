@@ -1,26 +1,27 @@
 <?php
+declare(strict_types=1);
 class Point {
-    private $x;
-    private $y;
+    private float $x;
+    private float $y;
 
-    public function __construct($x, $y) {
-        $this -> x = $x;
-        $this -> y = $y;
+    public function __construct(float $x, float $y) {
+        $this->x = $x;
+        $this->y = $y;
     }
 
-    public function getX() {
-        return $this -> x;
+    public function getX(): float {
+        return $this->x;
     }
 
-    public function getY() {
-        return $this -> y;
+    public function getY(): float {
+        return $this->y;
     }
 
-    public function calculateDistance(Point $other) {
-        $x1 = $this -> x;
-        $y1 = $this -> y;
-        $x2 = $other -> getX();
-        $y2 = $other -> getY();
+    public function calculateDistance(Point $other): float {
+        $x1 = $this->x;
+        $y1 = $this->y;
+        $x2 = $other->getX();
+        $y2 = $other->getY();
 
         return sqrt(pow($x2 - $x1, 2) + pow($y2 - $y1, 2));
 
@@ -29,23 +30,23 @@ class Point {
 }
 
 class PointCollection {
-    private $points = [];
+    private array $points = [];
 
     public function addPoint(Point $p) {
-        $this -> points[] = $p;
+        $this->points[] = $p;
     }
 
-    public function findMaxDistancePoints() {
+    public function findMaxDistancePoints(): array {
         $maxDistance = -1;
         $pair = [null, null];
-        $n = count($this -> points);
+        $n = count($this->points);
 
         for ($i = 0; $i < $n; $i++) {
             for ($j = $i + 1; $j < $n; $j++) {
-                $distance = sqrt(pow($this -> points[$j] -> getX() - $this -> points[$i] -> getX(), 2) + pow($this -> points[$j] -> getY() - $this -> points[$i] -> getY(), 2));
+                $distance = sqrt(pow($this->points[$j]->getX() - $this->points[$i]->getX(), 2) + pow($this->points[$j]->getY() - $this->points[$i]->getY(), 2));
                 if ($distance > $maxDistance) {
                     $maxDistance = $distance;
-                    $pair = [$this -> points[$i], $this -> points[$j]];
+                    $pair = [$this->points[$i], $this->points[$j]];
                 }
             }
         }
@@ -63,16 +64,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['points'])) {
     foreach ($pointStrings as $pointString) {
         $coords = explode(',', $pointString);
         if (count($coords) == 2) {
-            $collection -> addPoint(new Point($coords[0], $coords[1]));
+            $collection->addPoint(new Point((float)$coords[0], (float)$coords[1]));
         }
     }
 
-    $maxDistancePoints = $collection -> findMaxDistancePoints();
+    $maxDistancePoints = $collection->findMaxDistancePoints();
 
     if (isset($maxDistancePoints[0]) && isset($maxDistancePoints[1])) {
-        $distance = $maxDistancePoints[0] -> calculateDistance($maxDistancePoints[1]);
-        $results = "Point 1: (" . $maxDistancePoints[0] -> getX() . ", " . $maxDistancePoints[0] -> getY() . ") and" .
-                "Point 2: (" . $maxDistancePoints[1] -> getX() . ", " . $maxDistancePoints[1] -> getY() . ")<br>" .
+        $distance = $maxDistancePoints[0]->calculateDistance($maxDistancePoints[1]);
+        $results = "Point 1: (" . $maxDistancePoints[0]->getX() . ", " . $maxDistancePoints[0]->getY() . ") and" .
+                "Point 2: (" . $maxDistancePoints[1]->getX() . ", " . $maxDistancePoints[1]->getY() . ")<br>" .
                 "Distance: " . round($distance, 2);
     } else {
         $error = "Please enter at least two valid points.";
