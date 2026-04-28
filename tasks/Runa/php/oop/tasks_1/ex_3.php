@@ -79,13 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div>
             <form method="post">
                 <label>Student full name:</label>
-                <input type="text" name="name" placeholder="Yamada Tarou" required>
+                <input type="text" name="name" placeholder="Yamada Taro" required>
 
                 <label>Math score:</label>
-                <input type="number" name="math" required>
+                <input type="number" name="math" step="any" required>
 
                 <label>Literature score:</label>
-                <input type="number" name="literature" required>
+                <input type="number" name="literature" step="any" required>
 
                 <button type="submit">Calculate Average Score</button>
             </form>
