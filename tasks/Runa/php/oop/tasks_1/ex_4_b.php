@@ -1,5 +1,9 @@
 <?php
 declare(strict_types=1);
+
+/**
+ * 2次元座標上の点を表し、点同士の距離計算を担当する
+ */
 class Point {
     private float $x;
     private float $y;
@@ -16,6 +20,10 @@ class Point {
     public function getY(): float {
         return $this->y;
     }
+
+/**
+ * 別の点との直線距離を計算する
+*/
 
     public function calculateDistance(Point $other): float {
         $x1 = $this->x;
