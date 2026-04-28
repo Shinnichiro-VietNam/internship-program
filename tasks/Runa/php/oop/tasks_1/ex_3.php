@@ -6,45 +6,45 @@ class Student {
     private float $literatureScore;
 
     public function __construct(string $fullName, float $mathScore, float $literatureScore) {
-        $this -> fullName = $fullName;
-        $this-> setMathScore($mathScore);
-        $this -> setLiteratureScore($literatureScore);
+        $this->fullName = $fullName;
+        $this->setMathScore($mathScore);
+        $this->setLiteratureScore($literatureScore);
     }
 
     public function getFullName(): string {
-        return $this -> fullName;
+        return $this->fullName;
     }
 
     public function setMathScore(float $score) {
         if ($score < 0) {
             throw new Exception("Math score must be a positive number greater than or equal to 0.");
         }
-        $this -> mathScore = $score;
+        $this->mathScore = $score;
     }
 
     public function getMathScore(): float {
-        return $this -> mathScore;
+        return $this->mathScore;
     }
 
     public function setLiteratureScore(float $score) {
         if ($score < 0) {
             throw new Exception("Literature score must be a positive number greater than or equal to 0.");
         }
-        $this -> literatureScore = $score;
+        $this->literatureScore = $score;
     }
 
     public function getLiteratureScore(): float {
-        return $this -> literatureScore;
+        return $this->literatureScore;
     }
 
     public function calculateAverage(): float {
-        return ($this -> mathScore + $this -> literatureScore) / 2;
+        return ($this->mathScore + $this->literatureScore) / 2;
     }
 
     public function displayInfo(): array {
-        $average = $this -> calculateAverage();
+        $average = $this->calculateAverage();
         return [
-            'name' => $this -> getFullName(),
+            'name' => $this->getFullName(),
             'average' => $average
         ];
     }
