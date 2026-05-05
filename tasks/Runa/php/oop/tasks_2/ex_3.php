@@ -33,10 +33,15 @@ class Point {
     }
 
     public function rotate(float $angle): void {
-        $x = $this->x * cos(deg2rad($angle)) - $this->y * sin(deg2rad($angle));
-        $y = $this->x * sin(deg2rad($angle)) + $this->y * cos(deg2rad($angle));
-        $this->x = $x;
-        $this->y = $y;
+        $rad = deg2rad($angle);
+        $cos = cos($rad);
+        $sin = sin($rad);
+
+        $newX = $this->x * $cos - $this->y * $sin;
+        $newY = $this->x * $sin + $this->y * $cos;
+
+        $this->x = $newX;
+        $this->y = $newY;
     }
 
     public function display(): string {
