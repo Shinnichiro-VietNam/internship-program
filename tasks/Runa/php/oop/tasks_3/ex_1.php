@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['number'])) {
 
     <form method="post">
         <input type="number" name="number" value="<?= htmlspecialchars($_POST['number'] ?? '') ?>" required min="0">
-        <button type="submit">Analyze</button>
+        <button type="submit">Analyze Number</button>
     </form>
 
     <?php if ($error): ?>
