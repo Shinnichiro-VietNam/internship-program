@@ -178,3 +178,106 @@
     - Simple / シンプル
         - The code becomes cleaner
         - コードがきれいになる
+
+### ISP(Interface Segregation Principle)
+
+- A short definition in my own words
+    - Don’t force users to deal with features they don’t use
+    - 使わない機能を、無理やり持たせない
+
+- A simple PHP example
+    - ❌Bad: It's so feature-rich that we have to implement methods we don't even use / 多機能すぎて、使わないメソッドまで実装が必要
+
+```code
+    interface Worker {
+        public function work();
+        public function sendEmail();
+    }
+
+    class OfficeWorker implements Worker {
+        public function work() { /* デスクワーク */ }
+        public function sendEmail() { /* メール送信 */ }
+    }
+
+    class ConstructionWorker implements Worker {
+        public function work() { /* 工事 */ }
+        public function sendEmail() {
+            return null;
+        }
+    }
+```
+
+- ⭕️Good: Break down the interface into smaller parts / インターフェースを細かく分ける
+
+```code
+    interface Workable {
+        public function work();
+    }
+
+    interface Emailable {
+        public function sendEmail();
+    }
+
+    class OfficeWorker implements Workable, Emailable {
+        public function work() { ... }
+        public function sendEmail() { ... }
+    }
+
+    class ConstructionWorker implements Workable {
+        public function work() { ... }
+    }
+```
+
+- A short explanation of why the design is better / このデザインが優れている理由についての簡単な説明
+    - The code is easy to read / コードが読みやすい
+        - You can tell what this class is just by looking at the names of the classes it implements
+        - クラスが implements している名前を見るだけでこのクラスはなにかが判断できる
+
+### DIP(Dependency Inversion Principle)
+
+- A short definition in my own words
+    - Try to rely on rules rather than specific examples
+    - 具体的なものに頼らず、ルールに頼るようにする
+
+- A simple PHP example
+    - ❌Bad: He is completely dependent on a specific tool / 特定の道具にべったり依存している
+
+```code
+    class MySqlDatabase {
+        public function insert($data)
+    }
+
+    class UserSaveService {
+        private $db;
+        public function __construct() {
+            $this->db = new MySqlDatabase();
+        }
+    }
+```
+
+- ⭕️Good: Make it rule-dependent / ルールに依存させる
+
+```code
+    interface Database {
+        public function insert($data);
+    }
+
+    class MySqlDatabase implements Database {
+        public function insert($data) { ... }
+    }
+
+    class UserSaveService {
+        private $db;
+        public function __construct(Database $db) {
+            $this->db = $db;
+        }
+    }
+```
+
+- A short explanation of why the design is better / このデザインが優れている理由についての簡単な説明
+    - Easy to replace / 取り替えが簡単
+        - You'll be able to switch between them without changing a single line of the original code
+        - 切り替えが、元のコードを1行も変えずにできるようになる
+    - Easy to test / テストがしやすい
+        - You can run tests on a dummy database without connecting to a real database.
+        - 本物のデータベースに接続しなくてもテスト用の仮のデータベースでテストを実行できる。
