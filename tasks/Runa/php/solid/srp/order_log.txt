@@ -1,0 +1,2 @@
+Customer: John Doe, Total: $55
+Customer: John Doe, Total: $55
