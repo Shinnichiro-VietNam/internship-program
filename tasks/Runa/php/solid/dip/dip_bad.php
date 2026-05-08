@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * * 【悪い点（Bad）】
+ * 1. UserService クラスが MySQLDatabase クラスに依存している
+ * UserService class depends on MySQLDatabase class
+ */
 class MySQLDatabase
 {
     public function connect(): void
