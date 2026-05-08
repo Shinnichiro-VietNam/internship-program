@@ -42,7 +42,7 @@
 - A simple PHP example
     - ❌Bad: Roles are overlapping / 役割が混ざっている
 
-```code
+```php
     class Calculator {
         public function add($a, $b) {
         $result = $a + $b;
@@ -54,7 +54,7 @@
 
 - ⭕️Good: Divide roles / 役割を分ける
 
-```code
+```php
     class Math {
         public function add($a, $b) {
             return $a + $b;
@@ -85,7 +85,7 @@
 - A simple PHP example
     - ❌Bad: Every time a new feature is added, I end up rewriting the original class. / 新機能が増えるたびに、元のクラスを書き換えている
 
-```code
+```php
     class AnimalSound {
     public function makeOutput($animalType) {
         if ($animalType === 'dog') {
@@ -100,7 +100,7 @@
 
 - ⭕️Good: Simply create a new class without making any changes to the existing code / 新しいクラスを作るだけで既存のコードは一切変更しない
 
-```code
+```php
 
     interface Animal {
         public function speak();
@@ -136,7 +136,7 @@
 - A simple PHP example
     - ❌Bad: The child is "rejecting" the parent's role / 子が親の機能を拒否している
 
-```code
+```php
     class Bird {
         public function fly() {
             return "飛びます";
@@ -152,14 +152,13 @@
 
 - ⭕️Good: Classify correctly by "role" / 正しく役割で分ける
 
-```code
+```php
     class Bird {
         public function eat() {
             return "食べます";
         }
     }
 
-    // 飛べる鳥だけ「fly」を持たせる
     class Sparrow extends Bird {
         public function fly() {
             return "飛びます";
@@ -167,7 +166,6 @@
     }
 
     class Penguin extends Bird {
-        // eatだけができる
     }
 ```
 
@@ -188,7 +186,7 @@
 - A simple PHP example
     - ❌Bad: It's so feature-rich that we have to implement methods we don't even use / 多機能すぎて、使わないメソッドまで実装が必要
 
-```code
+```php
     interface Worker {
         public function work();
         public function sendEmail();
@@ -209,7 +207,7 @@
 
 - ⭕️Good: Break down the interface into smaller parts / インターフェースを細かく分ける
 
-```code
+```php
     interface Workable {
         public function work();
     }
@@ -242,7 +240,7 @@
 - A simple PHP example
     - ❌Bad: He is completely dependent on a specific tool / 特定の道具にべったり依存している
 
-```code
+```php
     class MySqlDatabase {
         public function insert($data)
     }
@@ -257,7 +255,7 @@
 
 - ⭕️Good: Make it rule-dependent / ルールに依存させる
 
-```code
+```php
     interface Database {
         public function insert($data);
     }
