@@ -56,23 +56,23 @@ $testArray = [64, 34, 25, 12, 22, 11, 90];
 
 echo "Original Array: " . implode(", ", $testArray) . "\n\n";
 
-// --- バブルソート ---
+// --- Bubble Sort ---
 $arr1 = $testArray;
 $start = microtime(true);
 $result1 = bubbleSort($arr1);
 $end = microtime(true);
-echo "Bubble Sort: " . implode(", ", $result1) . " (Time: " . sprintf("%.8f", $end - $start) . "s)\n";
+echo "Bubble Sort: " . implode(", ", $result1) . " (Time: " . sprintf("f", $end - $start) . "s)\n";
 
-// --- 選択ソート ---
+// --- Selection Sort ---
 $arr2 = $testArray;
 $start = microtime(true);
 $result2 = selectionSort($arr2);
 $end = microtime(true);
-echo "Selection Sort: " . implode(", ", $result2) . " (Time: " . sprintf("%.8f", $end - $start) . "s)\n";
+echo "Selection Sort: " . implode(", ", $result2) . " (Time: " . sprintf("%f", $end - $start) . "s)\n";
 
-// --- 挿入ソート ---
+// --- Insertion Sort ---
 $arr3 = $testArray;
 $start = microtime(true);
 $result3 = insertionSort($arr3);
 $end = microtime(true);
-echo "Insertion Sort: " . implode(", ", $result3) . " (Time: " . sprintf("%.8f", $end - $start) . "s)\n";
+echo "Insertion Sort: " . implode(", ", $result3) . " (Time: " . sprintf("%f", $end - $start) . "s)\n";
