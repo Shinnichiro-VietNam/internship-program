@@ -2,7 +2,9 @@
 /**
  * 【良い点（Good）】
  * 1. 抽象(Interface)に依存させることで、特定のDBとの結合を断ち切った
+ *    - By relying on abstraction, we severed the ties to a specific database
  * 2. 依存性の注入(DI)により、外部から使用するDBを自由に差し替え可能
+ *    - By injecting dependencies, we can freely replace the database used by the external user
  */
 
 interface Database {

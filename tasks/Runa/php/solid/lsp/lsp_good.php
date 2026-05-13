@@ -2,7 +2,9 @@
 /**
  * 【良い点（Good）】
  * 1. 飛べる鳥(Flyable)とそうでない鳥を分けることで、予期せぬエラーを防ぐ
- * 2. 共通の親クラス(Bird)の機能（食べるなど）は、どの鳥でも安全に入れ替え可能
+ *    - By distinguishing between birds that can fly and those that cannot, unexpected errors can be prevented.
+ * 2. 共通の親クラスの機能は、どの鳥でも安全に入れ替え可能
+ *    - The common parent class features can be safely swapped between any bird.
  */
 
 class Bird {

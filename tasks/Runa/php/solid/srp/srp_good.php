@@ -1,9 +1,12 @@
 <?php
 /**
  * * 【修正のポイント（Good）】
- * - 合計金額の計算ロジックを独立させる /separate the calculation logic
- * - ファイル保存処理を専用クラスに切り出す /extract the file saving process to a dedicated class
- * - HTML表示をテンプレート化または専用クラスに任せる /let the HTML display be handled by a template or a dedicated class
+ * - 合計金額の計算ロジックを独立させる
+ *    - By separating the calculation logic, we can make it easier to modify and reuse.
+ * - ファイル保存処理を専用クラスに切り出す
+ *    - By extracting the file saving process to a dedicated class, we can make it easier to modify and reuse.
+ * - HTML表示をテンプレート化または専用クラスに任せる
+ *    - By letting the HTML display be handled by a template or a dedicated class, we can make it easier to modify and reuse.
  */
 
 class OrderCal {
@@ -48,6 +51,6 @@ $log = new OrderLog();
 $show = new OrderShow();
 
 // 3. Execution
-$total = $cal->calculateTotal($order["items"]); // Calculate total
-$log->saveLog($order["customer"], $total);          // Save log
-$show->showReceipt($order["customer"], $total);      // Display HTML
+$total = $cal->calculateTotal($order["items"]);
+$log->saveLog($order["customer"], $total);
+$show->showReceipt($order["customer"], $total);
