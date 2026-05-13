@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * * 【悪い点（Bad）】
+* 1. 計算 /calculate the total amount
+* 2. 保存 /save to text file
+* 3. 表示 /display HTML output
+* These three different responsibilities are mixed in one process() method.
+*/
+
 class OrderProcessor
 {
     public function process(array $order): void

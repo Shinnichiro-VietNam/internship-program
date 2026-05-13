@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * * 【悪い点（Bad）】
+ * 1. 新しい支払い方法を追加する場合、PaymentProcessorクラスを修正する必要がある
+ * If you want to add a new payment method, you need to modify the PaymentProcessor class
+ * 2. 支払い方法ごとに異なる処理を行う場合、PaymentProcessorクラスを修正する必要がある
+ * If you want to perform different processing for each payment method, you need to modify the PaymentProcessor class
+ */
+
 class PaymentProcessor
 {
     public function process(string $method, float $amount): void

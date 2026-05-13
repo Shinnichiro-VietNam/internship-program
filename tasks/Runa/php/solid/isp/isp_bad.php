@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * * 【悪い点（Bad）】
+ * 1. Developer クラスは deploy メソッドを実装しているが、DevOpsEngineer クラスは実装していない
+ * Developer class implements the deploy method, but DevOpsEngineer class does not implement it
+ */
+
 interface Worker
 {
     public function code(): void;
