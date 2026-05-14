@@ -141,3 +141,11 @@
 - We found that when the dataset exceeds 1,000 records, even O(n²) algorithms can result in a difference of several seconds. In particular, we were able to confirm through numerical analysis that while insertion sort is highly efficient for data that is already somewhat sorted, it performs poorly on data that is in reverse order.
 
 ---
+
+# exercise 5 分析メモ / Memo
+
+### Pivot Strategy
+
+- Middle（真ん中）
+    - 理由：入力配列がすでに整列されていたり、ほぼ整列されていたりする場合でも、O(n \log n)のパフォーマンスを維持するため。最初の要素や最後の要素を選択すると、そのようなケースでは計算量が O(n^2)に悪化してしまう。
+    - Reason: This is to maintain O(n \log n) performance even when the input array is already sorted or nearly sorted. Selecting the first or last element would cause the time complexity to degrade to O(n^2) in such cases.
