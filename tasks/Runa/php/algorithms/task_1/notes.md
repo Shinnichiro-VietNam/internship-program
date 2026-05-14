@@ -102,3 +102,42 @@
   It only involves moving within the array and does not require additional memory.
 
 ---
+
+# Exercise 3 分析メモ / Memo
+
+### Execution time / 実行時間
+
+| DataType                   | Bubble Sort       | Selection Sort    | Insertion Sort       |
+| -------------------------- | ----------------- | ----------------- | -------------------- |
+| Random (ランダム)          | 0.59063696861267s | 0.30870795249939s | 0.22142815589905s    |
+| Already Sorted（整列済み)  | 0.34134197235107s | 0.29096698760986s | 0.00028300285339355s |
+| Reverse Sorted （逆順）    | 0.70332789421082s | 0.33289098739624s | 0.46356105804443s    |
+| Many duplicates（重複多）  | 0.56826114654541s | 0.30158686637878s | 0.20118808746338s    |
+| Nearly sorted （ほぼ整列） | 0.33410882949829s | 0.30074286460876s | 0.00029802322387695s |
+
+### 考察 / Inspection
+
+- **Bubble Sort**
+    - 逆説のときに一番時間がかかった。
+    - The paradox took the longest to figure out.
+    - 整列済みでも他のと比べてすごい早くなるわけではないとわかった。
+    - I realized that even when the data is sorted, it doesn’t make things that much faster compared to other methods.
+
+- **Selection Sort**
+    - データの並び順に関わらず、実行時間がほとんど変わらなかった。
+    - The execution time remained virtually unchanged regardless of the order of the data.
+    - 理由：どんな並びでも、常に最小値を探すために配列を最後まで見に行くから。
+    - Reason: Because it always checks the entire array to find the minimum value, regardless of the order.
+
+- **Insertion Sort**
+    - **Already Sorted** や　**Nearly Sorted** が圧倒的に早かった。
+    - **Already Sorted** and **Nearly Sorted** were by far the fastest.
+    - 理由：すでに並んでいる場合は、値を動かす必要がなく、比較だけで済むから。
+    - Reason: If the values are already in order, there is no need to reorder them; a simple comparison is sufficient.
+
+### まとめ / Summary
+
+- データが1000件を超えると、O(n^2)のアルゴリズムでも数秒の差が出ることがわかった。特に挿入ソートは、元々ある程度並んでいるデータに対しては非常に効率的だが、逆順のデータには弱いという特性を数値で確認できた。
+- We found that when the dataset exceeds 1,000 records, even O(n²) algorithms can result in a difference of several seconds. In particular, we were able to confirm through numerical analysis that while insertion sort is highly efficient for data that is already somewhat sorted, it performs poorly on data that is in reverse order.
+
+---

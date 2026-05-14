@@ -8,20 +8,49 @@ function measureTime(callable $sortFunction, array $data): float {
     return $end - $start;
 }
 
-$randomData = range(1, 10000);
-$data = $randomData;
+$size = 5000;
 
-echo "Bubble Sort:".measureTime('bubbleSort', $data)."s\n";
-echo "Selection Sort:".measureTime('selectionSort', $data)."s\n";
-echo "Insertion Sort:".measureTime('insertionSort', $data)."s\n";
+// Random Data
+$randomData = range(1, $size);
+shuffle($randomData);
 
+// Already Sorted Data
+$alreadySortedData = range(1, $size);
 
-// Test data preparation
-$testArray = [64, 34, 25, 12, 22, 11, 90];
+// Reverse Sorted Data
+$reverseSortedData = range($size, 1);
 
-echo "\n\n Original Array: " . implode(", ", $testArray) . "\n\n";
+// Many Duplicates Data
+$manyDuplicatesData = [];
+for($i=0; $i<$size; $i++) {
+    $manyDuplicatesData[] = rand(1, 10);
+}
 
-echo "Bubble Sort:".measureTime('bubbleSort', $testArray)."s\n";
-echo "Selection Sort:".measureTime('selectionSort', $testArray)."s\n";
-echo "Insertion Sort:".measureTime('insertionSort', $testArray)."s\n";
+// Nearly Sorted Data
+$nearlySortedData = range(1, $size);
+shuffle($nearlySortedData);
+sort($nearlySortedData);
+
+[$nearlySortedData[0], $nearlySortedData[1]] = [$nearlySortedData[1], $nearlySortedData[0]];
+
+echo "------Bubble Sort------\n";
+echo "Random Data: ".measureTime('bubbleSort', $randomData)."s\n";
+echo "Already Sorted Data: ".measureTime('bubbleSort', $alreadySortedData)."s\n";
+echo "Reverse Sorted Data: ".measureTime('bubbleSort', $reverseSortedData)."s\n";
+echo "Many Duplicates Data: ".measureTime('bubbleSort', $manyDuplicatesData)."s\n";
+echo "Nearly Sorted Data: ".measureTime('bubbleSort', $nearlySortedData)."s\n";
+
+echo "------Selection Sort------\n";
+echo "Random Data: ".measureTime('selectionSort', $randomData)."s\n";
+echo "Already Sorted Data: ".measureTime('selectionSort', $alreadySortedData)."s\n";
+echo "Reverse Sorted Data: ".measureTime('selectionSort', $reverseSortedData)."s\n";
+echo "Many Duplicates Data: ".measureTime('selectionSort', $manyDuplicatesData)."s\n";
+echo "Nearly Sorted Data: ".measureTime('selectionSort', $nearlySortedData)."s\n";
+
+echo "------Insertion Sort------\n";
+echo "Random Data: ".measureTime('insertionSort', $randomData)."s\n";
+echo "Already Sorted Data: ".measureTime('insertionSort', $alreadySortedData)."s\n";
+echo "Reverse Sorted Data: ".measureTime('insertionSort', $reverseSortedData)."s\n";
+echo "Many Duplicates Data: ".measureTime('insertionSort', $manyDuplicatesData)."s\n";
+echo "Nearly Sorted Data: ".measureTime('insertionSort', $nearlySortedData)."s\n";
 ?>
