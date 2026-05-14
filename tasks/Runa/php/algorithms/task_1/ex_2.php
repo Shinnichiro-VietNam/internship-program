@@ -51,28 +51,3 @@ function insertionSort(array $arr): array {
     return $arr;
 }
 
-// Test data preparation
-$testArray = [64, 34, 25, 12, 22, 11, 90];
-
-echo "Original Array: " . implode(", ", $testArray) . "\n\n";
-
-// --- Bubble Sort ---
-$arr1 = $testArray;
-$start = microtime(true);
-$result1 = bubbleSort($arr1);
-$end = microtime(true);
-echo "Bubble Sort: " . implode(", ", $result1) . " (Time: " . sprintf("f", $end - $start) . "s)\n";
-
-// --- Selection Sort ---
-$arr2 = $testArray;
-$start = microtime(true);
-$result2 = selectionSort($arr2);
-$end = microtime(true);
-echo "Selection Sort: " . implode(", ", $result2) . " (Time: " . sprintf("%f", $end - $start) . "s)\n";
-
-// --- Insertion Sort ---
-$arr3 = $testArray;
-$start = microtime(true);
-$result3 = insertionSort($arr3);
-$end = microtime(true);
-echo "Insertion Sort: " . implode(", ", $result3) . " (Time: " . sprintf("%f", $end - $start) . "s)\n";
