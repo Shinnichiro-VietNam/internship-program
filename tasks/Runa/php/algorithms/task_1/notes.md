@@ -149,3 +149,32 @@
 - Middle（真ん中）
     - 理由：入力配列がすでに整列されていたり、ほぼ整列されていたりする場合でも、O(n \log n)のパフォーマンスを維持するため。最初の要素や最後の要素を選択すると、そのようなケースでは計算量が O(n^2)に悪化してしまう。
     - Reason: This is to maintain O(n \log n) performance even when the input array is already sorted or nearly sorted. Selecting the first or last element would cause the time complexity to degrade to O(n^2) in such cases.
+
+---
+
+# Exercise 9 分析メモ / Memo
+
+## 値の出現回数のカウント / count value
+
+- 計算量/Complexity: **O(n)**
+- 理由/Reason:
+    - 配列の要素数に対して、最初から最後まで全ての要素を1回ずつ確認する必要があるため。
+    - This is because you need to check every element exactly once, from the beginning to the end, for the entire array.
+
+## 最大値の最初のIndex取得 / find max index
+
+- 計算量/Complexity: **O(n)**
+- 理由/Reason:
+    - 配列内の最大値を特定するためには、必ず配列の全要素を一度は比較しなければならないため。
+    - This is because, in order to identify the maximum value in an array, you must compare every element in the array at least once.
+
+## 昇順ソートのチェック / is sorted
+
+- 計算量/Complexity: **O(n)**（最悪のケース/Worst-case scenario）
+- 理由/Reason:
+    - 最悪のケース/Worst-case scenario
+        - 配列が完全に昇順である場合、最後まで比較を繰り返す必要がある。
+        - If the array is completely in ascending order, the comparison must be repeated until the end.
+    - 最良のケース/Best-case scenario
+        - 配列の冒頭で順序が崩れている場合は O(1) で終了できるが、アルゴリズムとしては最悪ケースの O(n) となる。
+        - If the order is already disrupted at the beginning of the array, the operation can be completed in O(1) time, but the algorithm has a worst-case time complexity of O(n).
