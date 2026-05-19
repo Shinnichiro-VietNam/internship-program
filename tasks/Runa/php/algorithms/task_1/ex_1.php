@@ -2,7 +2,9 @@
 
 //Loop method
 function fibonacciIterative(int $n): int {
-    if ($n < 0) return 0;
+    if ($n < 0) {
+        throw new InvalidArgumentException("Input value must be a positive integer. Input value: {$n}");
+    }
     if ($n === 0) return 0;
     if ($n === 1) return 1;
 
@@ -22,7 +24,9 @@ function fibonacciIterative(int $n): int {
 
 //Recursive method
 function fibonacciRecursive(int $n): int {
-    if ($n < 0) return 0;
+    if ($n < 0){
+        throw new InvalidArgumentException("Input value must be a positive integer. Input value: {$n}");
+    };
     if ($n === 0) return 0;
     if ($n === 1) return 1;
     return fibonacciRecursive($n - 1) + fibonacciRecursive($n - 2);
