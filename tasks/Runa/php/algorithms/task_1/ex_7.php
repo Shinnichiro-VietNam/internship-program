@@ -1,6 +1,16 @@
 <?php
 
+function validateSearchInputs(array $arr): void {
+    foreach ($arr as $v) {
+        if (!is_int($v) && !is_float($v)) {
+            $type = gettype($v);
+            throw new InvalidArgumentException("All elements in the array must be numeric. Found type: {$type}");
+        }
+    }
+}
+
 function linearSearch(array $arr, int $target): int {
+    validateSearchInputs($arr);
     for ($i = 0; $i < count($arr); $i++) {
         if ($arr[$i] === $target) {
             return $i;
@@ -10,6 +20,7 @@ function linearSearch(array $arr, int $target): int {
 }
 
 function linearSearchAll(array $arr, int $target): array {
+    validateSearchInputs($arr);
     $result = [];
     for ($i = 0; $i < count($arr); $i++) {
         if ($arr[$i] === $target) {
