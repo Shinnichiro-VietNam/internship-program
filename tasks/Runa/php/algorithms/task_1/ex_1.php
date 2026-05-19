@@ -1,58 +1,107 @@
 <?php
 
-//Loop method
-function fibonacciIterative(int $n): int {
-    if ($n < 0) {
-        throw new InvalidArgumentException("Input value must be a positive integer. Input value: {$n}");
-    }
-    if ($n === 0) return 0;
-    if ($n === 1) return 1;
+//Recursive approach
+function fibonacciRecursive(int $n): int{
+    if ($n <= 1) return $n;
 
-    $a = 0;
-    $b = 1;
-    $result = 0;
-
-    for ($i = 2; $i <= $n; $i++) {
-        $result = $a + $b;
-        $a = $b;
-        $b = $result;
-    }
-
-    return $result;
-}
-
-
-//Recursive method
-function fibonacciRecursive(int $n): int {
-    if ($n < 0){
-        throw new InvalidArgumentException("Input value must be a positive integer. Input value: {$n}");
-    };
-    if ($n === 0) return 0;
-    if ($n === 1) return 1;
     return fibonacciRecursive($n - 1) + fibonacciRecursive($n - 2);
 }
 
-echo "10番目: " . fibonacciIterative(10) . "\n";
-echo "10番目: " . fibonacciRecursive(10) . "\n";
 
+//Memoization approach
+function fibonacciMemoization(int $n, array $memo = []): int{
+    if ($n <= 1) return $n;
 
-// Experiment code
+    if (isset($memo[$n])) {
+        return $memo[$n];
+    }
 
-$targets = [10, 20, 30, 35];
-
-echo "n | Iterative (Time) | Recursive (Time)\n";
-echo "------------------------------------------\n";
-
-foreach ($targets as $n) {
-    $start1 = microtime(true);
-    fibonacciIterative($n);
-    $end1 = microtime(true);
-    $timeIterative = $end1 - $start1;
-
-    $start2 = microtime(true);
-    fibonacciRecursive($n);
-    $end2 = microtime(true);
-    $timeRecursive = $end2 - $start2;
-
-    printf("%d | %f sec | %f sec\n", $n, $timeIterative, $timeRecursive);
+    $memo[$n] = fibonacciMemoization($n - 1, $memo) + fibonacciMemoization($n - 2, $memo);
+    return $memo[$n];
 }
+
+//Bottom-up approach(Tabulation Approach)
+function fibonacciBottomUp(int $n): int{
+    if ($n <= 1) return $n;
+
+    $dp = [];
+    $dp[0] = 0;
+    $dp[1] = 1;
+
+    for ($i = 2; $i <= $n; $i++) {
+        $dp[$i] = $dp[$i - 1] + $dp[$i - 2];
+    }
+    return $dp[$n];
+}
+
+
+//Bottom-up approach(Space Optimized Approach)
+function fibonacciBottomUp2(int $n): int{
+    if ($n <= 1) return $n;
+
+    $curr = 0;
+
+    $prev1 = 1;
+    $prev2 = 0;
+
+    for ($i = 2; $i <= $n; $i++) {
+        $curr = $prev1 + $prev2;
+        $prev2 = $prev1;
+        $prev1 = $curr;
+    }
+    return $curr;
+}
+
+
+//Using Matrix Exponentiation
+function multiply(array &$mat1, array $mat2): void{
+    $x = $mat1[0][0] * $mat2[0][0] + $mat1[0][1] * $mat2[1][0];
+    $y = $mat1[0][0] * $mat2[0][1] + $mat1[0][1] * $mat2[1][1];
+    $z = $mat1[1][0] * $mat2[0][0] + $mat1[1][1] * $mat2[1][0];
+    $w = $mat1[1][0] * $mat2[0][1] + $mat1[1][1] * $mat2[1][1];
+
+    $mat1[0][0] = $x;
+    $mat1[0][1] = $y;
+    $mat1[1][0] = $z;
+    $mat1[1][1] = $w;
+}
+
+
+function matrixPower(array &$mat1, int $n): void {
+    if ($n == 0 || $n == 1) return;
+
+    $mat2 = [[1, 1], [1, 0]];
+    matrixPower($mat1, (int)($n / 2));
+    multiply($mat1, $mat1);
+    if ($n % 2 != 0) multiply($mat1, $mat2);
+}
+
+function nthFibonacci(int $n): int {
+    if ($n <= 1) return $n;
+
+    $mat1 = [[1, 1], [1, 0]];
+
+    matrixPower($mat1, $n - 1);
+
+    return $mat1[0][0];
+}
+
+//Using Golden Ratio
+function nthFibonacciGoldenRatio(int $n): int {
+    if ($n <= 1) return $n;
+
+    $phi = (1 + sqrt(5)) / 2;
+    $psi = (1 - sqrt(5)) / 2;
+
+    return round((pow($phi, $n) - pow($psi, $n)) / sqrt(5));
+}
+
+// Test
+$n = 5;
+echo "Fibonacci number at position $n:\n";
+echo "Recursive: " . fibonacciRecursive($n) . "\n";
+echo "Memoization: " . fibonacciMemoization($n) . "\n";
+echo "Bottom-up: " . fibonacciBottomUp($n) . "\n";
+echo "Bottom-up2: " . fibonacciBottomUp2($n) . "\n";
+echo "Matrix Exponentiation: " . nthFibonacci($n) . "\n";
+echo "Golden Ratio: " . nthFibonacciGoldenRatio($n) . "\n";
