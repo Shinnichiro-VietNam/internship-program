@@ -1,44 +1,51 @@
 <?php
 
-require_once 'ex_4.php';
-
-$students = [
-    ['name' => 'A', 'score' => 70],
-    ['name' => 'B', 'score' => 95],
-    ['name' => 'C', 'score' => 70],
-];
-
-function mergeSortScore(array $arr): array {
-    if (count($arr) <= 1) return $arr;
-
-    $mid = (int)(count($arr) / 2);
-    $left = array_slice($arr, 0, $mid);
-    $right = array_slice($arr, $mid);
-
-    $left = mergeSortScore($left);
-    $right = mergeSortScore($right);
-    return merge($left, $right);
+function validateStudentArray(array $arr): void {
+    if (empty($arr)) {
+        throw new InvalidArgumentException("The input array cannot be empty.");
+    }
+    foreach ($arr as $student) {
+        if (!is_array($student) || !isset($student['name']) || !isset($student['score'])) {
+            throw new InvalidArgumentException("Each element must be an array with name and score.");
+        }
+        if (!is_int($student['score']) && !is_float($student['score'])) {
+            throw new InvalidArgumentException("The score must be a numeric value.");
+        }
+        if ($student['score'] < 0) {
+            throw new InvalidArgumentException("The score must be a positive number.");
+        }
+    }
 }
 
-function merge(array $left, array $right): array {
+function mergeSortScore(array $students): array {
+    validateStudentArray($students);
+    if (count($students) <= 1) return $students;
+
+    $mid = (int)(count($students) / 2);
+    $left = mergeSortScore(array_slice($students, 0, $mid));
+    $right = mergeSortScore(array_slice($students, $mid));
+
     $result = [];
-    while (count($left) > 0 && count($right) > 0) {
-        if ($left[0]['score'] <= $right[0]['score']) {
-            $result[] = array_shift($left);
+    $i = $j = 0;
+    $lCount = count($left);
+    $rCount = count($right);
+
+    while ($i < $lCount || $j < $rCount) {
+        if ($j >= $rCount || ($i < $lCount && $left[$i]['score'] <= $right[$j]['score'])) {
+            $result[] = $left[$i++];
         } else {
-            $result[] = array_shift($right);
+            $result[] = $right[$j++];
         }
     }
 
-    return array_merge($result, $left, $right);
+    return $result;
 }
 
 // Test
 $students = [
     ['name' => 'A', 'score' => 70],
     ['name' => 'B', 'score' => 95],
-    ['name' => 'C', 'score' => 70],
-];
+    ['name' => 'C', 'score' => 70],];
 
 $sortedStudents = mergeSortScore($students);
 echo "Sorted Students: \n";
