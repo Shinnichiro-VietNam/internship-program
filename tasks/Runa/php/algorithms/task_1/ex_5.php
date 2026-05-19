@@ -1,9 +1,9 @@
 <?php
 
+require_once 'ex_2.php';
+
 function quickSort(array $arr): array {
-    if (count($arr) <= 1) {
-        return $arr;
-    }
+    if (count($arr) <= 1) return $arr;
 
     // $pivot = $arr[0]; // First Pivot Strategy
     // $pivot = $arr[count($arr) - 1]; // Last Pivot Strategy
@@ -28,7 +28,7 @@ function quickSort(array $arr): array {
         }
     }
 
-    return array_merge(quickSort($left), [$pivot], quickSort($right));
+    return [...quickSort($left), $pivot, ...quickSort($right)];
 }
 
 // Test
