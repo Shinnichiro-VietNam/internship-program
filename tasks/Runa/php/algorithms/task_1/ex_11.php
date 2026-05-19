@@ -1,14 +1,23 @@
 <?php
 
-function quickSelect(array $arr, int $k): int {
-    if (empty($arr) || $k < 1 || $k > count($arr)) {
-        throw new Exception("Invalid input");
+function validateQuickSelectInputs(array $arr, int $k): void {
+    if (empty($arr)) {
+        throw new InvalidArgumentException("The input array cannot be empty.");
     }
+    if ($k < 1 || $k > count($arr)) {
+        throw new InvalidArgumentException("k is out of range.");
+    }
+    foreach ($arr as $v) {
+        if (!is_int($v) && !is_float($v)) {
+            throw new InvalidArgumentException("All elements in the array must be numeric.");
+        }
+    }
+}
 
+function quickSelect(array $arr, int $k): int {
     if (count($arr) === 1) {
         return $arr[0];
     }
-
     $pivot = $arr[(int)(count($arr) / 2)];
     $left = [];
     $right = [];
@@ -34,7 +43,14 @@ function quickSelect(array $arr, int $k): int {
 }
 
 // Test
+try {
+    validateQuickSelectInputs([3, 1, 5, 2, 4], 3);
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage() . "\n";
+    exit;
+}
+
 $arr = [3, 1, 5, 2, 4];
 $k = 3;
 $result = quickSelect($arr, $k);
-echo "Result(quickSelect): $result\n";
+echo "Result: $result\n";
