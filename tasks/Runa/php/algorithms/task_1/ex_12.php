@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once 'ex_2.php';
 
 function mergeSortedArrays(array $arr1, array $arr2): array {
