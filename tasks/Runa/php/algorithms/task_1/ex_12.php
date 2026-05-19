@@ -1,5 +1,7 @@
 <?php
 
+require_once 'ex_2.php';
+
 function mergeSortedArrays(array $arr1, array $arr2): array {
     $merged = [];
     $i = 0;
@@ -80,6 +82,19 @@ function findMinInRotatedSortedArray(array $arr): int {
 }
 
 // Test
-$arr = [4, 5, 6, 7, 0, 1, 2];
-$result = findMinInRotatedSortedArray($arr);
-echo "Result(findMinInRotatedSortedArray): $result\n";
+$arrMerge1    = [1, 3, 5];
+$arrMerge2    = [2, 4, 6];
+$arrRotated   = [4, 5, 6, 7, 0, 1, 2];
+$arrInversion = [2, 4, 1, 3, 5];
+
+try {
+    foreach ([$arrMerge1, $arrMerge2, $arrRotated, $arrInversion] as $a) validateArray($a);
+
+    echo "Result(mergeSortedArrays): [" . implode(', ', mergeSortedArrays($arrMerge1, $arrMerge2)) . "]\n";
+    echo "Result(findMinInRotatedSortedArray): " . findMinInRotatedSortedArray($arrRotated) . "\n";
+    echo "Result(inversionCount): " . inversionCount($arrInversion) . "\n";
+
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage() . "\n";
+    exit;
+}
