@@ -1,7 +1,6 @@
 <?php
 
-// Bubble Sort
-function bubbleSort(array $arr): array {
+function validateArray(array $arr): void {
     if (empty($arr)) {
         throw new InvalidArgumentException("Input array cannot be empty.");
     }
@@ -11,6 +10,11 @@ function bubbleSort(array $arr): array {
             throw new InvalidArgumentException("All elements in the array must be numeric. Found type: {$type}");
         }
     }
+}
+
+// Bubble Sort
+function bubbleSort(array $arr): array {
+    validateArray($arr);
     $n = count($arr);
     for ($i = 0; $i < $n - 1; $i++) {
         for ($j = 0; $j < $n - $i - 1; $j++) {
@@ -27,15 +31,7 @@ function bubbleSort(array $arr): array {
 // Selection Sort
 
 function selectionSort(array $arr): array {
-    if (empty($arr)) {
-        throw new InvalidArgumentException("Input array cannot be empty.");
-    }
-    foreach ($arr as $value) {
-        if (!is_int($value) && !is_float($value)) {
-            $type = gettype($value);
-            throw new InvalidArgumentException("All elements in the array must be numeric. Found type: {$type}");
-        }
-    }
+    validateArray($arr);
     $n = count($arr);
     for ($i = 0; $i < $n - 1; $i++) {
         $minIndex = $i;
@@ -56,15 +52,7 @@ function selectionSort(array $arr): array {
 // Insertion Sort
 
 function insertionSort(array $arr): array {
-    if (empty($arr)) {
-        throw new InvalidArgumentException("Input array cannot be empty.");
-    }
-    foreach ($arr as $value) {
-        if (!is_int($value) && !is_float($value)) {
-            $type = gettype($value);
-            throw new InvalidArgumentException("All elements in the array must be numeric. Found type: {$type}");
-        }
-    }
+    validateArray($arr);
     $n = count($arr);
     for ($i = 1; $i < $n; $i++) {
         $key = $arr[$i];
