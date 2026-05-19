@@ -1,5 +1,6 @@
 <?php
 
+require_once 'ex_2.php';
 require_once 'ex_8.php';
 
 function findFirstAndLast(array $arr, int $target): array {
@@ -47,9 +48,16 @@ function findSmallestK(int $x): int {
 }
 
 // --- Test ---
+
+try {
+    validateArray([1, 2, 4, 4, 4, 6, 7]);
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage() . "\n";
+    exit;
+}
+
 $arr = [1, 2, 4, 4, 4, 6, 7];
 $target = 4;
-
 $result1 = findFirstAndLast($arr, $target);
 echo "Result(findFirstAndLast): [" . implode(', ', $result1) . "]\n";
 
