@@ -1,5 +1,7 @@
 <?php
 
+require_once 'ex_2.php';
+
 function countOccurrences(array $arr, int $target): int {
     $count = 0;
     foreach($arr as $value) {
@@ -12,10 +14,6 @@ function countOccurrences(array $arr, int $target): int {
 
 
 function findMaxValue(array $arr): int {
-    if(empty($arr)) {
-        return -1;
-    }
-
     $maxVal = $arr[0];
     $maxInd = 0;
 
@@ -29,7 +27,6 @@ function findMaxValue(array $arr): int {
 }
 
 function checkSorted(array $arr): bool {
-    $count = count($arr);
     for($i = 0; $i < $count - 1; $i++) {
         if($arr[$i] > $arr[$i + 1]) {
             return false;
@@ -40,6 +37,13 @@ function checkSorted(array $arr): bool {
 
 
 // Test
+try {
+    validateArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage() . "\n";
+    exit;
+}
+
 $arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 $target = 5;
 $result = countOccurrences($arr, $target);
@@ -47,6 +51,3 @@ echo "Result(countOccurrences): $result\n";
 
 $result = findMaxValue($arr);
 echo "Result(findMaxValue): $result\n";
-
-$result = checkSorted($arr);
-echo "Result(checkSorted): $result\n";
