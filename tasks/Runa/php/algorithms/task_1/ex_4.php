@@ -1,6 +1,6 @@
 <?php
 
-function margeSort(array $arr): array {
+function mergeSort(array $arr): array {
     if (count($arr) <= 1) {
         return $arr;
     }
@@ -9,13 +9,13 @@ function margeSort(array $arr): array {
     $left = array_slice($arr, 0, $middle);
     $right = array_slice($arr, $middle);
 
-    $left = margeSort($left);
-    $right = margeSort($right);
+    $left = mergeSort($left);
+    $right = mergeSort($right);
 
-    return marge($left, $right);
+    return merge($left, $right);
 }
 
-function marge(array $left, array $right): array {
+function merge(array $left, array $right): array {
     $result = [];
     while (count($left) > 0 && count($right) > 0) {
         if ($left[0] < $right[0]) {
@@ -29,5 +29,5 @@ function marge(array $left, array $right): array {
 
 // Test
 $arr = [2,3,6,1,5,4,45,69,23,12,45,67,89,100,123,456,789,1000];
-$sorted = margeSort($arr);
+$sorted = mergeSort($arr);
 echo "Result: ".implode(', ', $sorted )."\n";
