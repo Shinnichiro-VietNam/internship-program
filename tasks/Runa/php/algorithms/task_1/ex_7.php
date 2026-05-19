@@ -3,8 +3,7 @@
 function validateSearchInputs(array $arr): void {
     foreach ($arr as $v) {
         if (!is_int($v) && !is_float($v)) {
-            $type = gettype($v);
-            throw new InvalidArgumentException("All elements in the array must be numeric. Found type: {$type}");
+            throw new InvalidArgumentException("All elements in the array must be numeric.");
         }
     }
 }
