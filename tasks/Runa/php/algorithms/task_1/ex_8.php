@@ -1,5 +1,13 @@
 <?php
 
+function validateSearchInputs(array $arr): void {
+    foreach ($arr as $v) {
+        if (!is_int($v) && !is_float($v)) {
+            throw new InvalidArgumentException("All elements in the array must be numeric.");
+        }
+    }
+}
+
 function binarySearch(array $sortedArr, int $target): int {
     $left = 0;
     $right = count($sortedArr) - 1;
@@ -50,9 +58,21 @@ function upperBound(array $sortedArr, int $target): int {
     return $left;
 }
 
+// Test
+try {
+    validateSearchInputs([1, 2, 4, 4, 4, 6, 7]);
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage() . "\n";
+    exit;
+}
+
 $arr = [1, 2, 4, 4, 4, 6, 7];
 $target = 4;
-
-echo "Binary Search: " . binarySearch($arr, $target) . "\n";
-echo "Lower Bound: " . lowerBound($arr, $target) . "\n";
-echo "Upper Bound: " . upperBound($arr, $target) . "\n";
+try {
+    echo "Binary Search: " . binarySearch($arr, $target) . "\n";
+    echo "Lower Bound: " . lowerBound($arr, $target) . "\n";
+    echo "Upper Bound: " . upperBound($arr, $target) . "\n";
+} catch (InvalidArgumentException $e) {
+    echo $e->getMessage() . "\n";
+    exit;
+}
