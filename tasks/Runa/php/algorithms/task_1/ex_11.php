@@ -19,6 +19,18 @@ function quickSelect(array $arr, int $k): int {
         return $arr[0];
     }
     $pivot = $arr[(int)(count($arr) / 2)];
+    [$left, $equal, $right] = partition($arr, $pivot);
+
+    if ($k <= count($left)) {
+        return quickSelect($left, $k);
+    } else if ($k <= count($left) + count($equal)) {
+        return $pivot;
+    } else {
+        return quickSelect($right, $k - count($left) - count($equal));
+    }
+}
+
+function partition(array $arr, int $pivot): array {
     $left = [];
     $right = [];
     $equal = [];
@@ -33,13 +45,8 @@ function quickSelect(array $arr, int $k): int {
         }
     }
 
-    if ($k <= count($left)) {
-        return quickSelect($left, $k);
-    } else if ($k <= count($left) + count($equal)) {
-        return $pivot;
-    } else {
-        return quickSelect($right, $k - count($left) - count($equal));
-    }
+
+    return [$left, $equal, $right];
 }
 
 // Test
