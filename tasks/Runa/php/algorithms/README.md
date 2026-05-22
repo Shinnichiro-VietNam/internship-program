@@ -36,6 +36,7 @@ Using AI tools (e.g., ChatGPT, GitHub Copilot) is strictly limited. Consult your
 - [Big O Notation (overview)](https://www.geeksforgeeks.org/dsa/analysis-algorithms-big-o-analysis/)
 - [PHP Manual: Arrays](https://www.php.net/manual/en/language.types.array.php)
 - [Data Structures and Algorithms (overview)](https://www.geeksforgeeks.org/data-structures/)
+- [Visualgo — visualizations for DS & algorithms](https://visualgo.net/en)
 
 ---
 
