@@ -10,6 +10,12 @@ function mergeSort(array $arr): array {
     $left = mergeSort(array_slice($arr, 0, $mid));
     $right = mergeSort(array_slice($arr, $mid));
 
+
+
+    return merge($left, $right);
+}
+
+function merge(array $left, array $right): array {
     $result = [];
     $i = $j = 0;
     $lCount = count($left);
