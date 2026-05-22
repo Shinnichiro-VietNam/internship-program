@@ -17,13 +17,13 @@ function validateStudentArray(array $arr): void {
     }
 }
 
-function mergeSortScore(array $students): array {
+function mergeSortScore(array $students, bool $ascending = true): array {
     validateStudentArray($students);
     if (count($students) <= 1) return $students;
 
     $mid = (int)(count($students) / 2);
-    $left = mergeSortScore(array_slice($students, 0, $mid));
-    $right = mergeSortScore(array_slice($students, $mid));
+    $left = mergeSortScore(array_slice($students, 0, $mid), $ascending);
+    $right = mergeSortScore(array_slice($students, $mid), $ascending);
 
     $result = [];
     $i = $j = 0;
@@ -31,8 +31,20 @@ function mergeSortScore(array $students): array {
     $rCount = count($right);
 
     while ($i < $lCount || $j < $rCount) {
-        if ($j >= $rCount || ($i < $lCount && $left[$i]['score'] <= $right[$j]['score'])) {
+        if ($j >= $rCount) {
             $result[] = $left[$i++];
+        } elseif ($i < $lCount) {
+            if ($ascending) {
+                $isLeftNext = ($left[$i]['score'] <= $right[$j]['score']);
+            } else {
+                $isLeftNext = ($left[$i]['score'] > $right[$j]['score']);
+            }
+
+            if ($isLeftNext) {
+                $result[] = $left[$i++];
+            } else {
+                $result[] = $right[$j++];
+            }
         } else {
             $result[] = $right[$j++];
         }
@@ -47,7 +59,7 @@ $students = [
     ['name' => 'B', 'score' => 95],
     ['name' => 'C', 'score' => 70],];
 
-$sortedStudents = mergeSortScore($students);
+$sortedStudents = mergeSortScore($students, false);
 echo "Sorted Students: \n";
 foreach ($sortedStudents as $student) {
     echo "Name: {$student['name']}, Score: {$student['score']}\n";
