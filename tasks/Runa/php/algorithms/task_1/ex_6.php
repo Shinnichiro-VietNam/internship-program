@@ -20,11 +20,13 @@ function validateStudentArray(array $arr): void {
 function mergeSortScore(array $students, bool $ascending = true): array {
     validateStudentArray($students);
     if (count($students) <= 1) return $students;
-
     $mid = (int)(count($students) / 2);
     $left = mergeSortScore(array_slice($students, 0, $mid), $ascending);
     $right = mergeSortScore(array_slice($students, $mid), $ascending);
+    return merge($left, $right, $ascending);
+}
 
+function merge(array $left, array $right, bool $ascending = true): array {
     $result = [];
     $i = $j = 0;
     $lCount = count($left);
