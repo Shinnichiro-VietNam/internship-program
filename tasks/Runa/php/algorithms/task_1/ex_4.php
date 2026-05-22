@@ -5,13 +5,9 @@ require_once 'ex_2.php';
 
 function mergeSort(array $arr): array {
     if (count($arr) <= 1) return $arr;
-
     $mid = (int)(count($arr) / 2);
     $left = mergeSort(array_slice($arr, 0, $mid));
     $right = mergeSort(array_slice($arr, $mid));
-
-
-
     return merge($left, $right);
 }
 
@@ -28,7 +24,6 @@ function merge(array $left, array $right): array {
             $result[] = $right[$j++];
         }
     }
-
     return $result;
 }
 
