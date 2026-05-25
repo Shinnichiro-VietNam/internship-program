@@ -56,3 +56,21 @@ When distributing the total cost of these rare resizes across a long sequence of
 - **単方向連結リスト（演習2）**：ノードはメモリ上のまったく異なる場所に分散して配置されている。i番目の要素にアクセスする場合、プログラムはその要素に直接ジャンプすることはできず、`先頭` から開始し、各ノードの`next` ポインタを一つずつたどる必要がある。そして、ランダムアクセスを行うにはリストを走査する必要があり、その結果、時間計算量は**O(n)**となる。
 
 ---
+
+# Exercise 3 - Doubly Linked List Performance / 双方向連結リストの性能
+
+### Time Complexity Evaluation / 計算量の評価
+
+- **Finding a node by index (`deleteAt`):** **O(n)**
+  To delete a node at a specific index, the program must start from the `head` and traverse the list linearly one by one until it reaches the targeted position. This operation requires linear time because we do not have direct access to middle elements.
+
+- **インデックスによるノードの探索 (`deleteAt`)：** **O(n)**
+  特定のインデックスにあるノードを削除する場合、プログラムは `head（先頭）` から開始し、目的の位置に達するまでリストを1つずつ線形に走査する必要がある。中央の要素に直接アクセスする手段がないため、この操作には線形時間（要素数に比例した時間）がかかる。
+
+- **Deleting a node with a direct reference (`deleteNode`):** **O(1)**
+  Once you already have a direct reference to a node (for example, a node object returned from the `search()` method), the actual deletion takes constant time. Because each node in a doubly linked list inherently holds pointers to both its `prev` and `next` neighbors, we can immediately rewire the surrounding pointers to bypass the target node without any traversal loops.
+
+- **直接の参照によるノードの削除 (`deleteNode`)：** **O(1)**
+  （`search()` メソッドなどから返された）ノードへの直接の参照をすでに持っている場合、実際の削除処理は定数時間で完了する。双方向連結リストの各ノードは、自身の `prev（前）` と `next（次）` の両方の隣接ノードへのポインタを本質的に保持しているため、走査ループを行うことなく、周囲のポインタを即座につなぎ替えて対象ノードをスキップさせることができる。
+
+---
