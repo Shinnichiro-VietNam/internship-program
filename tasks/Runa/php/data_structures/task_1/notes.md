@@ -35,3 +35,24 @@ By **doubling** the capacity on each resize, the expensive O(n) operations happe
 こうしたリサイズの総コストを、n回の追加操作からなる長いシーケンス全体に分散すると、1回の追加操作あたりの数学的な平均作業量は定数以下に抑えられる。そして、アモルタイズ時間計算量は**O(1)**となる。
 
 When distributing the total cost of these rare resizes across a long sequence of n append operations, the mathematical average work per single append is bounded by a constant. Therefore, the amortized time complexity is **O(1)**.
+
+---
+
+# Exercise 2 - Random Access Comparison
+
+| Operation / 操作       | DynamicArray (Exercise 1)                       | SinglyLinkedList (Exercise 2)                                        |
+| :--------------------- | :---------------------------------------------- | :------------------------------------------------------------------- |
+| **Random Access Cost** | **O(1)** (Constant time)                        | **O(n)** (Linear time)                                               |
+| **Memory Layout**      | Contiguous blocks of memory. 連続したメモリ領域 | Dispersed nodes linked by pointers. ポインタで連結された分散ノード。 |
+
+### Explanation / 実験
+
+- **DynamicArray (Exercise 1):** Elements are stored next to each other in a single contiguous block of memory. Because of this layout, the computer can instantly calculate the exact memory address of any given index. This allows **O(1)** instant random access via `get($index)`.
+
+- **DynamicArray（演習1）**：要素は、メモリ上の単一の連続したブロック内に隣接して格納される。この配置により、コンピュータは任意のインデックスに対応する正確なメモリアドレスを瞬時に計算できる。これにより、`get($index)` を通じて **O(1)** の瞬時のランダムアクセスが可能になる。
+
+- **SinglyLinkedList (Exercise 2):** Nodes are scattered across completely different locations in memory. To access the i-th element, the program cannot jump directly to it; it must start from the `head` and follow each node's `next` pointer one by one. Therefore, random access requires traversing the list, resulting in an **O(n)** time complexity.
+
+- **単方向連結リスト（演習2）**：ノードはメモリ上のまったく異なる場所に分散して配置されている。i番目の要素にアクセスする場合、プログラムはその要素に直接ジャンプすることはできず、`先頭` から開始し、各ノードの`next` ポインタを一つずつたどる必要がある。そして、ランダムアクセスを行うにはリストを走査する必要があり、その結果、時間計算量は**O(n)**となる。
+
+---
