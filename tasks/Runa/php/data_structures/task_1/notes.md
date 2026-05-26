@@ -105,3 +105,15 @@ When distributing the total cost of these rare resizes across a long sequence of
     - **説明：** `()`, `[]`, `{}` 以外の文字はすべて明示的に無視する。これにより、数式や文章の中に含まれるかっこであっても、その論理的な入れ子構造だけを正確に検証できる。
 
 ---
+
+# Exercise 5: Queue ADT / キュー抽象データ型
+
+### Why Circular Array Avoids O(n) Shifts on Dequeue
+
+- **The Problem with Standard Arrays:** In a standard array-based queue, removing an element from the front (`dequeue`) leaves an empty slot at index 0. To fix this, all remaining elements must be shifted forward by one position, which takes **O(n)** time.
+- **The Circular Array Solution:** A circular array conceptualizes the fixed-size array as a ring. Instead of shifting data physically, we simply advance the `front` index using the modulo operator `front = (front + 1) % capacity`. This allows the data to stay in place, turning the operation into a strict **O(1)** time complexity.
+
+### なぜ循環配列は dequeue 時の O(n) シフトを回避できるのか
+
+- **通常の配列の問題点：** 通常の配列で先頭から要素を取り出す（`dequeue`）と、インデックス0番目の要素が空になる。これを詰めるために後ろにあるすべてのデータを1つずつ前にズラす必要があり、**O(n)** の時間がかかってしまう。
+- **循環配列による解決策：** 固定配列の先頭と末尾を円状につなぎます。データを物理的にずらすのではなく、`front`を指すインデックス番号のほうを `(front + 1) % capacity` という数式で1つ進めるだけで処理を完結させる。これにより、データを一切移動させることなく、常に高速な **O(1)** で取り出すことができる。
