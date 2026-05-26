@@ -145,3 +145,22 @@ When distributing the total cost of these rare resizes across a long sequence of
     2. 全文字を `addLast()` で Deque の末尾に投入。
     3. `while` ループ内で `removeFirst()` と `removeLast()` を使い、両端から同時に1文字ずつ取り出して比較。
     4. 不一致があれば即座に `false`、すべて一致してループを抜ければ `true` と判定。
+
+---
+
+## Exercise 7: Hash Table (Separate Chaining) / ハッシュテーブル
+
+### 1. Complexity & Degradation / 計算量と性能低下について
+
+- **Average Time Complexity (平均時間計算量):** **O(1)**
+- **Worst-Case Time Complexity (最悪時間計算量):** **O(n)**
+
+#### Assumptions for O(1) / O(1) になる前提条件
+
+- **Uniform Distribution:** Keys must be evenly distributed across all buckets by a good hash function, keeping the chain in each bucket as short as possible.
+- **均一分散:** 優れたハッシュ関数によって、キーがすべてのバケツに均等に分散され、各バケツの中身が常に短く保たれている必要がある。
+
+#### When Degradation Happens / 性能が低下する原因
+
+- **Hash Collision:** If many keys hash to the exact same bucket, the chain becomes long. Searching inside that bucket turns into a sequential search, degrading the time complexity towards **O(n)**.
+- **ハッシュ衝突:** 多くのキーが同じバケツに集中すると、バケツの中の配列が長くなります。そのバケツ内を走査するために結局ループを回す必要があるため、最悪の場合 **O(n)** まで遅くなってしまう。
