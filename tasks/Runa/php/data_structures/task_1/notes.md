@@ -117,3 +117,31 @@ When distributing the total cost of these rare resizes across a long sequence of
 
 - **通常の配列の問題点：** 通常の配列で先頭から要素を取り出す（`dequeue`）と、インデックス0番目の要素が空になる。これを詰めるために後ろにあるすべてのデータを1つずつ前にズラす必要があり、**O(n)** の時間がかかってしまう。
 - **循環配列による解決策：** 固定配列の先頭と末尾を円状につなぎます。データを物理的にずらすのではなく、`front`を指すインデックス番号のほうを `(front + 1) % capacity` という数式で1つ進めるだけで処理を完結させる。これにより、データを一切移動させることなく、常に高速な **O(1)** で取り出すことができる。
+
+---
+
+# Exercise 6: Deque (Double-Ended Queue) / 両端キュー
+
+### 1. Complexity / 各操作の計算量
+
+- **Time Complexity (時間計算量):** 全操作 **O(1)**
+- **Space Complexity (空間計算量):** 全操作 **O(1)**
+
+- **Note:** Utilizing a circular array avoids O(n) data shifting at both ends.
+- **補足：** 循環配列を使うことで、両端での追加・削除において配列内のデータシフトを完全に回避し、すべて O(1) で処理できる。
+
+---
+
+### 2. Palindrome Verification / 回文判定の仕様
+
+- **Algorithm:**
+    1. Lowercase and remove spaces from the string.
+    2. Insert all characters into the Deque using `addLast()`.
+    3. Compare characters from both ends simultaneously using `removeFirst()` and `removeLast()` in a `while` loop.
+    4. Return `false` on any mismatch, or `true` if the loop finishes successfully.
+
+- **アルゴリズム：**
+    1. 文字列を小文字化し、スペースを除去。
+    2. 全文字を `addLast()` で Deque の末尾に投入。
+    3. `while` ループ内で `removeFirst()` と `removeLast()` を使い、両端から同時に1文字ずつ取り出して比較。
+    4. 不一致があれば即座に `false`、すべて一致してループを抜ければ `true` と判定。
