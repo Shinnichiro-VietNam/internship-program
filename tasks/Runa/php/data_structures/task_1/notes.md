@@ -74,3 +74,34 @@ When distributing the total cost of these rare resizes across a long sequence of
   （`search()` メソッドなどから返された）ノードへの直接の参照をすでに持っている場合、実際の削除処理は定数時間で完了する。双方向連結リストの各ノードは、自身の `prev（前）` と `next（次）` の両方の隣接ノードへのポインタを本質的に保持しているため、走査ループを行うことなく、周囲のポインタを即座につなぎ替えて対象ノードをスキップさせることができる。
 
 ---
+
+# Exercise 4: Stack ADT / スタック抽象データ型
+
+### 1. Complexity for Stack Operations / 各スタック操作の計算量
+
+| Operation / 操作 | ArrayStack (Time / Space)     | LinkedStack (Time / Space) |
+| :--------------- | :---------------------------- | :------------------------- |
+| **push()**       | **O(1)** amortized / **O(1)** | **O(1)** / **O(1)**        |
+| **pop()**        | **O(1)** / **O(1)**           | **O(1)** / **O(1)**        |
+| **peek()**       | **O(1)** / **O(1)**           | **O(1)** / **O(1)**        |
+| **isEmpty()**    | **O(1)** / **O(1)**           | **O(1)** / **O(1)**        |
+| **size()**       | **O(1)** / **O(1)**           | **O(1)** / **O(1)**        |
+
+- **ArrayStack:** `push()` takes **O(1)** on average, but can occasionally take **O(n)** time due to dynamic array resizing in PHP. Total space complexity is **O(n)**.
+- **ArrayStack：** `push()` は平均 **O(1)** だけど、PHP内部の動的配列のリサイズにより一時的に **O(n)** になることがある。全体の空間計算量は **O(n)**
+- **LinkedStack:** All operations strictly guarantee **O(1)** time because elements are manipulated directly at the `head` node without any data shifting.
+- **LinkedStack：** データのシフトが発生せず、常に `head`で要素を操作するため、すべての操作で厳密に **O(1)** 時間を保証する。
+
+---
+
+### 2. Algorithm Specification: `isValidParentheses` / アルゴリズムの仕様
+
+- **Handling of Non-Parentheses Characters:**
+    - **Choice:** **IGNORE**
+    - **Description:** Any characters other than `()`, `[]`, and `{}` are explicitly ignored. This approach allows the function to seamlessly validate the logical nesting of brackets within text or mathematical expressions.
+
+- **かっこ以外の文字の扱い：**
+    - **選択：** **無視 (IGNORE)**
+    - **説明：** `()`, `[]`, `{}` 以外の文字はすべて明示的に無視する。これにより、数式や文章の中に含まれるかっこであっても、その論理的な入れ子構造だけを正確に検証できる。
+
+---
