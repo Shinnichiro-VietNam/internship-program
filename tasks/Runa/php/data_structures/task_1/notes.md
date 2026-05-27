@@ -229,3 +229,39 @@ When distributing the total cost of these rare resizes across a long sequence of
 - **平衡二分探索木:** データの追加や削除のたびに、木が自動的に回転してバランスを整える **AVL木** や **赤黒木（Red-Black Tree）** といった発展的なデータ構造が存在する。
 
 ---
+
+# Exercise 11: Min-Heap (Basics) / 最小ヒープの基本
+
+### 1. Array-Based Representation / 配列による表現ルール
+
+- **Root Location / 根の位置:** Index `0` (0番目をルートとして使う)
+- **Parent Index / 親のインデックス:** `(int)floor(($i - 1) / 2)`
+- **Left Child / 左の子:** `2 * $i + 1`
+- **Right Child / 右の子:** `2 * $i + 2`
+
+---
+
+### 2. Time Complexity / 計算量
+
+| Method / メソッド                 | Time Complexity / 時間計算量 |
+| :-------------------------------- | :--------------------------- |
+| **insert()** (挿入)               | **O(log n)**                 |
+| **extractMin()** (最小値取り出し) | **O(log n)**                 |
+
+#### Why? / なぜ O(log n) か？
+
+- **Tree Height / 木の高さ:**
+  A Min-Heap is always a _Complete Binary Tree_, so its height is at most $\log_2 n$.
+  (ヒープは隙間なく詰まった完全二分木なので、木の高さは $\log_2 n$ に収まる)
+
+- **insert():**
+  Appends to the bottom and moves up (`siftUp`).
+  Worst case takes steps equal to the tree height ➔ **O(log n)**.
+  (一番下に追加して上へ入れ替えていくので、最悪でも木の高さ分しか動かない)
+
+- **extractMin():**
+  Moves the last element to the root and sinks down (`siftDown`).
+  Worst case also takes steps equal to the tree height ➔ **O(log n)**.
+  (ルート削除後に末尾要素を上へ持ってきて下へ沈めるので、こちらも最悪で木の高さ分だけ動く)
+
+---
