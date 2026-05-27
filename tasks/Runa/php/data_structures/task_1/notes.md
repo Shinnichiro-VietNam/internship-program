@@ -202,10 +202,30 @@ When distributing the total cost of these rare resizes across a long sequence of
 ### 2. Deletion Strategy (3 Cases) / 削除の3つのケース
 
 - **Case 0 (Leaf node):** Remove the node immediately by setting its parent's pointer to `null`.
-    - **子ノードが0個:** 対象のノードをそのまま削除し、親からのポインタを `null` にします。
+    - **子ノードが0個:** 対象のノードをそのまま削除し、親からのポインタを `null` にする。
 - **Case 1 (1 child):** Replace the node with its only child, bypassing the deleted node entirely.
-    - **子ノードが1個:** 対象のノードをスキップし、その「唯一の子ノード」を親に直接つなぎ替えます。
+    - **子ノードが1個:** 対象のノードをスキップし、その唯一の子ノードを親に直接つなぎ替える。
 - **Case 2 (2 children):** Find the _inorder successor_ (the smallest value in the right subtree), copy its value into the target node, and then recursively delete that successor node.
-    - **子ノードが2個:** 右側の枝の中で「一番小さい値」を探してきて自分の値を上書きし、右側の枝からそのコピー元の古いノードを再帰的に削除します。
+    - **子ノードが2個:** 右側の枝の中で「一番小さい値」を探してきて自分の値を上書きし、右側の枝からそのコピー元の古いノードを再帰的に削除する。
+
+---
+
+## Exercise 10: BST Practice / 二分探索木の応用
+
+### 1. Skewed Tree and Worst-Case O(n) / 偏った木と最悪計算量
+
+- **Worst-Case Complexity:** **O(n)** for search, insert, and delete operations.
+- **Why it happens:** If data is inserted in an already sorted order, the BST transforms into a straight line resembling a Linked List. It loses its branching advantage, meaning we must traverse all $n$ nodes sequentially.
+- **最悪計算量 O(n):** 探索・挿入・削除のすべてが最悪の場合 **O(n)** になる。
+- **原因:** すでにソートされたデータ（例: `[1, 2, 3, 4, 5]`）をそのまま順番に挿入すると、木が左右に枝分かれせず一直線に伸びてしまい、実質的に連結リストと同じ構造になってしまう.
+
+---
+
+### 2. Tree Balancing / 木の平衡（バランス）について
+
+- **Solution for O(log n):** To guarantee an optimal **O(log n)** time complexity, the tree must be kept "balanced" (the left and right subtrees maintain nearly equal heights).
+- **Self-Balancing Trees:** Advanced data structures like **AVL Trees** or **Red-Black Trees** automatically rotate and re-balance themselves during insertion or deletion to prevent skewing.
+- **解決策:** 常に高速な **O(log n)** を維持するためには、左右の枝の高さが均等になるよう木を平衡に保つ必要がある。
+- **平衡二分探索木:** データの追加や削除のたびに、木が自動的に回転してバランスを整える **AVL木** や **赤黒木（Red-Black Tree）** といった発展的なデータ構造が存在する。
 
 ---
