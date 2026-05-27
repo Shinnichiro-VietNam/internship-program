@@ -164,3 +164,48 @@ When distributing the total cost of these rare resizes across a long sequence of
 
 - **Hash Collision:** If many keys hash to the exact same bucket, the chain becomes long. Searching inside that bucket turns into a sequential search, degrading the time complexity towards **O(n)**.
 - **ハッシュ衝突:** 多くのキーが同じバケツに集中すると、バケツの中の配列が長くなります。そのバケツ内を走査するために結局ループを回す必要があるため、最悪の場合 **O(n)** まで遅くなってしまう。
+
+---
+
+## Exercise 8: Hash Table Practice / ハッシュテーブルの実践
+
+### 1. Complexity of Functions / 各関数の計算量
+
+| Function / 関数         | Time Complexity / 時間計算量 | Space Complexity / 空間計算量 |
+| :---------------------- | :--------------------------- | :---------------------------- |
+| **twoSum()**            | **O(n)**                     | **O(n)**                      |
+| **firstNonRepeating()** | **O(n)**                     | **O(1)**                      |
+| **groupAnagrams()**     | **O(n \* m log m)**          | **O(n \* m)**                 |
+
+### 2. Brief Descriptions / 理由の解説
+
+- **twoSum:** Single-pass loop checking the hash table for the complement. Average table lookup takes O(1), resulting in **O(n)** total time.
+- **firstNonRepeating:** Two independent passes over the string. Characters are bound to standard ASCII/extended sets, keeping table space at **O(1)**.
+- **groupAnagrams:** Iterates through `n` words, sorting each word of length `m` which takes O(m \log m) time. Groups are aggregated efficiently using the hash table.
+
+- **twoSum:** 配列を1周する間にハッシュテーブルから相方を平均 O(1) で探すため、全体で **O(n)**。
+- **firstNonRepeating:** 文字列を2周（独立したループ）走査。文字の種類は高々256種のため、空間計算量は最大でも定数の **O(1)**。
+- **groupAnagrams:** `n` 個の単語を走査し、長さ `m` の単語をソートするのに O(m \log m) かかるため、全体で **O(n \* m \log m)**。
+
+---
+
+# Exercise 9: Binary Search Tree (BST) / 二分探索木
+
+### 1. BST Invariant & Duplicate Rules / BSTの不変条件と重複ルール
+
+- **BST Invariant (不変条件):** For every node, all values in its left subtree are less than or equal to the node's value, and all values in its right subtree are greater than the node's value.
+- **不変条件の補足:** すべてのノードにおいて、「左側のすべての子孫ノードの値 \le 自分の値 < 右側のすべての子孫ノードの値」という配置ルールが常に保たれる。
+- **Duplicate Rule (重複の扱い):** "Equal goes left" (等しい値はすべて左側の枝へ挿入・検索する).
+
+---
+
+### 2. Deletion Strategy (3 Cases) / 削除の3つのケース
+
+- **Case 0 (Leaf node):** Remove the node immediately by setting its parent's pointer to `null`.
+    - **子ノードが0個:** 対象のノードをそのまま削除し、親からのポインタを `null` にします。
+- **Case 1 (1 child):** Replace the node with its only child, bypassing the deleted node entirely.
+    - **子ノードが1個:** 対象のノードをスキップし、その「唯一の子ノード」を親に直接つなぎ替えます。
+- **Case 2 (2 children):** Find the _inorder successor_ (the smallest value in the right subtree), copy its value into the target node, and then recursively delete that successor node.
+    - **子ノードが2個:** 右側の枝の中で「一番小さい値」を探してきて自分の値を上書きし、右側の枝からそのコピー元の古いノードを再帰的に削除します。
+
+---
