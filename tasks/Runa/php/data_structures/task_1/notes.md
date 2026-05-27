@@ -265,3 +265,27 @@ When distributing the total cost of these rare resizes across a long sequence of
   (ルート削除後に末尾要素を上へ持ってきて下へ沈めるので、こちらも最悪で木の高さ分だけ動く)
 
 ---
+
+## Exercise 12: Graph (Adjacency List) + BFS & DFS
+
+### 1. Graph Implementation Details
+
+- **DFS Approach:** Recursive DFS is implemented (`dfsRec`).
+- **無向グラフの表現:** 隣接リストを使用。辺の追加時（`addEdge`）に、双方のリストへお互いのIDを登録する。
+
+---
+
+### 2. BFS vs DFS Comparison
+
+| Feature            | BFS (Breadth-First Search)             | DFS (Depth-First Search)                 |
+| :----------------- | :------------------------------------- | :--------------------------------------- |
+| **Data Structure** | Queue (FIFO)                           | Stack / Recursion (LIFO)                 |
+| **Search Style**   | 近い順に輪を広げるように探索           | 行ける底まで突き進んでから戻る           |
+| **Best Used For**  | 最短経路（最短ステップ）のバウンド探索 | 全経路の網羅、迷路の解法、依存関係の解決 |
+
+#### 💡 When to use which? / どっちをいつ使うか？
+
+- **BFSを使うべきケース:** ネットワーク上の一番近いターゲットや、最小の手数を確実に知りたいとき。エッジの数が最小のルートが最初に見つかる保証がある。
+- **When to use BFS:** When you need to reliably find the nearest target in a network or the path with the fewest steps (the shortest path). It guarantees that the route with the fewest edges will be found first.
+- **DFSを使うべきケース:** グラフの奥深くまで探索したいときや、すべてのルートを網羅してチェックしたいとき。行き止まりまで進んで戻る挙動（バックトラック）が必要なパズルや迷路の解決に向いている。
+- **When to use DFS:** When you want to explore deep into a graph or check all possible paths. It is well-suited for solving puzzles and mazes that require backtracking—that is, moving forward until reaching a dead end and then returning.
