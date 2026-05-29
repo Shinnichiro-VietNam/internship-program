@@ -79,10 +79,10 @@ class CircularArrayDeque {
 
 function isPalindrome(string $s): bool {
     $deque = new CircularArrayDeque();
+
     foreach (str_split($s) as $char) {
-        $deque->addFirst($char);
+        $deque->addLast($char);
     }
-    return $deque->peekFirst() === $deque->peekLast();
 
     while ($deque->size() > 1) {
         if ($deque->removeFirst() !== $deque->removeLast()) {
