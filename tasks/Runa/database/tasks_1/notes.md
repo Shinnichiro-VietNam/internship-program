@@ -328,13 +328,13 @@ WHERE e.salary > dept_avg.avg_sal;
 
 ### 結論
 
-レビューテーブルに著者名（author）を保存するのは、**第3正規形（3NF）違反**です。
+レビューテーブルに著者名を保存するのは、**第3正規形（3NF）違反**。
 
 ### 理由
 
-著者名は本（`books` テーブル）の情報です。`reviews` テーブルに保存すると、同じ著者名が何度も重複して保存されます。著者名が変更された場合、複数のレコードを更新する必要があり、データ不整合の原因になります。
+著者名は本（`books` テーブル）の情報。`reviews` テーブルに保存すると、同じ著者名が何度も重複して保存される。著者名が変更された場合、複数のレコードを更新する必要があり、データ不整合の原因になる。
 
-そのため、著者名は **`books` テーブルのみに保存**し、必要なときに **JOIN** を使って取得するのが適切です。
+そのため、著者名は **`books` テーブルのみに保存**し、必要なときに **JOIN** を使って取得するのが適切。
 
 ### Conclusion
 
@@ -345,3 +345,27 @@ Storing the author name in the `reviews` table is a **Third Normal Form (3NF) vi
 The author name belongs to the `books` table. If it is stored in the `reviews` table, the same author name will be duplicated across many rows. If the author's name changes, multiple records must be updated, which can lead to data inconsistency.
 
 Therefore, the author name should be stored **only in the `books` table** and retrieved using a **JOIN** when needed.
+
+---
+
+---
+
+# Exercise 13: Views, Constraints, Ranking, and PHP Connection
+
+## 3. UNIQUE (customer_id, book_id) の一長一短 / Trade-offs of UNIQUE Constraint
+
+- **メリット / Pros**:
+    - **日本語**: 同じ人が同じ本に2回以上レビューを書くバグや不正を防げる。
+    - **English**: Prevents duplicate or spam reviews from the same customer for the same book.
+- **デメリット / Cons**:
+    - **日本語**: 数年後にまた読んで追記したい改訂版にレビューしたいという再投稿も拒否されてしまう。
+    - **English**: Blocks legitimate re-reviews, such as updating thoughts years later or reviewing a newer edition.
+
+## 4. PHP (PDO) 接続のイメージ / Database Connection using PHP PDO
+
+- **1. 接続の準備 / Setup Connection**:
+    - **日本語**: データベースの場所、名前、パスワードを準備して接続する。
+    - **English**: Create a DSN string with database host, name, and credentials to connect.
+- **2. 安全対策 (プレースホルダ) / Security (Prepared Statements)**:
+    - **日本語**: SQLに直接文字を入れず、`prepare()` を使ってハッカーの攻撃を完璧に防ぐ。
+    - **English**: Use `prepare()` and placeholders to protect the database from SQL injection attacks.
