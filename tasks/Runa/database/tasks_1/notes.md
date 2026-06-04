@@ -119,3 +119,18 @@ When a parent record is deleted, all related child records are automatically del
 関連データをまとめて削除したい場合に便利。
 
 This is useful when you want to remove related data at the same time.
+
+# Exercise 4: INNER JOIN
+
+## 4. 営業部社員の絞り込みについて / Filtering Employees in the Sales Department
+
+- **選んだ方法 / Chosen Approach**
+    - `INNER JOIN` でテーブルを結合した後、`WHERE d.dept_name = '営業'` を使用して営業部の社員だけを絞り込んだ。
+    - I chose to join the tables using `INNER JOIN` and then filter the results with `WHERE d.dept_name = '営業'`.
+
+- **理由 / Reason**
+    - SQLの基本的な流れ（結合 ➔ 絞り込み）に沿っており、コードがシンプルで読みやすいため。
+    - This follows the standard SQL workflow (JOIN → FILTER), making the query simple and easy to read.
+
+    - また、どの条件で結果を絞り込んでいるのかが明確になり、保守もしやすくなる。
+    - It also makes the filtering condition clear and improves maintainability.
