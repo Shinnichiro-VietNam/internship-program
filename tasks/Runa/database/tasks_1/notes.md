@@ -280,3 +280,42 @@ WHERE e.salary > dept_avg.avg_sal;
 
 - データベースの負担を減らせる。
 - It reduces database workload.
+
+---
+
+# Exercise 11: Transactions
+
+## 4. ECサイトでトランザクションが重要な理由 / Why Transactions Are Important in E-commerce
+
+- トランザクションは、複数の処理をまとめて安全に実行する仕組み。
+- A transaction is a way to run multiple operations safely as one unit.
+
+---
+
+### なぜ必要か / Why it is needed
+
+- ECサイトでは「注文・支払い・在庫更新」がセットで動く。
+- In e-commerce, order, payment, and stock updates happen together.
+
+- 途中で1つでも失敗すると、データがバラバラになる可能性がある。
+- If one step fails, data can become inconsistent.
+
+---
+
+### トランザクションの役割 / Role of Transactions
+
+- すべて成功したら確定（COMMIT）
+- If everything succeeds, changes are saved (COMMIT)
+
+- 1つでも失敗したら全部戻す（ROLLBACK）
+- If anything fails, everything is undone (ROLLBACK)
+
+---
+
+### まとめ / Summary
+
+- データの矛盾を防ぐために必要
+- Prevents data inconsistency
+
+- お金や在庫を安全に管理できる
+- Keeps money and inventory data safe and reliable
