@@ -47,3 +47,75 @@
 [departments] 1 ───> \* [employees]
 
 [customers] 1 ───> _ [orders] 1 ───> _ [order_items] \* <─── 1 [books]
+
+# ex_3.spl
+
+## 5. 開発部署の削除エラーについて / Deletion Error
+
+**エラーメッセージ / Error Message**
+
+**エラーメッセージ / Error Message**
+
+```sql
+Cannot delete or update a parent row: a foreign key constraint fails
+(`internship_bookstore`.`employees`,
+ CONSTRAINT `fk_employees_department`
+ FOREIGN KEY (`dept_id`)
+ REFERENCES `departments` (`dept_id`)
+ ON DELETE RESTRICT
+ ON UPDATE CASCADE)
+```
+
+**なぜ失敗したのか / Why it failed**
+
+開発部署に所属している社員のデータがまだ残っているため。
+
+Because employee records that belong to the Development department still exist.
+
+部署を先に削除すると、社員がどの部署に所属しているかわからなくなってしまう。
+
+If the department is deleted first, the employee records would lose their department reference.
+
+そのため、外部キー制約によって削除が禁止された。
+
+Therefore, the foreign key constraint prevented the deletion.
+
+---
+
+# 6. RESTRICT と CASCADE の違い / Difference Between RESTRICT and CASCADE
+
+## ON DELETE RESTRICT
+
+親データに関連する子データがある場合、削除できない。
+
+A parent record cannot be deleted if related child records still exist.
+
+**例 / Example**
+
+- 部署に社員がいる
+- There are employees in a department
+- → 部署は削除できない
+- → The department cannot be deleted
+
+データを誤って消さないための安全な設定。
+
+This is a safe setting that helps prevent accidental data loss.
+
+---
+
+## ON DELETE CASCADE
+
+親データを削除すると、関連する子データも自動で削除される。
+
+When a parent record is deleted, all related child records are automatically deleted as well.
+
+**例 / Example**
+
+- 注文を削除する
+- Delete an order
+- → その注文の注文明細も自動で削除される
+- → The related order items are also deleted automatically
+
+関連データをまとめて削除したい場合に便利。
+
+This is useful when you want to remove related data at the same time.
