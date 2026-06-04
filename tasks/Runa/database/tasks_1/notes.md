@@ -240,3 +240,43 @@ WHERE e.salary > dept_avg.avg_sal;
 
 - サブクエリ版と同じ結果になる。
 - This produces the same result as the subquery version.
+
+---
+
+# Exercise 10: Indexes and EXPLAIN
+
+## 1〜4. EXPLAIN の結果まとめ / EXPLAIN Output Summary
+
+### クエリ1 (email検索) / Query 1 (Search by Email)
+
+- `type`: `ALL` または `const`
+- `key`: `NULL` または email のインデックス
+
+### クエリ3 (hire_date検索) / Query 3 (Search by Hire Date)
+
+- `type`: `range`
+- `key`: `idx_employees_hire_date`
+
+### クエリ4 (3テーブル結合) / Query 4 (3-Table Join)
+
+- `type`: `eq_ref`、`ref`、または `ALL`
+- `key`: `PRIMARY` や外部キーのインデックス
+
+---
+
+## 5. インデックス（索引）のメリット / Benefits of Indexes
+
+- インデックスは本の「索引」と同じ。
+- An index is like the index of a book.
+
+- インデックスがないと、全データを順番に探す必要がある。
+- Without an index, the database checks all rows one by one.
+
+- インデックスがあると、必要なデータをすぐ見つけられる。
+- With an index, the database can find data much faster.
+
+- 検索速度が速くなる。
+- Queries run faster.
+
+- データベースの負担を減らせる。
+- It reduces database workload.
