@@ -177,3 +177,28 @@ This is useful when you want to remove related data at the same time.
 
 - まだ売れていない本
 - Books with no sales
+
+# Exercise 7: HAVING vs WHERE
+
+## 5. HAVING が WHERE の代わりにならない理由 / Why HAVING Cannot Replace WHERE
+
+- `WHERE` は集計する前にデータを絞り込む。
+- `WHERE` filters data before grouping.
+
+- `HAVING` は集計した後に結果を絞り込む。
+- `HAVING` filters results after grouping.
+
+- `WHERE` を使うと、最初から不要なデータを除外できる。
+- `WHERE` removes unnecessary data before processing.
+
+- `HAVING` だけを使うと、不要なデータまで集計してしまう。
+- Using only `HAVING` means extra data is grouped unnecessarily.
+
+- そのため、処理が遅くなったり効率が悪くなったりする。
+- This can make queries slower and less efficient.
+
+**流れ / Order**
+
+1. `WHERE`
+2. `GROUP BY`
+3. `HAVING`
