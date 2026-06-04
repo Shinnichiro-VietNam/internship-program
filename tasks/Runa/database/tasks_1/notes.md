@@ -134,3 +134,46 @@ This is useful when you want to remove related data at the same time.
 
     - また、どの条件で結果を絞り込んでいるのかが明確になり、保守もしやすくなる。
     - It also makes the filtering condition clear and improves maintainability.
+
+# Exercise 5: LEFT JOIN and NULL
+
+## 3. 売れた合計冊数の集計について / Book Sales
+
+- **工夫した点 / Approach**
+    - `COALESCE` を使って、売れていない本も `0` と表示した。
+    - Used `COALESCE` so unsold books are shown as `0`.
+
+    - キャンセルされた注文は集計に含めていない。
+    - Excluded cancelled orders from the total sales count.
+
+---
+
+## 4. INNER JOIN と LEFT JOIN の違い / INNER JOIN vs LEFT JOIN
+
+### INNER JOIN
+
+- 両方のテーブルにあるデータだけ表示する。
+- Shows only matching data from both tables.
+
+**例 / Example**
+
+- 社員と所属部署
+- Employees and their departments
+
+---
+
+### LEFT JOIN
+
+- 左側のテーブルのデータをすべて表示する。
+- Shows all records from the left table.
+
+- 関連データがない場合は `NULL` になる。
+- If no matching data exists, the result is `NULL`.
+
+**例 / Example**
+
+- 注文していない顧客
+- Customers with no orders
+
+- まだ売れていない本
+- Books with no sales
