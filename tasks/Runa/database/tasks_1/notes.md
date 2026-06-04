@@ -319,3 +319,29 @@ WHERE e.salary > dept_avg.avg_sal;
 
 - お金や在庫を安全に管理できる
 - Keeps money and inventory data safe and reliable
+
+---
+
+---
+
+# Exercise 12: Mini Design + DDL
+
+### 結論
+
+レビューテーブルに著者名（author）を保存するのは、**第3正規形（3NF）違反**です。
+
+### 理由
+
+著者名は本（`books` テーブル）の情報です。`reviews` テーブルに保存すると、同じ著者名が何度も重複して保存されます。著者名が変更された場合、複数のレコードを更新する必要があり、データ不整合の原因になります。
+
+そのため、著者名は **`books` テーブルのみに保存**し、必要なときに **JOIN** を使って取得するのが適切です。
+
+### Conclusion
+
+Storing the author name in the `reviews` table is a **Third Normal Form (3NF) violation**.
+
+### Reason
+
+The author name belongs to the `books` table. If it is stored in the `reviews` table, the same author name will be duplicated across many rows. If the author's name changes, multiple records must be updated, which can lead to data inconsistency.
+
+Therefore, the author name should be stored **only in the `books` table** and retrieved using a **JOIN** when needed.
