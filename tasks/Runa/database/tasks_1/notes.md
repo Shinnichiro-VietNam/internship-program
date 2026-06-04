@@ -120,6 +120,8 @@ When a parent record is deleted, all related child records are automatically del
 
 This is useful when you want to remove related data at the same time.
 
+---
+
 # Exercise 4: INNER JOIN
 
 ## 4. 営業部社員の絞り込みについて / Filtering Employees in the Sales Department
@@ -134,6 +136,8 @@ This is useful when you want to remove related data at the same time.
 
     - また、どの条件で結果を絞り込んでいるのかが明確になり、保守もしやすくなる。
     - It also makes the filtering condition clear and improves maintainability.
+
+---
 
 # Exercise 5: LEFT JOIN and NULL
 
@@ -178,6 +182,8 @@ This is useful when you want to remove related data at the same time.
 - まだ売れていない本
 - Books with no sales
 
+---
+
 # Exercise 7: HAVING vs WHERE
 
 ## 5. HAVING が WHERE の代わりにならない理由 / Why HAVING Cannot Replace WHERE
@@ -202,3 +208,35 @@ This is useful when you want to remove related data at the same time.
 1. `WHERE`
 2. `GROUP BY`
 3. `HAVING`
+
+---
+
+# Exercise 8: Subqueries
+
+## 2. クエリ2を JOIN で書いた場合の別解 / Rewrite with JOIN
+
+```sql
+SELECT e.full_name, e.salary, e.dept_id
+FROM employees AS e
+INNER JOIN (
+    SELECT dept_id, AVG(salary) AS avg_sal
+    FROM employees
+    GROUP BY dept_id
+) AS dept_avg
+ON e.dept_id = dept_avg.dept_id
+WHERE e.salary > dept_avg.avg_sal;
+```
+
+### 説明 / Explanation
+
+- 部署ごとの平均給与を求めるサブクエリを作成する。
+- Create a subquery that calculates the average salary for each department.
+
+- `INNER JOIN` で社員データと平均給与を結合する。
+- Join employee data with the department averages using `INNER JOIN`.
+
+- 自分の部署の平均給与より高い社員だけを表示する。
+- Show only employees whose salary is higher than their department's average salary.
+
+- サブクエリ版と同じ結果になる。
+- This produces the same result as the subquery version.
