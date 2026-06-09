@@ -50,7 +50,7 @@
 | GET    | Read (読み取り)           | Yes                   | Yes         |
 | POST   | Create (作成)             | No                    | No          |
 | PUT    | Replace full (全置換)     | Yes                   | No          |
-| PATCH  | Update partial (一部更新) | Usually No            | No          |
+| PATCH  | Update partial (一部更新) | Usually               | No          |
 | DELETE | Remove (削除)             | Yes                   | No          |
 
 ---
@@ -65,3 +65,40 @@
 | 4   | Create with invalid JSON                     | POST   | 400         | Bad request        |
 | 5   | Delete existing book                         | DELETE | 204         | No content         |
 | 6   | `POST /api/books/5` (not in your API design) | POST   | 405         | Method not allowed |
+
+---
+
+# Exercise 4: API Design
+
+## 1. エンドポイント一覧 (Endpoints)
+
+| Method | Path              | What it does                       | Success | Response                   |
+| :----- | :---------------- | :--------------------------------- | :------ | :------------------------- |
+| GET    | `/api/books`      | 本の一覧を取得する                 | 200     | 本の配列                   |
+| GET    | `/api/books/{id}` | 特定の本の情報を取得する           | 200     | 本1冊のオブジェクト        |
+| POST   | `/api/books`      | 新しい本を登録する                 | 201     | 登録された本のオブジェクト |
+| PUT    | `/api/books/{id}` | 本のすべての情報を丸ごと上書きする | 200     | 更新後の本のオブジェクト   |
+| PATCH  | `/api/books/{id}` | 本の一部だけを更新する             | 200     | 更新後の本のオブジェクト   |
+| DELETE | `/api/books/{id}` | 本を削除する                       | 204     | なし                       |
+
+## 2. バリデーションルール (Validation Rules)
+
+本を登録（POST）したり更新（PUT/PATCH）したりするとき、条件を満たさないデータが送られてきたらエラーにする。
+
+- `title`: 必須　(空文字✕)
+- `author`: 必須 (空文字✕)
+- `price`: price > 0 （0より大きい整数）
+- `stock_qty`: stock_qty >= 0 （0以上の整数）
+
+## 3. エラーレスポンスの形式 (Error JSON Shape)
+
+エラー（400や404など）が発生したときは、シンプルなJSON形式でクライアントに返事をする。
+
+```json
+{
+    "error": {
+        "code": "BAD_REQUEST",
+        "message": "Need to positive number"
+    }
+}
+```
