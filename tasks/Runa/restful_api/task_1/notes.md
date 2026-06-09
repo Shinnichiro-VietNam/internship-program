@@ -72,27 +72,28 @@
 
 ## 1. エンドポイント一覧 (Endpoints)
 
-| Method | Path              | What it does                       | Success | Response                   |
-| :----- | :---------------- | :--------------------------------- | :------ | :------------------------- |
-| GET    | `/api/books`      | 本の一覧を取得する                 | 200     | 本の配列                   |
-| GET    | `/api/books/{id}` | 特定の本の情報を取得する           | 200     | 本1冊のオブジェクト        |
-| POST   | `/api/books`      | 新しい本を登録する                 | 201     | 登録された本のオブジェクト |
-| PUT    | `/api/books/{id}` | 本のすべての情報を丸ごと上書きする | 200     | 更新後の本のオブジェクト   |
-| PATCH  | `/api/books/{id}` | 本の一部だけを更新する             | 200     | 更新後の本のオブジェクト   |
-| DELETE | `/api/books/{id}` | 本を削除する                       | 204     | なし                       |
+| Method | Path              | What it does                                                                  | Success | Response                                           |
+| :----- | :---------------- | :---------------------------------------------------------------------------- | :------ | :------------------------------------------------- |
+| GET    | `/api/books`      | 本の一覧を取得する Get a list of books                                        | 200     | 本の配列 Book Arrangement                          |
+| GET    | `/api/books/{id}` | 特定の本の情報を取得する Retrieve information about a specific book           | 200     | 本1冊のオブジェクト　A book object                 |
+| POST   | `/api/books`      | 新しい本を登録する Register a new book                                        | 201     | 登録された本のオブジェクト Registered book objects |
+| PUT    | `/api/books/{id}` | 本のすべての情報を丸ごと上書きする Overwrite the entire contents of the book. | 200     | 更新後の本のオブジェクト　Updated book object      |
+| PATCH  | `/api/books/{id}` | 本の一部だけを更新する Only a portion of the book will be updated.            | 200     | 更新後の本のオブジェクト Updated book object       |
+| DELETE | `/api/books/{id}` | 本を削除する Delete a book                                                    | 204     | なし No                                            |
 
 ## 2. バリデーションルール (Validation Rules)
 
-本を登録（POST）したり更新（PUT/PATCH）したりするとき、条件を満たさないデータが送られてきたらエラーにする。
+本を登録（POST）したり更新（PUT/PATCH）したりするとき、条件を満たさないデータが送られてきたらエラーにする。When registering (POST) or updating (PUT/PATCH) books, an error should be generated if data that does not meet the specified conditions is sent.
 
-- `title`: 必須　(空文字✕)
-- `author`: 必須 (空文字✕)
-- `price`: price > 0 （0より大きい整数）
-- `stock_qty`: stock_qty >= 0 （0以上の整数）
+- `title`: 必須 Required　(空文字✕　empty string ✕)
+- `author`: 必須 Required (空文字✕　empty string ✕)
+- `price`: price > 0 （0より大きい整数 integer greater than 0）
+- `stock_qty`: stock_qty >= 0 （0以上の整数 integer greater than or equal to 0）
 
 ## 3. エラーレスポンスの形式 (Error JSON Shape)
 
 エラー（400や404など）が発生したときは、シンプルなJSON形式でクライアントに返事をする。
+When an error occurs (such as 400 or 404), a simple JSON response is sent to the client.
 
 ```json
 {
