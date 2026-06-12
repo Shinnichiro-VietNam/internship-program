@@ -20,12 +20,18 @@ WHERE
 GROUP BY
     oi.order_id;
 
-SELECT b.book_id, b.title, COALESCE(SUM(oi.quantity), 0) AS total_qty_sold
+SELECT b.book_id, b.title, COALESCE(
+        SUM(
+            CASE
+                WHEN o.order_id IS NOT NULL
+                AND o.status <> 'cancelled' THEN oi.quantity
+            END
+        ), 0
+    ) AS total_qty_sold
 FROM
     books AS b
     LEFT JOIN order_items AS oi ON b.book_id = oi.book_id
     LEFT JOIN orders AS o ON oi.order_id = o.order_id
-    AND o.status != 'cancelled'
 GROUP BY
     b.book_id,
     b.title;
