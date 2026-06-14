@@ -1,0 +1,21 @@
+info:
+  name: Patch Book
+  type: http
+  seq: 8
+
+http:
+  method: PATCH
+  url: http://127.0.0.1:8080/api/books/1
+  body:
+    type: json
+    data: |-
+      {
+      "title": "タイトルだけ変える"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

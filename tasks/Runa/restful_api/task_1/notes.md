@@ -68,6 +68,18 @@
 
 ---
 
+# Exercise 3
+
+| #   | Request            | Expect | Status        | Note                                               |
+| --- | ------------------ | ------ | ------------- | -------------------------------------------------- |
+| 1   | GET /api/health    | 200    | 200 OK        | {"status":"ok"} が返ることを確認                   |
+| 2   | GET /api/books     | 200    | 200 OK        | 本の一覧が配列で返ることを確認                     |
+| 3   | GET /api/books/1   | 200    | 200 OK        | IDが1の本が1件だけ返ることを確認                   |
+| 4   | GET /api/books/999 | 404    | 404 Not Found | NOT_FOUND エラーが返ることを確認                   |
+| 5   | POST /api/books    | 201    | 201 Created   | 新しい本が登録され、IDが自動で採番されることを確認 |
+
+---
+
 # Exercise 4: API Design
 
 ## 1. エンドポイント一覧 (Endpoints)
@@ -103,3 +115,32 @@ When an error occurs (such as 400 or 404), a simple JSON response is sent to the
     }
 }
 ```
+
+---
+
+# Exercise 8
+
+| #   | Request                   | Expect | Status          | Summary / Note                                       |
+| --- | ------------------------- | ------ | --------------- | ---------------------------------------------------- |
+| 5   | POST /api/books           | 201    | 201 Created     | 本が登録されLocationヘッダーが返ることを確認         |
+| 6   | PUT /api/books/2          | 200    | 200 OK          | 指定したIDの本がすべて上書きされることを確認         |
+| 7   | PATCH /api/books/2        | 200    | 200 OK          | 送った項目だけが更新されることを確認                 |
+| 8   | DELETE /api/books/2       | 204    | 204 No Content  | データが削除され、中身が空で返ることを確認           |
+| 9   | POST /api/books (Invalid) | 400    | 400 Bad Request | バリデーションに引っかかりエラーJSONが返ることを確認 |
+
+## Reflection
+
+### Q1. Auth later? (認証は後回しでよかった？)
+
+- First, we needed to make sure the core CRUD functionality works perfectly. Delaying authentication helped focus on the basic API logic without unnecessary complexity.
+- まずはAPIの基本機能を確実に動かすことが最優先なので、認証を後回しにして正解。
+
+### Q2. JSON file vs SQL books table? (JSONファイルとSQLテーブルの違いは？)
+
+- JSON files are easy to use for small projects, but they read and write the whole file every time, which becomes slow with large data. SQL databases handle massive data efficiently, securely, and support complex relations.
+- JSONファイルは手軽ですが、データが増えると毎回全読み書きが発生するため遅くなる。SQLを使えば、大量のデータでも高速・安全に管理できます。
+
+### Q3. What would Laravel change (high level)? (Laravelを使ったら何が変わる？)
+
+- Laravel would handle routing, automatic JSON parsing, request validation, and database operations out of the box. This would dramatically reduce the amount of boilerplate code we had to write manually.
+- URLの判定やバリデーション、JSONの変換、データの保存処理などをLaravelがすべて自動でやってくれるため、手書きするコードの量が劇的に減る。
