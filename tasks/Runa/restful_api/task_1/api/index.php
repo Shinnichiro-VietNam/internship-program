@@ -1,23 +1,34 @@
 <?php
 header("Content-Type: application/json; charset=utf-8");
 
+enum ErrorCode: string {
+    case BadRequest = 'BAD_REQUEST';
+    case NotFound = 'NOT_FOUND';
+    case MethodNotAllowed = 'METHOD_NOT_ALLOWED';
+}
+
+function method_not_allowed(array $allowedMethods) {
+    http_response_code(405);
+    header('Allow: ' . implode(', ', $allowedMethods));
+    echo json_encode(["error" => ["code" => ErrorCode::MethodNotAllowed->value]]);
+    exit;
+}
+
 $method = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
+$requestUri = $_SERVER['REQUEST_URI'];
+$path = parse_url($requestUri, PHP_URL_PATH);
 $jsonPath = __DIR__ . '/../data/books.json';
 
-if ($uri === '/api/health') {
+if ($path === '/api/health') {
     if ($method !== 'GET') {
-        http_response_code(405);
-        echo json_encode(["error" => ["code" => "METHOD_NOT_ALLOWED"]]);
-        exit;
+        method_not_allowed(['GET']);
     }
     http_response_code(200);
     echo json_encode(["status" => "ok"]);
     exit;
 }
 
-if ($uri === '/api/books' || str_starts_with($uri, '/api/books?')) {
-
+if ($path === '/api/books') {
     if ($method === 'GET') {
         $books = json_decode(file_get_contents($jsonPath), true);
         if (isset($_GET['author'])) {
@@ -62,22 +73,28 @@ if ($uri === '/api/books' || str_starts_with($uri, '/api/books?')) {
 
         if (empty($data['title']) || empty($data['author'])) {
             http_response_code(400);
-            echo json_encode(["error" => ["code" => "BAD_REQUEST", "message" => "Title and Author are required"]]);
+            echo json_encode(["error" => ["code" => ErrorCode::BadRequest->value, "message" => "Title and Author are required"]]);
             exit;
         }
         if (isset($data['price']) && $data['price'] <= 0) {
             http_response_code(400);
-            echo json_encode(["error" => ["code" => "BAD_REQUEST", "message" => "Price must be positive"]]);
+            echo json_encode(["error" => ["code" => ErrorCode::BadRequest->value, "message" => "Price must be positive"]]);
             exit;
         }
         if (isset($data['stock_qty']) && $data['stock_qty'] < 0) {
             http_response_code(400);
-            echo json_encode(["error" => ["code" => "BAD_REQUEST", "message" => "Stock quantity cannot be negative"]]);
+            echo json_encode(["error" => ["code" => ErrorCode::BadRequest->value, "message" => "Stock quantity cannot be negative"]]);
             exit;
         }
 
         $books = json_decode(file_get_contents($jsonPath), true);
-        $newId = count($books) + 1;
+        $maxId = 0;
+        foreach ($books as $book) {
+            if (isset($book['id']) && $book['id'] > $maxId) {
+                $maxId = $book['id'];
+            }
+        }
+        $newId = $maxId + 1;
 
         $newBook = [
             "id" => $newId,
@@ -95,10 +112,12 @@ if ($uri === '/api/books' || str_starts_with($uri, '/api/books?')) {
         echo json_encode($newBook, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         exit;
     }
+
+    method_not_allowed(['GET', 'POST']);
 }
 
-if (str_starts_with($uri, '/api/books/')) {
-    $id = (int)substr($uri, 11);
+if (str_starts_with($path, '/api/books/')) {
+    $id = (int)substr($path, 11);
 
     if ($id > 0) {
         $books = json_decode(file_get_contents($jsonPath), true);
@@ -113,7 +132,7 @@ if (str_starts_with($uri, '/api/books/')) {
 
         if ($foundIndex === -1) {
             http_response_code(404);
-            echo json_encode(["error" => ["code" => "NOT_FOUND"]]);
+            echo json_encode(["error" => ["code" => ErrorCode::NotFound->value]]);
             exit;
         }
 
@@ -128,7 +147,17 @@ if (str_starts_with($uri, '/api/books/')) {
 
             if (empty($data['title']) || empty($data['author'])) {
                 http_response_code(400);
-                echo json_encode(["error" => ["code" => "BAD_REQUEST"]]);
+                echo json_encode(["error" => ["code" => ErrorCode::BadRequest->value, "message" => "Title and Author are required"]]);
+                exit;
+            }
+            if (isset($data['price']) && $data['price'] <= 0) {
+                http_response_code(400);
+                echo json_encode(["error" => ["code" => ErrorCode::BadRequest->value, "message" => "Price must be positive"]]);
+                exit;
+            }
+            if (isset($data['stock_qty']) && $data['stock_qty'] < 0) {
+                http_response_code(400);
+                echo json_encode(["error" => ["code" => ErrorCode::BadRequest->value, "message" => "Stock quantity cannot be negative"]]);
                 exit;
             }
 
@@ -148,7 +177,7 @@ if (str_starts_with($uri, '/api/books/')) {
 
             if (empty($data)) {
                 http_response_code(400);
-                echo json_encode(["error" => ["code" => "BAD_REQUEST"]]);
+                echo json_encode(["error" => ["code" => ErrorCode::BadRequest->value]]);
                 exit;
             }
 
@@ -172,8 +201,10 @@ if (str_starts_with($uri, '/api/books/')) {
             http_response_code(204);
             exit;
         }
+
+        method_not_allowed(['GET', 'PUT', 'PATCH', 'DELETE']);
     }
 }
 
 http_response_code(404);
-echo json_encode(["error" => ["code" => "NOT_FOUND"]]);
+echo json_encode(["error" => ["code" => ErrorCode::NotFound->value]]);
