@@ -1,0 +1,22 @@
+info:
+  name: Update Book
+  type: http
+  seq: 6
+
+http:
+  method: PUT
+  url: http://127.0.0.1:8080/api/books/1
+  body:
+    type: json
+    data: |-
+      {
+        "title": "ウルトラPHP超入門（改訂版）",
+        "author": "るな先生"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

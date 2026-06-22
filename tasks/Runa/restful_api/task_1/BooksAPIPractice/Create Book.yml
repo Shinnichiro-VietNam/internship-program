@@ -1,0 +1,22 @@
+info:
+  name: Create Book
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: http://127.0.0.1:8080/api/books
+  body:
+    type: json
+    data: |-
+      {
+        "title": "新しいPHPの教科書",
+        "author": "るな"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
