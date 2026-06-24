@@ -26,3 +26,12 @@
 - Services/BookService.php
 - Repositories/BookRepositoryInterface.php
 - Repositories/JsonBookRepository.php
+
+---
+
+## Exercise 14 - Verify + short reflection
+
+- The Repository layer, which only reads and writes data, was the simplest and easiest to write.
+- Conversely, the Service layer (business logic), which contains error conditional branching and data processing, was the most difficult to organize the logic for.
+- データを読み書きするだけのRepository層が一番シンプルで書きやすかったです。
+- 逆に、エラーの条件分岐やデータの加工が集まるService層（ビジネスロジック）は、ロジックを整理するのが一番難しかったです。
