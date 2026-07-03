@@ -5,13 +5,14 @@ info:
 
 http:
   method: PUT
-  url: http://127.0.0.1:8080/api/books/1
+  url: http://127.0.0.1:8000/api/books/1
   body:
     type: json
     data: |-
       {
-        "title": "ウルトラPHP超入門（改訂版）",
-        "author": "るな先生"
+        "title": "Laravel入門（第2版）",
+        "author": "ルナ",
+        "price": 3500
       }
   auth: inherit
 

@@ -5,13 +5,14 @@ info:
 
 http:
   method: POST
-  url: http://127.0.0.1:8080/api/books
+  url: http://127.0.0.1:8000/api/books
   body:
     type: json
     data: |-
       {
-        "title": "新しいPHPの教科書",
-        "author": "るな"
+        "title": "Laravel入門",
+        "author": "ルナ",
+        "price": 3000
       }
   auth: inherit
 
