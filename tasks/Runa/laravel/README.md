@@ -10,12 +10,15 @@ Rebuild your **Books API** from the REST module with Laravel routes, a controlle
 
 ## Files
 
-| File                     | Purpose                |
-| ------------------------ | ---------------------- |
-| `README.md`              | This guide             |
-| `tasks_1.md`             | Exercises 1–8          |
-| `../restful_api/task_1/` | Plain PHP reference    |
-| `../database/schema/`    | MariaDB setup and seed |
+| File                     | Purpose                                      |
+| ------------------------ | -------------------------------------------- |
+| `README.md`              | This guide                                   |
+| `tasks_1.md`             | Block 1 — routes, controller, Eloquent     |
+| `tasks_2.md`             | Week 1 — Form Request, relationships, resources, pagination |
+| `tasks_3.md`             | Week 2 — Query Builder, Sanctum, Gates       |
+| `tasks_4.md`             | Week 3 — Policies, migrations, seeders       |
+| `../restful_api/task_1/` | Plain PHP reference                          |
+| `../database/schema/`    | MariaDB setup and seed                       |
 
 Work in `task_1/` on **your intern branch**.
 
@@ -120,6 +123,12 @@ git checkout -b feature/laravel-books-api
 
 ---
 
-## Later modules
+## After Block 1
 
-Relationships, API Resources, repositories/services, providers, Sanctum, pagination, Pest.
+| Week | File         | Topics                                                |
+| ---- | ------------ | ----------------------------------------------------- |
+| 1    | `tasks_2.md` | Form Request, relationships, API Resources, pagination |
+| 2    | `tasks_3.md` | Query Builder, Sanctum, authorization (Gates)         |
+| 3    | `tasks_4.md` | Policies, migrations, seeders                         |
+
+Still later: repositories/services, providers, Pest.
