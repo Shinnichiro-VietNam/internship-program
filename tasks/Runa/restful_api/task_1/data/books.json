@@ -155,5 +155,12 @@
         "id": 21,
         "title": "新しいPHPの教科書",
         "author": "るな"
+    },
+    {
+        "id": 22,
+        "title": "新しいPHPの教科書",
+        "author": "るな",
+        "price": 0,
+        "stock_qty": 0
     }
 ]
