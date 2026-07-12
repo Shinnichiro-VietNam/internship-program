@@ -16,5 +16,12 @@ class Book extends Model
         'title',
         'author',
         'price',
+        'stock_qty',
+        'published_year',
     ];
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'book_id', 'book_id');
+    }
 }
