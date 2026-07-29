@@ -14,6 +14,8 @@ class BookController extends Controller
     // 1. 本の一覧を取得
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Book::class);
+
         $books = Book::query()
             ->when($request->filled('author'), fn ($q) => $q->where('author', 'like', '%' . $request->query('author') . '%'))
             ->when($request->filled('min_price'), fn ($q) => $q->where('price', '>=', $request->query('min_price')))
@@ -31,12 +33,16 @@ class BookController extends Controller
     // 2. 本の詳細を取得
     public function show(Book $book)
     {
+        $this->authorize('view', $book);
+
         return $this->httpOk(new BookResource($book));
     }
 
     // 3. 新しい本を登録
     public function store(StoreBookRequest $request)
     {
+        $this->authorize('create', Book::class);
+
         $book = Book::create($request->validated());
 
         return $this->httpCreated(new BookResource($book))
@@ -47,6 +53,8 @@ class BookController extends Controller
     // 4. 本の情報を更新
     public function update(UpdateBookRequest $request, Book $book)
     {
+        $this->authorize('update', $book);
+
         $book->update($request->validated());
 
         return $this->httpOk(new BookResource($book));
@@ -55,6 +63,8 @@ class BookController extends Controller
     // 5. 本を削除
     public function destroy(Book $book)
     {
+        $this->authorize('delete', $book);
+
         $book->delete();
 
         return $this->httpNoContent();
@@ -63,6 +73,8 @@ class BookController extends Controller
     // 6. 本の販売履歴を取得
     public function orderItems(Book $book)
     {
+        $this->authorize('view', $book);
+
         $book->load('orderItems.order');
 
         return $this->httpOk(OrderItemResource::collection($book->orderItems));

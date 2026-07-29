@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     protected $table = 'order_items';
+
     protected $primaryKey = null;
+
+    public $incrementing = false;
+
+    public $timestamps = false;
 
     public function order()
     {

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Responses\ResponseData;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 abstract class Controller
 {
+    use AuthorizesRequests;
+
     public function httpOk(array|JsonResource|null $data = null, string $msg = 'OK'): ResponseData
     {
         return new ResponseData(Response::HTTP_OK, $data, $msg);

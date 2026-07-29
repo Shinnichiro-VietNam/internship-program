@@ -8,6 +8,7 @@ class Customer extends Model
 {
     protected $table = 'customers';
     protected $primaryKey = 'customer_id';
+    public $timestamps = false;
 
     public function orders()
     {

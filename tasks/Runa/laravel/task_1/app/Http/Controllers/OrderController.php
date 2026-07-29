@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
@@ -11,24 +10,19 @@ class OrderController extends Controller
     // 1 注文の一覧を取得
     public function index()
     {
+        $this->authorize('viewAny', Order::class);
+
         $orders = Order::with('customer')->orderBy('order_id', 'desc')->get();
 
         return OrderResource::collection($orders);
     }
 
     // 2注文の詳細を取得
-    public function show($orderId)
+    public function show(Order $order)
     {
-        $order = Order::with(['customer', 'orderItems.book'])->find($orderId);
+        $this->authorize('view', $order);
 
-        if (!$order) {
-            return response()->json([
-                'error' => [
-                    'code'    => 'NOT_FOUND',
-                    'message' => 'Order not found.'
-                ]
-            ], 404);
-        }
+        $order->load(['customer', 'orderItems.book']);
 
         return new OrderResource($order);
     }
