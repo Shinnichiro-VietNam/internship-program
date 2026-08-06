@@ -17,6 +17,7 @@ Rebuild your **Books API** from the REST module with Laravel routes, a controlle
 | `tasks_2.md`             | Week 1 — Form Request, relationships, resources, pagination |
 | `tasks_3.md`             | Week 2 — Query Builder, Sanctum, Gates       |
 | `tasks_4.md`             | Week 3 — Policies, migrations, seeders       |
+| `tasks_5.md`             | Week 4 — Action Pattern (thin controllers)   |
 | `../restful_api/task_1/` | Plain PHP reference                          |
 | `../database/schema/`    | MariaDB setup and seed                       |
 
@@ -130,5 +131,6 @@ git checkout -b feature/laravel-books-api
 | 1    | `tasks_2.md` | Form Request, relationships, API Resources, pagination |
 | 2    | `tasks_3.md` | Query Builder, Sanctum, authorization (Gates)         |
 | 3    | `tasks_4.md` | Policies, migrations, seeders                         |
+| 4    | `tasks_5.md` | Action Pattern — thin controllers, Actions, Queries   |
 
-Still later: repositories/services, providers, Pest.
+Still later: providers, Pest, queues/jobs. (No default Repository / `*Service` layer — see `tasks_5.md`.)

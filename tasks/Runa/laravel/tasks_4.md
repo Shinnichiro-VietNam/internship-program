@@ -221,4 +221,4 @@ Confirm login + policy behavior still works against the test DB.
 
 ## Later (not this file)
 
-Repositories/services, custom providers, Pest test suite — see `README.md`.
+Action Pattern (thin controllers) — `tasks_5.md`. Then providers, Pest — see `README.md`.
