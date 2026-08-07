@@ -10,8 +10,9 @@ http:
     type: json
     data: |-
       {
-        "title": "新しいPHPの教科書",
-        "author": "るな"
+        "title": "Laravel入門",
+        "author": "ルナ",
+        "price": 3000
       }
   auth: inherit
 

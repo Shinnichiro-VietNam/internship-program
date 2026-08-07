@@ -10,8 +10,9 @@ http:
     type: json
     data: |-
       {
-        "title": "ウルトラPHP超入門（改訂版）",
-        "author": "るな先生"
+        "title": "Laravel入門（第2版）",
+        "author": "ルナ",
+        "price": 3500
       }
   auth: inherit
 

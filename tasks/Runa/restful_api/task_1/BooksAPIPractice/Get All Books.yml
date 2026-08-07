@@ -5,11 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://127.0.0.1:8000/api/books?min_price=1000
-  params:
-    - name: min_price
-      value: "1000"
-      type: query
+  url: http://127.0.0.1:8000/api/books
   auth: inherit
 
 settings:
