@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreBookRequest extends FormRequest
 {
@@ -22,17 +20,5 @@ class StoreBookRequest extends FormRequest
             'stock_qty'      => 'sometimes|integer|min:0',
             'published_year' => 'nullable|integer',
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(
-            response()->json([
-                'error' => [
-                    'code' => 'BAD_REQUEST',
-                    'message' => 'The given data was invalid.'
-                ]
-            ], 400)
-        );
     }
 }

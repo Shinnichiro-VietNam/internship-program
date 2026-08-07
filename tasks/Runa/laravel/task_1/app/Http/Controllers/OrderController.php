@@ -14,7 +14,7 @@ class OrderController extends Controller
 
         $orders = Order::with('customer')->orderBy('order_id', 'desc')->get();
 
-        return OrderResource::collection($orders);
+        return $this->httpOk(OrderResource::collection($orders));
     }
 
     // 2注文の詳細を取得
@@ -24,6 +24,6 @@ class OrderController extends Controller
 
         $order->load(['customer', 'orderItems.book']);
 
-        return new OrderResource($order);
+        return $this->httpOk(new OrderResource($order));
     }
 }

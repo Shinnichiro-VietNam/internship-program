@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,34 +27,29 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
+        return $this->httpCreated([
             'token'      => $token,
             'token_type' => 'Bearer',
-        ], 201);
+        ]);
     }
 
     // ログイン
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validated = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+        $validated = $request->validated();
 
         $user = User::where('email', $validated['email'])->first();
 
         if (! $user || ! Hash::check($validated['password'], $user->password)) {
-            return response()->json([
-                'error' => [
-                    'code'    => 'BAD_REQUEST',
-                    'message' => 'Invalid credentials.',
-                ],
-            ], 400);
+            return $this->httpBadRequest(
+                ['code' => 'BAD_REQUEST'],
+                'Invalid credentials.'
+            );
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
+        return $this->httpOk([
             'token'      => $token,
             'token_type' => 'Bearer',
         ]);
@@ -64,7 +60,7 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->noContent();
+        return $this->httpNoContent();
     }
 
     // 現在のユーザー情報
@@ -72,7 +68,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
 
-        return response()->json([
+        return $this->httpOk([
             'id'    => $user->id,
             'name'  => $user->name,
             'email' => $user->email,

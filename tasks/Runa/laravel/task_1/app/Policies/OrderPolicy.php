@@ -19,16 +19,16 @@ class OrderPolicy
 
     public function create(User $user): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     public function update(User $user, Order $order): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     public function delete(User $user, Order $order): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 }

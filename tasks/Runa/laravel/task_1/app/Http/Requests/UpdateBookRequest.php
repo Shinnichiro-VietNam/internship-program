@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Responses\ResponseData;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateBookRequest extends FormRequest
 {
@@ -38,25 +39,13 @@ class UpdateBookRequest extends FormRequest
     {
         if ($this->isMethod('patch') && empty($this->all())) {
             throw new HttpResponseException(
-                response()->json([
-                    'error' => [
-                        'code' => 'BAD_REQUEST',
-                        'message' => 'Empty PATCH body'
-                    ]
-                ], 400)
+                (new ResponseData(
+                    Response::HTTP_BAD_REQUEST,
+                    null,
+                    'Empty PATCH body',
+                    ['code' => 'BAD_REQUEST']
+                ))->toResponse($this)
             );
         }
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(
-            response()->json([
-                'error' => [
-                    'code' => 'BAD_REQUEST',
-                    'message' => 'The given data was invalid.'
-                ]
-            ], 400)
-        );
     }
 }

@@ -19,16 +19,16 @@ class BookPolicy
 
     public function create(User $user): bool
     {
-        return in_array($user->role, ['reader', 'admin'], true);
+        return $user->isReader() || $user->isAdmin();
     }
 
     public function update(User $user, Book $book): bool
     {
-        return in_array($user->role, ['reader', 'admin'], true);
+        return $user->isReader() || $user->isAdmin();
     }
 
     public function delete(User $user, Book $book): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 }

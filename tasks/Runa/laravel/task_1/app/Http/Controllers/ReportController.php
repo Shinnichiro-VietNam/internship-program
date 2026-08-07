@@ -16,7 +16,7 @@ class ReportController extends Controller
             ->select('b.book_id', 'b.title')
             ->get();
 
-        return response()->json(['data' => $books]);
+        return $this->httpOk($books);
     }
 
     //本ごとの売上集計
@@ -34,7 +34,7 @@ class ReportController extends Controller
             ->orderByDesc('total_revenue_jpy')
             ->get();
 
-        return response()->json(['data' => $sales]);
+        return $this->httpOk($sales);
     }
 
     //都市ごとの顧客・注文数集計
@@ -50,6 +50,6 @@ class ReportController extends Controller
             ->when($request->filled('city'), fn ($q) => $q->where('c.city', $request->query('city')))
             ->groupBy('c.city');
 
-        return response()->json(['data' => $query->get()]);
+        return $this->httpOk($query->get());
     }
 }

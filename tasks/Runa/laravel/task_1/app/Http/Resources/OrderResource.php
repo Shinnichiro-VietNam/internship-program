@@ -20,9 +20,7 @@ class OrderResource extends JsonResource
                 'full_name' => $this->customer->full_name,
                 'city'      => $this->customer->city,
             ] : null,
-            'items'      => $this->relationLoaded('orderItems')
-                            ? OrderItemResource::collection($this->orderItems)
-                            : null,
+            'items'      => OrderItemResource::collection($this->whenLoaded('orderItems')),
         ];
     }
 }

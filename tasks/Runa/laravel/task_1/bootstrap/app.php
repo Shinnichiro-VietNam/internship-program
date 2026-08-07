@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Responses\ApiErrorRenderer;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -25,49 +26,29 @@ return Application::configure(basePath: dirname(__DIR__))
         });
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        $renderer = new ApiErrorRenderer;
 
-        $exceptions->render(function (ModelNotFoundException $e, $request) {
+        $exceptions->render(function (ModelNotFoundException $e, $request) use ($renderer) {
             if ($request->is('api/*')) {
-                return response()->json([
-                    'error' => [
-                        'code' => 'NOT_FOUND',
-                        'message' => 'Record not found.',
-                    ],
-                ], 404);
+                return $renderer->renderApiNotFoundResponse($e);
             }
         });
 
-        $exceptions->render(function (ValidationException $e, $request) {
+        $exceptions->render(function (ValidationException $e, $request) use ($renderer) {
             if ($request->is('api/*')) {
-                return response()->json([
-                    'error' => [
-                        'code' => 'BAD_REQUEST',
-                        'message' => 'The given data was invalid.',
-                    ],
-                ], 400);
+                return $renderer->renderApiValidationResponse($e);
             }
         });
 
-        $exceptions->render(function (AuthenticationException $e, $request) {
+        $exceptions->render(function (AuthenticationException $e, $request) use ($renderer) {
             if ($request->is('api/*')) {
-                return response()->json([
-                    'error' => [
-                        'code' => 'UNAUTHORIZED',
-                        'message' => 'Unauthenticated.',
-                    ],
-                ], 401);
+                return $renderer->renderApiUnauthorizedResponse($e);
             }
         });
 
-        $exceptions->render(function (AuthorizationException|AccessDeniedHttpException $e, $request) {
+        $exceptions->render(function (AuthorizationException|AccessDeniedHttpException $e, $request) use ($renderer) {
             if ($request->is('api/*')) {
-                return response()->json([
-                    'error' => [
-                        'code' => 'FORBIDDEN',
-                        'message' => 'This action is unauthorized.',
-                    ],
-                ], 403);
+                return $renderer->renderApiForbiddenResponse($e);
             }
         });
-
     })->create();
