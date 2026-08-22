@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -28,7 +29,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $renderer = new ApiErrorRenderer;
 
-        $exceptions->render(function (ModelNotFoundException $e, $request) use ($renderer) {
+        // Laravel converts ModelNotFoundException → NotFoundHttpException before
+        // render callbacks run, so both types must be handled for the API envelope.
+        $exceptions->render(function (ModelNotFoundException|NotFoundHttpException $e, $request) use ($renderer) {
             if ($request->is('api/*')) {
                 return $renderer->renderApiNotFoundResponse($e);
             }
