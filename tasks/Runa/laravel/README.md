@@ -19,6 +19,7 @@ Rebuild your **Books API** from the REST module with Laravel routes, a controlle
 | `tasks_4.md`             | Week 3 — Policies, migrations, seeders       |
 | `tasks_5.md`             | Week 4 — Action Pattern (thin controllers)   |
 | `tasks_6.md`             | Week 5 — Automated testing (PHPUnit)         |
+| `tasks_7.md`             | Week 6 — Place order, events, jobs, provider |
 | `../restful_api/task_1/` | Plain PHP reference                          |
 | `../database/schema/`    | MariaDB setup and seed                       |
 
@@ -134,5 +135,6 @@ git checkout -b feature/laravel-books-api
 | 3    | `tasks_4.md` | Policies, migrations, seeders                         |
 | 4    | `tasks_5.md` | Action Pattern — thin controllers, Actions, Queries   |
 | 5    | `tasks_6.md` | Automated testing — PHPUnit feature + unit tests       |
+| 6    | `tasks_7.md` | Place order — transaction, events, jobs, provider      |
 
-Still later: providers, queues/jobs. (No default Repository / `*Service` layer — see `tasks_5.md`.)
+Still later: CI, mail, cancel-order (stretch in `tasks_7.md`). (No default Repository / `*Service` layer — see `tasks_5.md`.)
