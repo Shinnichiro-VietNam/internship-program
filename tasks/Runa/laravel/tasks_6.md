@@ -454,9 +454,3 @@ php artisan test --filter=BookDeleteTest
 - [ ] `ExampleTest` files deleted
 - [ ] `notes_week6.md` — test DB note, pagination shape, coverage map, planted-failure output, checklist, reflection
 - [ ] No change to the HTTP contract (any production fix explained in notes)
-
----
-
-## Later (not this file)
-
-Place an order + events / jobs / provider — `tasks_7.md`.
