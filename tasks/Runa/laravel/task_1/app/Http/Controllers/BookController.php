@@ -2,48 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use Illuminate\Http\Request;
+use App\Actions\Book\CreateBook;
+use App\Actions\Book\DeleteBook;
+use App\Actions\Book\ListBookOrderItems;
+use App\Actions\Book\ListBooks;
+use App\Actions\Book\ShowBook;
+use App\Actions\Book\UpdateBook;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Http\Resources\OrderItemResource;
+use App\Models\Book;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     // 1. 本の一覧を取得
-    public function index(Request $request)
+    public function index(Request $request, ListBooks $listBooks)
     {
         $this->authorize('viewAny', Book::class);
 
-        $books = Book::query()
-            ->when($request->filled('author'), fn ($q) => $q->where('author', 'like', '%' . $request->query('author') . '%'))
-            ->when($request->filled('min_price'), fn ($q) => $q->where('price', '>=', $request->query('min_price')))
-            ->when($request->filled('max_price'), fn ($q) => $q->where('price', '<=', $request->query('max_price')))
-            ->orderBy('book_id', 'asc');
+        $books = $listBooks->handle($request->query());
 
-        if ($request->has('page')) {
-            $perPage = min((int) $request->query('per_page', 15), 50);
-            return $this->httpOk(BookResource::collection($books->paginate($perPage)));
-        }
-
-        return $this->httpOk(BookResource::collection($books->get()));
+        return $this->httpOk(BookResource::collection($books));
     }
 
     // 2. 本の詳細を取得
-    public function show(Book $book)
+    public function show(Book $book, ShowBook $showBook)
     {
         $this->authorize('view', $book);
 
-        return $this->httpOk(new BookResource($book));
+        return $this->httpOk(new BookResource($showBook->handle($book)));
     }
 
     // 3. 新しい本を登録
-    public function store(StoreBookRequest $request)
+    public function store(StoreBookRequest $request, CreateBook $createBook)
     {
         $this->authorize('create', Book::class);
 
-        $book = Book::create($request->validated());
+        $book = $createBook->handle($request->validated());
 
         return $this->httpCreated(new BookResource($book))
             ->toResponse($request)
@@ -51,32 +48,32 @@ class BookController extends Controller
     }
 
     // 4. 本の情報を更新
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book, UpdateBook $updateBook)
     {
         $this->authorize('update', $book);
 
-        $book->update($request->validated());
+        $book = $updateBook->handle($book, $request->validated());
 
         return $this->httpOk(new BookResource($book));
     }
 
     // 5. 本を削除
-    public function destroy(Book $book)
+    public function destroy(Book $book, DeleteBook $deleteBook)
     {
         $this->authorize('delete', $book);
 
-        $book->delete();
+        $deleteBook->handle($book);
 
         return $this->httpNoContent();
     }
 
     // 6. 本の販売履歴を取得
-    public function orderItems(Book $book)
+    public function orderItems(Book $book, ListBookOrderItems $listBookOrderItems)
     {
         $this->authorize('view', $book);
 
-        $book->load('orderItems.order');
+        $orderItems = $listBookOrderItems->handle($book);
 
-        return $this->httpOk(OrderItemResource::collection($book->orderItems));
+        return $this->httpOk(OrderItemResource::collection($orderItems));
     }
 }
