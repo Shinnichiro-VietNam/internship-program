@@ -325,4 +325,4 @@ Pick one. Consistency matters more than extracting every line.
 
 ## Later (not this file)
 
-Pest, queues/jobs, providers — see `README.md`.
+Automated testing — `tasks_6.md`. Then place order + jobs / providers — `tasks_7.md`.
