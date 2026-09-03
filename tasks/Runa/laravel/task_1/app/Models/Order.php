@@ -15,6 +15,12 @@ class Order extends Model
     protected $primaryKey = 'order_id';
     public $timestamps = false;
 
+    protected $fillable = [
+        'customer_id',
+        'order_date',
+        'status',
+    ];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
