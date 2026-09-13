@@ -6,7 +6,7 @@
 
 **Date completed:**
 
-- June 22
+- June 19
 
 ---
 
