@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { AppLayout } from "./components/layout/AppLayout";
 import { BookList } from "./components/books/BookList";
 import { API_URL } from "./lib/config";
@@ -13,16 +14,18 @@ function App() {
   useEffect(() => {
     async function load() {
       try {
-        const healthRes = await fetch(`${API_URL}/health`);
-        setApiOk(healthRes.ok);
+        await axios.get(`${API_URL}/health`);
+        setApiOk(true);
 
-        const booksRes = await fetch(`${API_URL}/books`);
-        if (!booksRes.ok) throw new Error("Failed to load books");
-
-        const json: ApiListResponse<Book> = await booksRes.json();
-        setBooks(json.data);
+        const booksRes = await axios.get<ApiListResponse<Book>>(`${API_URL}/books`);
+        setBooks(booksRes.data.data);
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Something went wrong");
+        setApiOk(false);
+        if (axios.isAxiosError(e)) {
+          setError(e.response?.data?.message || "Failed to load books");
+        } else {
+          setError(e instanceof Error ? e.message : "Something went wrong");
+        }
       } finally {
         setLoading(false);
       }
