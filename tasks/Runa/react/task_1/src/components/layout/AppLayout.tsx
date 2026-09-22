@@ -1,21 +1,25 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 type AppLayoutProps = {
-    apiStatus?: ReactNode;
-    children: ReactNode;
+  children: ReactNode;
 };
 
-export function AppLayout({ apiStatus, children }: AppLayoutProps) {
-    return (
-        <div className="flex min-h-screen flex-col">
-            <header className="flex items-center justify-between border-b p-4">
-                <h1 className="text-lg font-semibold">Bookstore</h1>
-                {apiStatus}
-            </header>
-
-            <main className="flex-1 p-4">{children}</main>
-
-            <footer className="border-t p-4 text-center text-sm">&copy; Bookstore</footer>
+export function AppLayout({ children }: AppLayoutProps) {
+  return (
+    <div className="layout">
+      <header className="header">
+        <div className="header-left">
+          <h1 className="title">Bookstore</h1>
+          <Link to="/books" className="nav-link">
+            Books
+          </Link>
         </div>
-);
+      </header>
+
+      <main className="main">{children}</main>
+
+      <footer className="footer">&copy; Bookstore</footer>
+    </div>
+  );
 }
