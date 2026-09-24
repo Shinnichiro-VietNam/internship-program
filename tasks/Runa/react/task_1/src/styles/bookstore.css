@@ -1,0 +1,194 @@
+/* 初心者向け：見た目用のシンプルなクラス */
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-link {
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.main {
+  flex: 1;
+  padding: 16px;
+}
+
+.footer {
+  padding: 16px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.small-text {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.filters {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  min-width: 140px;
+  flex: 1;
+}
+
+.field-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.empty {
+  padding: 48px 0;
+  text-align: center;
+  color: #6b7280;
+}
+
+.book-card {
+  display: block;
+  padding: 16px;
+  border: 1px solid #f3f4f6;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  color: inherit;
+}
+
+.book-card:hover {
+  border-color: #d1d5db;
+}
+
+.book-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.book-card-text {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.detail-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0;
+}
+
+.detail-list {
+  max-width: 480px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.detail-label {
+  min-width: 120px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.table {
+  width: 100%;
+  max-width: 400px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  padding: 8px 16px 8px 0;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.table th {
+  font-weight: 500;
+}
+
+.message {
+  margin-bottom: 16px;
+}
