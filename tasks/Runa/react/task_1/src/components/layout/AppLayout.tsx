@@ -1,11 +1,6 @@
-import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-type AppLayoutProps = {
-  children: ReactNode;
-};
-
-export function AppLayout({ children }: AppLayoutProps) {
+export function AppLayout() {
   return (
     <div className="layout">
       <header className="header">
@@ -17,7 +12,9 @@ export function AppLayout({ children }: AppLayoutProps) {
         </div>
       </header>
 
-      <main className="main">{children}</main>
+      <main className="main">
+        <Outlet />
+      </main>
 
       <footer className="footer">&copy; Bookstore</footer>
     </div>
