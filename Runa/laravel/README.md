@@ -39,7 +39,7 @@ Plain PHP n-layer refactor (`system_design/tasks_2.md`) is **not** required.
 
 ## Setup
 
-**1. Database** — from `tasks/Runa/database/`:
+**1. Database** — from `Runa/database/`:
 
 ```bash
 mariadb -u root -p < schema/setup.sql
@@ -48,10 +48,10 @@ mariadb -u root -p < schema/seed.sql
 
 Windows (PowerShell): `Get-Content schema\setup.sql | mariadb -u root -p` (same for `seed.sql`).
 
-**2. Laravel** — inside `tasks/Runa/laravel/task_1/`:
+**2. Laravel** — inside `Runa/laravel/task_1/`:
 
 ```bash
-cd tasks/Runa/laravel
+cd Runa/laravel
 composer create-project laravel/laravel task_1
 cd task_1
 ```
@@ -120,7 +120,7 @@ git checkout -b feature/laravel-books-api
 ## Submission
 
 - Branch `feature/laravel-books-api`
-- App in `tasks/Runa/laravel/task_1/`
+- App in `Runa/laravel/task_1/`
 - `notes.md` — checklist + reflection (`tasks_1.md` Exercise 8)
 - PR when your trainer asks
 

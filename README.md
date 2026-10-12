@@ -20,7 +20,7 @@ This repository hosts code developed by interns during their training period. Ea
   - `docs/` → Training materials, guidelines, and references
   - `templates/` → Code templates, project skeletons, and examples
   - `resources/` → Supporting files and useful links
-  - `tasks`/ → Assigned exercises and projects for each intern
+  - `Runa/` → Runa's exercises and projects
 
 ---
 

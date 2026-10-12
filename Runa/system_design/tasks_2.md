@@ -16,7 +16,7 @@ git checkout feature/restful-task-1
 git checkout -b feature/restful-layered
 ```
 
-Work in `tasks/Runa/restful_api/task_1/api/` (same paths as before).
+Work in `Runa/restful_api/task_1/api/` (same paths as before).
 
 ---
 

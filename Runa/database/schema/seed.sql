@@ -1,5 +1,5 @@
 -- Internship Bookstore — seed data (Japanese names, cities, JPY)
--- Run after setup.sql: mysql -u root -p < tasks/Runa/database/schema/seed.sql
+-- Run after setup.sql: mysql -u root -p < Runa/database/schema/seed.sql
 --
 -- Approximate row counts after load:
 --   departments 6 | employees 16 | customers 18 | books 20

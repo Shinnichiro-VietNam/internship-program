@@ -36,7 +36,7 @@ Continue in `task_1/`.
 ## Install
 
 ```bash
-cd tasks/Runa/react/task_1
+cd Runa/react/task_1
 npm install react-router-dom
 ```
 

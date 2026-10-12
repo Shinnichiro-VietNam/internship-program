@@ -58,7 +58,7 @@ task_1/
 
 ## Exercise 1: Create the project
 
-1. Follow `README.md` — create Vite app in `tasks/Runa/react/task_1/`.
+1. Follow `README.md` — create Vite app in `Runa/react/task_1/`.
 2. Add `.env` with `VITE_API_URL=http://127.0.0.1:8000/api`.
 3. Create `src/lib/config.ts`:
 
@@ -70,10 +70,10 @@ export const API_URL = import.meta.env.VITE_API_URL;
 
 ```bash
 # Terminal 1
-cd tasks/Runa/laravel/task_1 && php artisan serve
+cd Runa/laravel/task_1 && php artisan serve
 
 # Terminal 2
-cd tasks/Runa/react/task_1 && npm run dev
+cd Runa/react/task_1 && npm run dev
 ```
 
 5. In `App.tsx`, temporarily show `API_URL` on screen to confirm env loading works.
@@ -205,7 +205,7 @@ Update this file whenever you add a hook in later weeks (`tasks_2.md`, etc.).
 ## Submission
 
 - [ ] Branch `feature/react-bookstore-ui`
-- [ ] App in `tasks/Runa/react/task_1/`
+- [ ] App in `Runa/react/task_1/`
 - [ ] `BookList`, `BookCard`, `AppLayout`, types, `.env` (not committed)
 - [ ] `notes_hooks.md` — at least `useState` and `useEffect` documented
 - [ ] Checklist above completed

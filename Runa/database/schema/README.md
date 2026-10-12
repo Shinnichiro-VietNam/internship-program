@@ -34,8 +34,8 @@ Get-Content schema\seed.sql | mysql -u root -p
 **MySQL client** (`SOURCE` must use forward slashes or escaped backslashes):
 
 ```sql
-SOURCE D:/SHINNICHIRO/Training/internship-program/tasks/Runa/database/schema/setup.sql;
-SOURCE D:/SHINNICHIRO/Training/internship-program/tasks/Runa/database/schema/seed.sql;
+SOURCE D:/SHINNICHIRO/Training/internship-program/Runa/database/schema/setup.sql;
+SOURCE D:/SHINNICHIRO/Training/internship-program/Runa/database/schema/seed.sql;
 ```
 
 ---

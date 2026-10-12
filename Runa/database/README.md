@@ -26,7 +26,7 @@ Create your work in `task_1/` (not provided — you create it on your branch).
 
 1. **Project Structure**
    - Read this `README.md` and `tasks_1.md`.
-   - Create a folder `task_1/` under `tasks/Runa/database/` on **your intern branch**.
+   - Create a folder `task_1/` under `Runa/database/` on **your intern branch**.
    - Put your SQL solutions in `task_1/` (e.g., `ex_1.sql`, `ex_2.sql`, …, `ex_12.sql`).
    - Add `task_1/notes.md` with:
      - Answers to reflection questions in the tasks

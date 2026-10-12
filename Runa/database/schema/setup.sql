@@ -2,8 +2,8 @@
 -- Practice database for the Database & SQL module (Shinnichiro internship)
 --
 -- Run from repo root:
---   mysql -u root -p < tasks/Runa/database/schema/setup.sql
---   mysql -u root -p < tasks/Runa/database/schema/seed.sql
+--   mysql -u root -p < Runa/database/schema/setup.sql
+--   mysql -u root -p < Runa/database/schema/seed.sql
 
 DROP DATABASE IF EXISTS internship_bookstore;
 

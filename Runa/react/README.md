@@ -45,14 +45,14 @@ October capstone (orders, reports) is optional — not in these four files.
 **1. Laravel API** — start the backend first:
 
 ```bash
-cd tasks/Runa/laravel/task_1
+cd Runa/laravel/task_1
 php artisan serve
 curl -s http://127.0.0.1:8000/api/health
 ```
 
 **2. CORS** — allow the Vite dev server. In Laravel `config/cors.php`, set `allowed_origins` to include `http://localhost:5173` (or use `*` for local dev only).
 
-**3. React app** — inside `tasks/Runa/react/`:
+**3. React app** — inside `Runa/react/`:
 
 ```bash
 npm create vite@latest task_1 -- --template react-ts
@@ -176,7 +176,7 @@ Book JSON fields: `id`, `title`, `author`, `price` (integer JPY), `stock_qty`, `
 ## Submission
 
 - Branch `feature/react-bookstore-ui`
-- App in `tasks/Runa/react/task_1/`
+- App in `Runa/react/task_1/`
 - `notes_hooks.md` — hook usage table kept up to date each week
 - Manual checklists in each `tasks_N.md` completed before PR
 - PR when your trainer asks

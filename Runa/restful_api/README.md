@@ -25,7 +25,7 @@ Work in `task_1/` on **your intern branch**.
 ## Setup
 
 1. Read `tasks_1.md` and the two reference files.
-2. Create `tasks/Runa/restful_api/task_1/`.
+2. Create `Runa/restful_api/task_1/`.
 3. Copy `data/books.seed.json` → `task_1/data/books.json`.
 4. Build the API under `task_1/api/` (layout in `tasks_1.md`).
 5. Write answers and design notes in `task_1/notes.md`.

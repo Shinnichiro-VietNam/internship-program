@@ -41,7 +41,7 @@ Read `README.md` first. Write `task_1/notes.md` as you go — mostly at the end 
 
 ## Exercise 1: Setup
 
-1. Create Laravel in `tasks/Runa/laravel/task_1/` (see `README.md`).
+1. Create Laravel in `Runa/laravel/task_1/` (see `README.md`).
 2. MariaDB running; `internship_bookstore` exists (`database/schema/setup.sql` + `seed.sql`).
 3. Configure `.env` → `internship_bookstore`.
 4. Confirm connection: `php artisan db:show` or `DB::connection()->getPdo()` in tinker.
@@ -160,7 +160,7 @@ In `task_1/notes.md`:
 ## Submission
 
 - [ ] Branch `feature/laravel-books-api`
-- [ ] App in `tasks/Runa/laravel/task_1/`
+- [ ] App in `Runa/laravel/task_1/`
 - [ ] `HealthController`, `BookController`, `Book` model, routes in `api.php`
 - [ ] `notes.md` with checklist + reflection
 - [ ] `.env` not committed

@@ -32,7 +32,7 @@ Using AI tools (e.g., ChatGPT, GitHub Copilot) is strictly limited. Consult your
 
 4. **Prerequisites**
    - Complete the **Algorithms** module (sorting, searching, Big-O) before starting this module.
-   - Review `tasks/Runa/php/algorithms/tasks_1.md` if you need a refresher on complexity notation.
+   - Review `Runa/php/algorithms/tasks_1.md` if you need a refresher on complexity notation.
 
 ---
 
