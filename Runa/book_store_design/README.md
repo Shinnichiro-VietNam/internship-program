@@ -1,8 +1,8 @@
 # Book Store Design
 
-**Duration:** Week 1 is ~28 hours · **Type:** notes, then the shared API and UI setup in `../book_store/`
+**Duration:** Weeks 1–5, about 28 hours then 24 / 24 / 24 / 28 · **Type:** notes plus the app in `../book_store/`
 
-Tasks for the bookstore in `../book_store/`. Week 1 is the Fahasa feature list, the admin screens you propose, and the shared code (JSON errors, Axios, base inputs).
+Tasks for the bookstore in `../book_store/`. Week 1 is the Fahasa feature list and the shared setup. Weeks 2–5 build login, the home page, book detail, the cart, and placing an order.
 
 **AI tools:** Allowed. The Fahasa notes have to come from pages you opened. In review you walk through the feature list and the error JSON yourself.
 
@@ -14,13 +14,17 @@ Tasks for the bookstore in `../book_store/`. Week 1 is the Fahasa feature list, 
 | ---- | ------- |
 | `README.md` | This guide |
 | `tasks/tasks_1.md` | Week 1 — Fahasa features, Laravel envelope, Axios, base inputs |
-| `task_1/notes_week1.md` | Your notes (you create this) |
+| `tasks/tasks_2.md` | Week 2 — Login, register, app shell |
+| `tasks/tasks_3.md` | Week 3 — Home page and book list |
+| `tasks/tasks_4.md` | Week 4 — Book detail and cart |
+| `tasks/tasks_5.md` | Week 5 — Place order and order detail |
+| `task_1/notes_week1.md` | Your notes (you create one file per week) |
 | `../book_store/` | `api/` and `web/` |
 | `../book_store/README_api.md` | API layout |
 | `../book_store/README_web.md` | Web layout |
 | `../laravel/task_1/` | Response and error code to copy from |
 
-Later weeks are assigned after week 1 is reviewed.
+The admin screens from week 1 are not in weeks 2–5.
 
 ---
 
@@ -76,7 +80,7 @@ Book fields today, from `BookResource`: `id`, `title`, `author`, `price`, `stock
 
 ## Rules
 
-- Write notes in `task_1/notes_week1.md`
+- Write notes in `task_1/notes_weekN.md` for the week you are on
 - Put code in `../book_store/api` and `../book_store/web`
 - Follow `../laravel/task_1/` for `ResponseData` and `ApiErrorRenderer`
 - Do not commit `.env`

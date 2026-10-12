@@ -271,4 +271,4 @@ Put this at the end of `notes_week1.md`.
 
 ## Next
 
-Later weeks are assigned after this checklist is reviewed.
+`tasks_2.md` — Login, register, and the app shell.
