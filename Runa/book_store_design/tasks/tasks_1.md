@@ -1,6 +1,6 @@
 # Book Store Design Tasks 1 — Week 1: Fahasa features and shared setup
 
-**Duration:** ~28 hours · **Prerequisite:** `../../laravel/tasks_7.md` and `../../react/tasks_4.md` done.
+**Duration:** ~28 hours · **Prerequisite:** `../../laravel/tasks_7.md` and `../../react/tasks_3.md` done.
 
 Write `../task_1/notes_week1.md`. Code goes in `../../book_store/api` and `../../book_store/web`.
 

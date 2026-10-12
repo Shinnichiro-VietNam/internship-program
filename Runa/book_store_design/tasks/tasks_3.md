@@ -1,6 +1,8 @@
 # Book Store Design Tasks 3 — Week 3: Home page
 
-**Duration:** ~24 hours · **Prerequisite:** `tasks_2.md` complete. Login works.
+**Duration:** ~28 hours · **Prerequisite:** `tasks_2.md` complete. Login works.
+
+The first 4 hours finish `/register` if week 2 stopped at 28 hours with that page still open. If register already works, spend those 4 hours on the home page.
 
 Continue in `../../book_store/`. Write `../task_1/notes_week3.md`.
 
@@ -18,7 +20,7 @@ Search → Book.index({ title, page: 1 })
 | Block | Exercises | Focus | ~Hours |
 | ----- | --------- | ----- | ------ |
 | A | 1–2 | Books table and list endpoint | 8 |
-| B | 3–4 | Home layout and book cards | 10 |
+| B | 3–4 | Home layout and book cards | 14 |
 | C | 5 | Search, loading, empty, errors | 6 |
 
 ---
@@ -177,4 +179,4 @@ The home page calls `Book.index` in one place. `BookCard` receives a `Book` prop
 
 ## Next
 
-`tasks_4.md` — Book detail and the cart.
+`tasks_4.md` — Admin book form, create, edit, and delete.

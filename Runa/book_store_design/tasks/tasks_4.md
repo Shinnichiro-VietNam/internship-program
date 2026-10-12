@@ -1,15 +1,20 @@
-# Book Store Design Tasks 4 — Week 4: Book detail and cart
+# Book Store Design Tasks 4 — Week 4: Admin book form
 
-**Duration:** ~24 hours · **Prerequisite:** `tasks_3.md` complete. Home lists books.
+**Duration:** ~28 hours · **Prerequisite:** `tasks_3.md` complete. Home lists books. Login uses Formik.
+
+Create and edit are the goal for these 28 hours. If the delete dialog or the 403 message is still open when the week ends, finish that at the start of week 5.
 
 Continue in `../../book_store/`. Write `../task_1/notes_week4.md`.
 
-Open a book from the grid, then add it to a cart. The cart stays in the browser. Placing the order is week 5.
+This is the rest of the React module’s week 4 (create, edit, delete, errors). Build it on this app. Do not go back to `react/task_1/`.
+
+A logged-in user can create and edit a book. Only an admin can delete one. The public home page stays read-only.
 
 ```text
-Card → Book.show(id) → GET /api/books/{id}
-        ↓
-Add to cart → useCartStore → /cart
+/admin/books → Book.index()
+/admin/books/new → Formik BookForm → Book.store() → POST /api/books
+/admin/books/:id/edit → Book.show(id) → Book.update() → PUT /api/books/{id}
+Delete → confirm → Book.destroy() → DELETE /api/books/{id}
 ```
 
 ---
@@ -18,142 +23,166 @@ Add to cart → useCartStore → /cart
 
 | Block | Exercises | Focus | ~Hours |
 | ----- | --------- | ----- | ------ |
-| A | 1 | `GET /api/books/{book}` | 4 |
-| B | 2–3 | Detail page | 8 |
-| C | 4–6 | Cart store and cart page | 12 |
+| A | 1–2 | Role, write actions, show query | 8 |
+| B | 3–4 | BookForm, create, edit | 12 |
+| C | 5–6 | Table, delete confirm, errors | 8 |
 
 ---
 
 ## Rules (this week)
 
-- Detail JSON matches `BookResource` from week 3.
-- `GET /api/books/{book}` is public. Unknown id → 404 and `errors.code` = `NOT_FOUND`.
-- The find is `Queries/Book/FindBookQuery`. The controller calls it and returns `BookResource`. No Eloquent in the controller.
-- The page calls `Book.show(id)`.
-- Cart lines are not saved on the server. A reload keeps them (`localStorage` key `cart`).
-- Quantity cannot go above `stock_qty`. `stock_qty` 0 disables add.
-- Do not call `POST /api/orders`. On `/cart`, a logged-in user sees a disabled “Place order” button. A guest sees a link to `/login`.
+- Follow `../../book_store/README_api.md`. Create, update, and delete are three Actions. Show is `FindBookQuery`.
+- Pages call `Book.store`, `Book.update`, `Book.show`, `Book.destroy`. They do not import Axios.
+- `BookForm` is Formik + Yup, same pieces as the login form in week 2.
+- Public `/` has no edit or delete buttons.
+- Guest write → 401. Reader delete → 403 and `errors.code` = `FORBIDDEN`. The screen shows “You do not have permission”.
+- Create and update are allowed for any logged-in user. Delete is admin only.
 
 ---
 
-## Exercise 1: Book detail endpoint
+## Write contract
 
-`FindBookQuery::handle(int $id): ?Book`. Missing row returns null. The controller turns null into the week 1 not-found JSON.
+| Method | Path | Who | Success |
+| ------ | ---- | --- | ------- |
+| GET | `/api/books/{book}` | public | 200, one book in `data` |
+| POST | `/api/books` | logged-in | 201 |
+| PUT | `/api/books/{book}` | logged-in | 200 |
+| DELETE | `/api/books/{book}` | admin | 204 |
 
-`BookPolicy::view` stays public.
+Body for create and update: `title`, `author`, `price`, `stock_qty`, `published_year`. `published_year` may be null. `price` > 0. `stock_qty` is an integer >= 0. `title` and `author` are required.
+
+`GET /api/user` now includes `role`: `reader` or `admin`.
+
+Seed `admin@example.com` / `password` with `role` `admin`. `reader@example.com` from week 2 stays `reader`. New registers are `reader`.
+
+---
+
+## Exercise 1: Role and policies
+
+Add `users.role`, string, default `reader`.
+
+`BookPolicy`:
+
+| Method | Allowed |
+| ------ | ------- |
+| `viewAny`, `view` | everyone, including guests |
+| `create`, `update` | logged-in user |
+| `delete` | `role` is `admin` |
+
+`UserResource` adds `role`. `useAuthStore` keeps it on `user` after `Auth.me()`.
+
+---
+
+## Exercise 2: Show and write actions
+
+| Class | Job |
+| ----- | --- |
+| `Queries/Book/FindBookQuery` | book by id, or null. Controller returns 404 |
+| `Actions/Book/CreateBookAction` | `handle(array $data): Book` |
+| `Actions/Book/UpdateBookAction` | `handle(Book $book, array $data): Book` |
+| `Actions/Book/DeleteBookAction` | `handle(Book $book): void` |
+| `Http/Requests/Book/StoreBookRequest` | create rules |
+| `Http/Requests/Book/UpdateBookRequest` | same rules |
+| `BookController` | `show`, `store`, `update`, `destroy`. Each method calls one class |
+
+PUT sends every field. No PATCH this week.
 
 ```bash
-curl -s http://127.0.0.1:8000/api/books/1
-curl -s -i http://127.0.0.1:8000/api/books/999999
+curl -s -X POST http://127.0.0.1:8000/api/books \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Example","author":"Runa","price":1500,"stock_qty":5,"published_year":2024}'
 ```
 
-Second call: HTTP 404, `errors.code` = `NOT_FOUND`.
+Reader token on DELETE → 403. Missing token on POST → 401.
 
 ---
 
-## Exercise 2: Detail route
+## Exercise 3: BookForm
 
-- Route `/books/:id`
-- Page `web/src/pages/books/BookDetailPage.tsx`
-- `Book.show(id)` returns one book in `data`
-- Unknown id: show the API message and a link to `/`
-- Loading state while the request runs
-- A card on the home grid opens the matching book
+`web/src/pages/admin/BookForm.tsx`
 
----
+Props: `initialValues`, `onSubmit`, `submitLabel`.
 
-## Exercise 3: Detail layout
+| Field | Yup |
+| ----- | --- |
+| `title` | required string |
+| `author` | required string |
+| `price` | required number, > 0 |
+| `stock_qty` | required integer, >= 0 |
+| `published_year` | optional, empty becomes null |
 
-Show title, author, price, published year (or “—” when null), and stock.
+Use `Input` for each field. Show Yup errors under the field. Disable submit while `isSubmitting`.
 
-- In stock: quantity starts at 1, `Button` label “Add to cart”
-- Quantity minimum 1, maximum `stock_qty`
-- Out of stock: no quantity control, add button disabled
-- After add, the page says “Added to cart” and the header count updates
+On a 400, map `errors.fields` onto those inputs and show `message` at the top. A 403 shows “You do not have permission”.
 
 ---
 
-## Exercise 4: Cart store
+## Exercise 4: Create and edit
 
-`web/src/stores/cartStore.ts`. A Zustand store, `useCartStore`, used by the detail page, the cart page, and the header. Same `create()` shape as `useAuthStore`.
+| Route | Page | Submit |
+| ----- | ---- | ------ |
+| `/admin/books/new` | `BookCreatePage.tsx` | `Book.store`. Empty form. On 201, go to `/admin/books` |
+| `/admin/books/:id/edit` | `BookEditPage.tsx` | Load with `Book.show(id)`, then `Book.update(id, values)`. On 200, go to `/admin/books` |
 
-A line:
+Both routes sit inside `RequireAuth`.
 
-```ts
-{
-  bookId: number
-  title: string
-  price: number
-  stockQty: number
-  quantity: number
-}
-```
+Edit shows a loading state while `Book.show` runs. Unknown id shows the API message and a link back to `/admin/books`.
 
-- Add merges a line with the same `bookId`. Quantities sum, capped at `stockQty`
-- Update quantity and remove a line
-- Header shows the number of lines
-- Persist under `localStorage` key `cart`
+`Book.store` and `Book.update` come from `BaseModel`. Pass the form values. Do not send `id` in the body.
 
 ---
 
-## Exercise 5: Cart page
+## Exercise 5: Admin table and delete
 
-Route `/cart`, public, inside `AppLayout`. Page `web/src/pages/cart/CartPage.tsx`.
+Route `/admin/books`, inside `RequireAuth`. Page `web/src/pages/admin/AdminBooksPage.tsx`.
 
-- Empty cart: message and a link to `/`
-- Each line: title, unit price, quantity control, line total, remove
-- Subtotal under the lines
-- Changing quantity updates the subtotal without a reload
-- Logged-in user: disabled “Place order”
-- Guest: “Log in to place an order” linking to `/login`
+- `Book.index({ page: 1, per_page: 15 })`
+- Table columns: title, author, price, stock, actions
+- “Add book” links to `/admin/books/new`
+- Edit links to `/admin/books/:id/edit`
+- Delete opens `web/src/components/ConfirmDialog.tsx`: the title, “This cannot be undone.”, Cancel, and Delete
+- Confirm calls `Book.destroy(id)`. On 204, refetch the list
+- Header link “Admin” only when `useAuthStore` has a user
+- Loading, empty (“No books”), and error-with-retry, same idea as the home grid
 
-The cart page reads `useCartStore`. It does not call the API.
-
----
-
-## Exercise 6: Edge cases
-
-Write what you did in `notes_week4.md`.
-
-| Case | Expected |
-| ---- | -------- |
-| Add the same book twice | one line, summed quantity, not above stock |
-| Set quantity above stock | control stops at `stock_qty` |
-| Remove the last line | empty cart message |
-| Reload `/cart` | lines still there |
-| Open `/books/999999` | not-found message |
+A reader still sees Delete. The 403 message is the lesson. You may hide the button when `user.role` is not `admin`, and you still test 403 with a direct `Book.destroy` or with the button left visible. Write which you did in the notes.
 
 ---
 
-## Test checklist (`notes_week4.md`)
+## Exercise 6: Checklist (`notes_week4.md`)
 
 | # | Check | Expect |
 | - | ----- | ------ |
-| 1 | `GET /api/books/1` | 200, one book in `data` |
-| 2 | `GET /api/books/999999` | 404, `NOT_FOUND` |
-| 3 | Open a card from home | detail title and price match the card |
-| 4 | Add to cart, open `/cart` | line, subtotal, header count |
-| 5 | Reload | cart remains |
-| 6 | Guest on `/cart` | login link, place-order does nothing |
-| 7 | Home search from week 3 | still filters |
+| 1 | Guest opens `/admin/books` | redirect to `/login` |
+| 2 | Create with an empty title | Yup error, no request |
+| 3 | Create a valid book as `reader@example.com` | 201, row in the admin table and on `/` |
+| 4 | Edit that book’s price as reader | 200, new price on `/` |
+| 5 | Delete as reader | 403 and “You do not have permission” |
+| 6 | Delete as `admin@example.com` | 204, row gone |
+| 7 | Logout, open `/admin/books/new` | redirect to `/login` |
+| 8 | Home, logged out | list still works, no edit buttons |
 
 ---
 
 ## Docs
 
+- [Formik](https://formik.org/docs/overview)
+- [Yup](https://github.com/jquense/yup)
 - Layout: `../../book_store/README_api.md`, `../../book_store/README_web.md`
+- Policies to compare: `../../laravel/task_1` book policy and `StoreBookRequest`
 
 ---
 
 ## Submission
 
-- [ ] Public book detail endpoint and page
-- [ ] Cart in `localStorage`, cart page, header count
-- [ ] `notes_week4.md` with the edge cases and checklist
-- [ ] No `POST /api/orders` from the UI
+- [ ] Create, update, delete, and show on `book_store/api`
+- [ ] Admin list, `BookForm`, create, edit, confirm delete
+- [ ] `notes_week4.md` checklist
+- [ ] `.env` not committed
 
 ---
 
 ## Next
 
-`tasks_5.md` — Place order and order detail.
+`tasks_5.md` — Public book detail and the cart.

@@ -1,5 +1,11 @@
 # React Tasks 4 — Week 4 (September): Forms, Admin CRUD, Polish
 
+**Do this work in the bookstore, not in `react/task_1/`.**
+
+Formik and Yup are `../book_store_design/tasks/tasks_2.md` (login and register). Create, edit, delete, and the error states are `../book_store_design/tasks/tasks_4.md`.
+
+The rest of this file is the original brief. Leave it. Do not build a second admin UI here.
+
 **Duration:** ~20 hours · **Prerequisite:** `tasks_3.md` complete (logged-in user with token).
 
 Continue in `task_1/`.

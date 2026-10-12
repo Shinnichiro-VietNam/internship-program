@@ -29,7 +29,7 @@ Work on **your intern branch**.
 ## Prerequisites
 
 - Laravel module through `laravel/tasks_7.md`
-- React module through `react/tasks_4.md`
+- React module through `react/tasks_3.md`. Formik and admin book CRUD are in `book_store_design`, not in `react/tasks_4.md`.
 
 ---
 

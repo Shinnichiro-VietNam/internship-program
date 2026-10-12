@@ -16,7 +16,7 @@ Build a **Bookstore Admin UI** that talks to your existing Laravel API in `../la
 | `tasks_1.md` | Week 1 (Sep) — Setup, first API call         |
 | `tasks_2.md` | Week 2 — Components, hooks, routing          |
 | `tasks_3.md` | Week 3 — Axios, Zustand auth, login          |
-| `tasks_4.md` | Week 4 — Forms, book CRUD, polish            |
+| `tasks_4.md` | Week 4 — moved to `../book_store_design/tasks/tasks_2.md` and `tasks_4.md` |
 | `../laravel/task_1/` | Laravel API (backend)                  |
 
 Work in `task_1/` on **your intern branch**.

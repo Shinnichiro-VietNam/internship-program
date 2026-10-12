@@ -1,6 +1,8 @@
 # Book Store Design Tasks 2 — Week 2: Login, register, app shell
 
-**Duration:** ~24 hours · **Prerequisite:** `tasks_1.md` complete. `GET /api/health` works. `/dev/ui` renders.
+**Duration:** ~28 hours · **Prerequisite:** `tasks_1.md` complete. `GET /api/health` works. `/dev/ui` renders.
+
+Formik is new. This week still stops at 28 hours. Finish login here. If register is not done, it is the first 4 hours of week 3.
 
 Continue in `../../book_store/`. Write `../task_1/notes_week2.md`.
 
@@ -21,7 +23,7 @@ RequireAuth wraps /account
 | Block | Exercises | Focus | ~Hours |
 | ----- | --------- | ----- | ------ |
 | A | 1–2 | Sanctum register and login | 8 |
-| B | 3–4 | Login and register pages | 8 |
+| B | 3–4 | Formik login and register | 12 |
 | C | 5–6 | Auth store, router, app shell | 8 |
 
 ---
@@ -30,7 +32,7 @@ RequireAuth wraps /account
 
 - Follow `../../book_store/README_api.md`. Register, login, and logout are Actions. Each `handle()` does one job.
 - Follow `../../book_store/README_web.md`. Pages call `Auth`. They do not import Axios.
-- Reuse `Button` and `Input` from week 1.
+- Reuse `Button` and `Input` inside Formik. This is the form work from the React module’s week 4. You do that module’s `tasks_4.md` here, not in `react/task_1/`.
 - `/`, `/login`, `/register`, and `/dev/ui` stay public.
 - A failed login shows `message`. Field errors from `errors.fields` sit on the matching `Input`.
 - No book grid, cart, or order page.
@@ -101,6 +103,12 @@ Seed one user: `reader@example.com` / `password`.
 
 ## Exercise 3: Login page
 
+From `web/`:
+
+```bash
+npm install formik yup
+```
+
 Route `/login`. File `web/src/pages/login/LoginPage.tsx`.
 
 `web/src/models/Auth.ts` uses the Axios instance from `plugins/axios.ts`:
@@ -112,22 +120,32 @@ Route `/login`. File `web/src/pages/login/LoginPage.tsx`.
 | `Auth.logout` | `POST /logout` |
 | `Auth.me` | `GET /user` |
 
-The page:
+The page is a Formik form.
 
-- Email and password through `Input`, submit through `Button`
+| Piece | What you use it for |
+| ----- | ------------------- |
+| `initialValues` | `email` and `password`, both `""` |
+| `validationSchema` | Yup: both required, email format, password at least 8 characters |
+| `onSubmit` | calls `Auth.login` |
+| `errors` / `touched` | Yup messages under `Input` |
+| `isSubmitting` | disables `Button` while the request runs |
+
+- Yup runs before the request. An empty email does not call the API.
 - On 200, `useAuthStore.getState().setToken(data.token)`, then `Auth.me()` fills the user, then go to `/`
-- On 401, show `message`
-- On 400, show `errors.fields` on the inputs
+- On 401, show `message` above the form
+- On 400, copy `errors.fields` onto the inputs (API names win over Yup for that submit)
 - Link to `/register`
+
+In `notes_week2.md`, write two sentences: what Yup checks, and what you still have to read from a 400 body.
 
 ---
 
 ## Exercise 4: Register page
 
-Route `/register`. File `web/src/pages/register/RegisterPage.tsx`.
+Route `/register`. File `web/src/pages/register/RegisterPage.tsx`. Same Formik shape as login.
 
 - Fields: `name`, `email`, `password`
-- Client check: all three required, password at least 8 characters. The API still validates
+- Yup: all three required, email format, password at least 8 characters
 - On 201, save the token the same way as login and go to `/`
 - On 400, show field errors, including a duplicate email
 - Link to `/login`
@@ -176,16 +194,19 @@ Pages and `RequireAuth` call the hook so they re-render. Axios keeps using `useA
 | 1 | POST `/api/register` with a new email | 201 and `data.token` |
 | 2 | POST `/api/register` with the same email | 400, field error on email |
 | 3 | POST `/api/login` with a wrong password | 401 |
-| 4 | Open `/account` while logged out | redirect to `/login` |
-| 5 | Login as `reader@example.com` | land on `/`, header shows the name |
-| 6 | Logout | token gone, header shows Login |
-| 7 | `/dev/ui` | week 1 inputs still render |
+| 4 | Submit `/login` with an empty email | Yup error, no request |
+| 5 | Open `/account` while logged out | redirect to `/login` |
+| 6 | Login as `reader@example.com` | land on `/`, header shows the name |
+| 7 | Logout | token gone, header shows Login |
+| 8 | `/dev/ui` | week 1 inputs still render |
 
 ---
 
 ## Docs
 
 - [Sanctum](https://laravel.com/docs/13.x/sanctum)
+- [Formik](https://formik.org/docs/overview)
+- [Yup](https://github.com/jquense/yup)
 - Layout: `../../book_store/README_api.md`, `../../book_store/README_web.md`
 - Auth to compare: `../../laravel/task_1/app/Http/Controllers/AuthController.php`
 
