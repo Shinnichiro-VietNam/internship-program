@@ -52,7 +52,7 @@ src/
 ├── models/Auth.ts
 ├── types/api.ts              # ApiSuccess<T>, ApiErrorBody
 ├── types/book.ts
-├── stores/authStore.ts       # token and current user
+├── stores/authStore.ts       # Zustand: token and current user
 ├── helper/errors.ts          # message and field errors from a failed response
 ├── router/routes.tsx         # route table
 ├── router/RequireAuth.tsx    # sends a guest to /login
@@ -66,7 +66,7 @@ src/
 | `plugins` | The Axios instance. Nothing else |
 | `models` | One class per API resource. Pages import these |
 | `types` | Response envelope and the fields of each resource |
-| `stores` | Token and the logged-in user. The Axios interceptor reads the token from here |
+| `stores` | Zustand stores. Token and the logged-in user. Axios reads the token with `getState()` |
 | `helper` | Small functions with no React |
 | `router` | Paths, and which paths need a login |
 | `pages` | A screen and the pieces only that screen uses |
@@ -81,11 +81,31 @@ Shared UI props stay small. A page-only form stays in that page's folder.
 `src/plugins/axios.ts` creates one instance.
 
 - `baseURL` is `import.meta.env.VITE_API_URL`
-- Request: if the auth store has a token, set `Authorization: Bearer {token}`
-- The store keeps that token in `localStorage` under the key `token`
-- Response error: 401 clears the token. Field errors for a form come from `helper/errors.ts` (`message`, `errors.fields`)
+- Request: if `useAuthStore.getState().token` is set, send `Authorization: Bearer {token}`
+- The Zustand store keeps that token in `localStorage` under the key `token`
+- Response error: 401 calls `setToken(null)`. Field errors for a form come from `helper/errors.ts` (`message`, `errors.fields`)
 
-Login and register responses put the token in `data.token`. The auth store saves it. Later calls pick it up from the interceptor.
+Components use the hook (`useAuthStore()`). The Axios file is not a component, so it calls `useAuthStore.getState()`.
+
+```ts
+import { create } from "zustand";
+
+type AuthState = {
+  token: string | null;
+  setToken: (token: string | null) => void;
+};
+
+export const useAuthStore = create<AuthState>((set) => ({
+  token: localStorage.getItem("token"),
+  setToken: (token) => {
+    if (token) localStorage.setItem("token", token);
+    else localStorage.removeItem("token");
+    set({ token });
+  },
+}));
+```
+
+Login and register responses put the token in `data.token`. The page calls `setToken`. Later requests pick it up from the interceptor.
 
 ---
 

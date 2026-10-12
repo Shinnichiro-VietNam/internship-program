@@ -153,7 +153,7 @@ Enable the week 4 button for a logged-in user.
 
 - Label “Place order”
 - `Order.store({ items })` sends `book_id` and `quantity` only
-- On 201, clear `cartStore`, header count goes to 0, go to `/orders/{id}`
+- On 201, `useCartStore.getState()` clears the lines, the header count goes to 0, go to `/orders/{id}`
 - On 400, stay on `/cart` and show `message`
 - Disable the button while the request runs
 - Guest behavior from week 4 stays: link to `/login`, cart kept

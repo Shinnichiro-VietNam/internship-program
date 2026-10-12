@@ -170,7 +170,7 @@ Delete `web/.gitkeep`, then from `Runa/book_store`:
 npm create vite@latest web -- --template react-ts
 cd web
 npm install
-npm install axios react-router-dom
+npm install axios react-router-dom zustand
 npm install tailwindcss @tailwindcss/vite
 ```
 
@@ -191,7 +191,7 @@ web/src/
 ├── plugins/axios.ts       # single Axios instance
 ├── models/BaseModel.ts    # index, show, store, update, destroy
 ├── helper/errors.ts       # message and field errors from a failed response
-├── stores/authStore.ts    # token in localStorage under the key token
+├── stores/authStore.ts    # Zustand useAuthStore, token in localStorage key token
 ├── types/api.ts           # ApiSuccess<T>, ApiErrorBody
 └── types/book.ts          # id, title, author, price, stock_qty, published_year
 ```
@@ -199,8 +199,8 @@ web/src/
 `plugins/axios.ts`:
 
 - `baseURL` is `import.meta.env.VITE_API_URL`
-- If the auth store has a token, send `Authorization: Bearer {token}`
-- On 401, clear the token. No redirect yet
+- If `useAuthStore.getState().token` is set, send `Authorization: Bearer {token}`
+- On 401, call `setToken(null)`. No redirect yet
 
 `helper/errors.ts` returns:
 

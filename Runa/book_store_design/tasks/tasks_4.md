@@ -9,7 +9,7 @@ Open a book from the grid, then add it to a cart. The cart stays in the browser.
 ```text
 Card → Book.show(id) → GET /api/books/{id}
         ↓
-Add to cart → cartStore → /cart
+Add to cart → useCartStore → /cart
 ```
 
 ---
@@ -75,7 +75,7 @@ Show title, author, price, published year (or “—” when null), and stock.
 
 ## Exercise 4: Cart store
 
-`web/src/stores/cartStore.ts`. One module, used by the detail page, the cart page, and the header.
+`web/src/stores/cartStore.ts`. A Zustand store, `useCartStore`, used by the detail page, the cart page, and the header. Same `create()` shape as `useAuthStore`.
 
 A line:
 
@@ -107,7 +107,7 @@ Route `/cart`, public, inside `AppLayout`. Page `web/src/pages/cart/CartPage.tsx
 - Logged-in user: disabled “Place order”
 - Guest: “Log in to place an order” linking to `/login`
 
-The cart page reads `cartStore`. It does not call the API.
+The cart page reads `useCartStore`. It does not call the API.
 
 ---
 

@@ -9,7 +9,7 @@ A user can register and log in. The router knows who is logged in. `/` is only a
 ```text
 Login or Register page → Auth.login() / Auth.register()
         ↓
-authStore saves data.token → Axios sends Authorization
+useAuthStore saves data.token → Axios reads it with getState()
         ↓
 RequireAuth wraps /account
 ```
@@ -115,7 +115,7 @@ Route `/login`. File `web/src/pages/login/LoginPage.tsx`.
 The page:
 
 - Email and password through `Input`, submit through `Button`
-- On 200, `authStore` saves `data.token`, then `Auth.me()` fills the user, then go to `/`
+- On 200, `useAuthStore.getState().setToken(data.token)`, then `Auth.me()` fills the user, then go to `/`
 - On 401, show `message`
 - On 400, show `errors.fields` on the inputs
 - Link to `/register`
@@ -136,7 +136,9 @@ Route `/register`. File `web/src/pages/register/RegisterPage.tsx`.
 
 ## Exercise 5: Router
 
-`stores/authStore.ts` already holds the token under `localStorage` key `token`. Add the current user (`id`, `name`, `email`).
+`stores/authStore.ts` is a Zustand store (`useAuthStore`). It already holds the token under `localStorage` key `token`. Add `user` (`id`, `name`, `email`) and `setUser`.
+
+Pages and `RequireAuth` call the hook so they re-render. Axios keeps using `useAuthStore.getState()`.
 
 - Login and register call `Auth.me()` after the token is saved
 - Logout calls `Auth.logout()`, then clears token and user
