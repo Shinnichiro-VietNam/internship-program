@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Http\Middleware\LogQueries;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -25,6 +27,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 return null;
             }
         });
+        $middleware->api(append: [
+            LogQueries::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $renderer = new ApiErrorRenderer;
@@ -55,3 +60,4 @@ return Application::configure(basePath: dirname(__DIR__))
             }
         });
     })->create();
+

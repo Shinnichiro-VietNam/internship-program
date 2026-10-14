@@ -187,3 +187,8 @@
 | ------------------------- | ------------------------------- |
 | `GET /api/health`         | 200 `{"status":"OK"}`           |
 | `GET /api/does-not-exist` | 404 `errors.code` = `NOT_FOUND` |
+
+## Add: SQL query log
+
+- `app/Http/Middleware/LogQueries.php`: enables the query log before the request, writes every SQL query to `storage/logs/laravel.log` after the response
+- Registered in `bootstrap/app.php`
