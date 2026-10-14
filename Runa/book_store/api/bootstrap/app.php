@@ -27,9 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 return null;
             }
         });
-        $middleware->api(append: [
-            LogQueries::class,
-        ]);
+        $middleware->prepend(LogQueries::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $renderer = new ApiErrorRenderer;
