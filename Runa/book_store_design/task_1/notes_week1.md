@@ -161,3 +161,29 @@
 | Cover, category, sale price | No             | No `cover`, `category`, `sale_price` columns. No categories table               |
 | Cart                        | No             | No cart table or cart API                                                       |
 | Customer places an order    | No             | `POST /api/orders` is admin-only Customer cannot order or see own orders        |
+
+## Exercise 4: Error JSON
+
+### Files added or changed
+
+| File                                      | Purpose                                                      |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| `app/Http/Responses/ResponseData.php`     | Builds `{ status, message, data, errors }`                   |
+| `app/Http/Responses/ApiErrorRenderer.php` | Turns exceptions into `ResponseData`                         |
+| `app/Traits/HandleErrorException.php`     | 400 / 401 / 403 / 404 error bodies                           |
+| `app/Traits/HandleResponse.php`           | `httpOk()`, `httpCreated()`, ..for controllers               |
+| `app/Http/Controllers/Controller.php`     | Uses `HandleResponse` and `AuthorizesRequests`               |
+| `bootstrap/app.php`                       | `render()` for `api/*`, guests get 401 instead of a redirect |
+| `config/cors.php`                         | Allows `http://localhost:5173`                               |
+
+### Differences from `laravel/task_1`
+
+- `errors.fields` is an object: `{ "email": ["The email field is required."] }`. `laravel/task_1` used a list of `{ field, message }`.
+- `HandleResponse` uses plain strings (`Created`, `No content`) instead of `trans('message.*')`. There is no `lang/` folder.
+
+### Check
+
+| Request                   | Result                          |
+| ------------------------- | ------------------------------- |
+| `GET /api/health`         | 200 `{"status":"OK"}`           |
+| `GET /api/does-not-exist` | 404 `errors.code` = `NOT_FOUND` |
