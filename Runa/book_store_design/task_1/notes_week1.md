@@ -192,3 +192,17 @@
 
 - `app/Http/Middleware/LogQueries.php`: enables the query log before the request, writes every SQL query to `storage/logs/laravel.log` after the response
 - Registered in `bootstrap/app.php`
+
+## Exercise 7: Checklist
+
+Put this at the end of `notes_week1.md`.
+
+| #   | Check                                                               | Done |
+| --- | ------------------------------------------------------------------- | ---- |
+| 1   | Home, list, product, search, cart, login/register opened on Fahasa  |  ✅️  |
+| 2   | Each selling feature marked Basic, Later, or Out of scope           |  ✅️  |
+| 3   | Admin list includes books, price, stock, and orders                 |  ✅️  |
+| 4   | `GET /api/health` returns `{"status":"OK"}`                         |  ✅️  |
+| 5   | `GET /api/does-not-exist` returns 404 and `errors.code` `NOT_FOUND` |  ✅️  |
+| 6   | `/dev/ui` shows the four inputs and the health result               |  ✅️  |
+| 7   | `.env` files are not committed                                      |  ✅️  |
