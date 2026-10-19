@@ -7,10 +7,10 @@ import api from "../plugins/axios";
 import { parseApiError } from "../helper/errors";
 
 export function UiPreviewPage() {
-    const [text, setText] = useState("");
-    const [selectValue, setSelectValue] = useState("a");
-    const [date, setDate] = useState("");
-    const [health, setHealth] = useState("Loading...");
+    const [text, setText] = useState<string> ("");
+    const [selectValue, setSelectValue] = useState<string> ("a");
+    const [date, setDate] = useState<string> ("");
+    const [health, setHealth] = useState<string> ("Loading...");
 
 useEffect(() => {
     api

@@ -1,14 +1,17 @@
 import React from 'react';
 
-//type (button or submit), variants primary and secondary, disabled, children
-type ButtonProps = {
-    type?: "button" | "submit";
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: "primary" | "secondary";
-    disabled?: boolean;
-    children: React.ReactNode;
-}
+};
 
-export function Button({ type = "button", variant = "primary", disabled, children }: ButtonProps) {
+export function Button({
+    type = "button",
+    variant = "primary",
+    disabled,
+    className = "",
+    children,
+    ...rest
+}: ButtonProps) {
     const base = "px-4 py-2 rounded-md";
     const variants = {
         primary: "bg-blue-500 text-white",
@@ -18,11 +21,12 @@ export function Button({ type = "button", variant = "primary", disabled, childre
 
     return (
         <button
-        type={type}
-        disabled={disabled}
-        className={`${base} ${variants[variant]} ${disabledClass}`}
+            type={type}
+            disabled={disabled}
+            className={`${base} ${variants[variant]} ${disabledClass} ${className}`.trim()}
+            {...rest}
         >
-        {children}
+            {children}
         </button>
     );
 }

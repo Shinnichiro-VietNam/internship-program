@@ -2,23 +2,26 @@ import React from 'react';
 
 //label, error, options ({ value, label }[]), value, onChange
 
-type SelectProps = {
+type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
     label: string;
     error?: string;
     options: { value: string; label: string }[];
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-}
+};
 
-export function Select({ label, error, options, value, onChange }: SelectProps) {
+export function Select({
+    label,
+    error,
+    options,
+    className = "",
+    ...rest
+}: SelectProps) {
     return (
     <div>
         <label>
             {label}
             <select
-            value={value}
-            onChange={onChange}
-            className="border px-3 py-2 rounded-md w-full"
+            className={`border px-3 py-2 rounded-md w-full ${className}`.trim()}
+            {...rest}
             >
             {options.map((option) => (
                 <option key={option.value} value={option.value}>
