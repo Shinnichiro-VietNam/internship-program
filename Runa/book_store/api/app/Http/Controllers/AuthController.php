@@ -17,14 +17,14 @@ class AuthController extends Controller
     {
         $token = $action->handle($request->validated());
 
-        return $this->httpCreated($token);
+        return $this->httpCreated($token->toArray());
     }
 
     public function login(LoginRequest $request, LoginUserAction $action): ResponseData
     {
         $token = $action->handle($request->validated());
 
-        return $this->httpOk($token);
+        return $this->httpOk($token->toArray());
     }
 
     public function logout(LogoutUserAction $action): ResponseData

@@ -3,16 +3,15 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
+use App\Data\Auth\AuthTokenData;
 
 final class RegisterUserAction
 {
-    public function handle(array $data): array
+    public function handle(array $data): AuthTokenData
     {
         $user = User::create($data);
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return [
-            'token' => $token,
-            'token_type' => 'Bearer',
-        ];
+        return new AuthTokenData(
+            token: $user->createToken('auth_token')->plainTextToken,
+        );
     }
 }
