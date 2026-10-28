@@ -7,7 +7,7 @@ use App\Queries\Book\ListBooksQuery;
 use App\Http\Resources\Book\BookResource;
 use App\Http\Responses\ResponseData;
 use Illuminate\Http\Request;
-
+use App\Http\Resources\PaginationResource;
 
 class BookController extends Controller
 {
@@ -17,12 +17,8 @@ class BookController extends Controller
 
         $books = $query->paginate($request);
 
-        return $this->httpOk([
-            'items' => BookResource::collection($books)->resolve(),
-            'current_page' => $books->currentPage(),
-            'last_page' => $books->lastPage(),
-            'per_page' => $books->perPage(),
-            'total' => $books->total(),
-        ]);
+        return $this->httpOk(
+            (new PaginationResource($books, BookResource::class))->resolve()
+        );
     }
 }
