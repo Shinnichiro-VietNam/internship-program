@@ -1,120 +1,199 @@
-# Book Store Design Tasks 5 — Week 5: Book detail and cart
+# Book Store Design Tasks 5 — Week 5: Home page UI, Home page API, Book detail UI
 
-**Duration:** ~24 hours · **Prerequisite:** `tasks_4.md` complete. `GET /api/books/{id}` already returns one book.
+**Duration:** ~25 hours · **Prerequisite:** `tasks_4.md` complete. `/` shows the Bookory-style header, hero, 8 sample cards, and footer. `GET /api/books` works.
 
-The first 4 hours finish the delete dialog and the 403 message if week 4 did not reach them. If those already work, start the detail page.
+Finish the home page screens first, then replace the sample data with `Book.index()`. The last block is the book detail screen, UI only. `GET /api/books/{id}` and the cart are next week.
 
 Continue in `../../book_store/`. Write `../task_1/notes_week5.md`.
 
-Open a book from the home grid, then add it to a cart. The cart stays in the browser. Placing the order is week 6.
+**UI reference:** [Bookory — Home 5](https://demo2.pavothemes.com/bookory/home-5/) for the grid, and any [Bookory product page](https://demo2.pavothemes.com/bookory/product/the-girl-and-the-last-sleepover/) for the detail layout. Same rule as week 4: take the layout and the color roles, not files, names, or the Bookory logo.
 
 ```text
-Card → Book.show(id) → detail page
-        ↓
-Add to cart → useCartStore → /cart
+Header search → /?title=x        → HomePage reads useSearchParams
+HomePage      → Book.index({ title, page, per_page: 8 }) → GET /api/books → BookGrid
+BookCard      → /books/:id       → BookDetailPage (sample data this week)
 ```
 
 ---
 
 ## Blocks overview
 
-| Block | Exercises | Focus | ~Hours |
-| ----- | --------- | ----- | ------ |
-| A | 1–2 | Public detail page | 12 |
-| B | 3–5 | Cart store and cart page | 12 |
+| Block | Exercise | Task | ~Hours |
+| ----- | -------- | ---- | ------ |
+| A | 1–2 | Create UI HomePage (finish) | 9 |
+| B | 3–4 | Integrate API HomePage | 8 |
+| C | 5–6 | Create UI Book Detail | 8 |
+
+---
+
+## Bookory reference (product page)
+
+Open one product page and write a row in `notes_week5.md`.
+
+| Part | Bookory | This week |
+| ---- | ------- | --------- |
+| Breadcrumb | “HOME → CATEGORY → TITLE”, small uppercase, last item in the accent color | “Home → <title>”. No categories yet |
+| Two cards | Left: cover image with zoom icon. Right: details | Left: cover block. Right: details. White, rounded, thin border |
+| Stock badge | Green “IN STOCK” | Green “In stock” or red “Out of stock” |
+| Title | Large `h1` | Same |
+| Meta line | “Author: X \| ★★★★ 5 \| SKU: …” | “Author: X \| Published: 2020”. No rating, no SKU |
+| Price | Large, accent color | Same, `formatPrice` |
+| Short text | Lorem description | “No description yet.” |
+| Format radios | Audio / Ebook / … | Skip |
+| Quantity | “− 1 +” pill | `QuantityInput` |
+| Add to cart | Accent pill button, wishlist beside it | Accent pill, disabled this week. No wishlist |
+| Tabs | Description / Additional information / Reviews | Description / Details. No reviews |
+| Related products | Row of cards | 4 `BookCard` from the sample list |
 
 ---
 
 ## Rules (this week)
 
-- Do not add a second show endpoint. Week 4’s `FindBookQuery` and `Book.show` are the ones you call.
-- The public detail page has no edit or delete controls. Those stay on `/admin/books`.
-- Cart lines are not saved on the server. A reload keeps them (`localStorage` key `cart`).
-- Quantity cannot go above `stock_qty`. `stock_qty` 0 disables add.
-- Do not call `POST /api/orders`. On `/cart`, a logged-in user sees a disabled “Place order” button. A guest sees a link to `/login`.
+- Follow `../../book_store/README_web.md`. The page calls `Book.index()`. It does not import Axios.
+- One component per file. `BookCard` does not fetch.
+- Search and page live in the URL (`?title=&page=`), not only in component state. Reload keeps the same list.
+- The detail page does not call the API this week. No cart behavior. “Add to cart” is disabled.
+- Covers stay solid color blocks. No image, font, or icon files copied from Bookory.
 
 ---
 
-## Exercise 1: Detail route
+## Exercise 1: Grid states (Block A)
 
-Confirm week 4:
+The grid area on `/` has four states. Build each as a component and preview all four on `/dev/ui`.
 
-```bash
-curl -s http://127.0.0.1:8000/api/books/1
-curl -s -i http://127.0.0.1:8000/api/books/999999
-```
+| Component | Shows |
+| --------- | ----- |
+| `components/BookCardSkeleton.tsx` | Gray blocks in the shape of `BookCard`: tall cover, two text lines, price line. Tailwind `animate-pulse` |
+| `components/EmptyState.tsx` | Props `message`, optional `action` (a link or `Button`). Centered text on a light gray rounded panel |
+| `components/ErrorState.tsx` | Props `message`, `onRetry`. The message in red and a `Button` “Retry” |
+| `components/BookGrid.tsx` | Props `books`, `status`, `errorMessage`, `onRetry`. Renders 8 skeletons, or `EmptyState`, or `ErrorState`, or the cards in the same 2 / 3 / 5 column grid as week 4 |
 
-Second call: HTTP 404, `errors.code` = `NOT_FOUND`.
+`status` is `"loading" | "error" | "empty" | "ready"`.
 
-- Route `/books/:id`
-- Page `web/src/pages/books/BookDetailPage.tsx`
-- `Book.show(id)` returns one book in `data`
-- Unknown id: show the API message and a link to `/`
-- Loading state while the request runs
-- A card on the home grid opens the matching book
+`/dev/ui` gets a “Grid states” section with the four states one under another, using `sampleBooks`.
 
 ---
 
-## Exercise 2: Detail layout
+## Exercise 2: Pagination and search bar (Block A)
 
-Show title, author, price, published year (or “—” when null), and stock.
+### 2.1 `components/Pagination.tsx`
 
-- In stock: quantity starts at 1, `Button` label “Add to cart”
-- Quantity minimum 1, maximum `stock_qty`
-- Out of stock: no quantity control, add button disabled
-- After add, the page says “Added to cart” and the header count updates
+Props: `currentPage`, `lastPage`, `onChange`.
+
+- “Previous” and “Next” as `Button` secondary (white pill with border)
+- Text between them: “Page 2 of 5”
+- Previous disabled on page 1. Next disabled on the last page
+- Hidden when `lastPage` is 1
+
+Replace the disabled “Next page” button from week 4 with `Pagination`, centered under the grid.
+
+### 2.2 Header search
+
+The pill search in the week 4 header now submits.
+
+- On submit, navigate to `/?title=<value>`. Empty value navigates to `/`
+- When the URL has `title`, the input shows that value after a reload
+- `HomePage` replaces the “Popular Books” section title with “Results for “<title>”” and shows a “Clear” link to `/` on the right where “View all” was
+- Still sample data this week in Block A. Filter `sampleBooks` by title so the UI can be checked before Block B
 
 ---
 
-## Exercise 3: Cart store
+## Exercise 3: `Book` model and types (Block B)
 
-`web/src/stores/cartStore.ts`. A Zustand store, `useCartStore`, used by the detail page, the cart page, and the header. Same `create()` shape as `useAuthStore`.
-
-A line:
+`web/src/models/Book.ts`:
 
 ```ts
-{
-  bookId: number
-  title: string
-  price: number
-  stockQty: number
-  quantity: number
+import { BaseModel } from "./BaseModel";
+
+export class Book extends BaseModel {
+  static baseUrl = "books";
 }
 ```
 
-- Add merges a line with the same `bookId`. Quantities sum, capped at `stockQty`
-- Update quantity and remove a line
-- Header shows the number of lines
-- Persist under `localStorage` key `cart`
+`web/src/types/book.ts` adds the list payload. It matches `BookController@index`:
+
+```ts
+export type BookListData = {
+  items: Book[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+};
+```
+
+Call shape: `Book.index<ApiSuccess<BookListData>>({ title, page, per_page: 8 })`. The list is `response.data.items`.
+
+Check the API first:
+
+```bash
+curl -s "http://127.0.0.1:8000/api/books?page=1&per_page=8"
+curl -s "http://127.0.0.1:8000/api/books?title=the&page=1"
+```
 
 ---
 
-## Exercise 4: Cart page
+## Exercise 4: Wire the home page (Block B)
 
-Route `/cart`, public, inside `AppLayout`. Page `web/src/pages/cart/CartPage.tsx`.
+`HomePage.tsx` reads `title` and `page` from `useSearchParams`. Defaults: no title, page 1.
 
-- Empty cart: message and a link to `/`
-- Each line: title, unit price, quantity control, line total, remove
-- Subtotal under the lines
-- Changing quantity updates the subtotal without a reload
-- Logged-in user: disabled “Place order”
-- Guest: “Log in to place an order” linking to `/login`
+State on the page: `books`, `status`, `errorMessage`, `lastPage`, `total`.
 
-The cart page reads `useCartStore`. It does not call the API.
+- One `useEffect` keyed on `[title, page]`. It sets `status` to `"loading"`, calls `Book.index`, then sets `"ready"` or `"empty"`
+- Failure: `status` `"error"`, `errorMessage` from `helper/errors.ts`. Retry runs the same call again
+- `Pagination.onChange` writes `page` into the URL. The effect picks it up. Scroll to the top of the grid on change
+- “Results for” line shows `total`: “12 results for “the””
+- The hero and the sale strip stay. Only the grid changes
+- Remove the `sampleBooks` import from `HomePage`. Keep the file for `/dev/ui` and Block C
 
----
+Request count: open `/`, then search once, then go to page 2. The network tab shows exactly three `GET /api/books` calls. Write the number you saw in `notes_week5.md`, and what you changed if it was higher.
 
-## Exercise 5: Edge cases
-
-Write what you did in `notes_week5.md`.
+Edge cases:
 
 | Case | Expected |
 | ---- | -------- |
-| Add the same book twice | one line, summed quantity, not above stock |
-| Set quantity above stock | control stops at `stock_qty` |
-| Remove the last line | empty cart message |
-| Reload `/cart` | lines still there |
-| Open `/books/999999` | not-found message |
+| `/?page=99` | API returns an empty page → `EmptyState` with a link to `/` |
+| `/?title=zzzz` | `EmptyState` “No books match “zzzz”” and Clear |
+| API stopped | `ErrorState`, Retry works after the API is back |
+| Reload on `/?title=the&page=2` | same list, header input shows “the” |
+
+---
+
+## Exercise 5: Detail layout (Block C)
+
+Move `pages/home/sampleBooks.ts` to `pages/books/sampleBooks.ts`. `/dev/ui` imports from the new path. This file is deleted next week when `Book.show` lands.
+
+Route `/books/:id`, inside `AppLayout`. Page `web/src/pages/books/BookDetailPage.tsx`.
+
+This week the page reads `id` from `useParams` and finds the book in `sampleBooks`. Unknown id → `EmptyState` “Book not found” with a link to `/`.
+
+Layout, following the Bookory product page:
+
+| Area | Content |
+| ---- | ------- |
+| Breadcrumb | Small uppercase: “Home → <title>”. Title in the accent color. Home links to `/` |
+| Left card | White, rounded, thin gray border. Cover block, tall, same palette as `BookCard` |
+| Right card | Same card style. Top: stock badge, green “In stock” or red “Out of stock”. `h1` title. Meta line: “Author: <author>” and “Published: <year or —>” separated by a thin vertical line. Price large in the accent color. One gray paragraph: “No description yet.” Quantity label and `QuantityInput`. `Button` “Add to cart”, accent, disabled this week |
+| Tabs | Under the two cards. Two tabs: “Description” (the same paragraph) and “Details” (a two-column table: Author, Published year, Stock). Active tab underlined in the accent color. Local `useState` for the active tab |
+| Related | Section header “Related books” like the home section header. 4 `BookCard` from `sampleBooks`, excluding the current book |
+
+Two columns on wide screens, stacked on small.
+
+---
+
+## Exercise 6: Quantity control (Block C)
+
+`components/QuantityInput.tsx`
+
+Props: `value`, `min`, `max`, `onChange`, `disabled`.
+
+- A pill with “−” and “+” buttons around a read-only number, like Bookory
+- “−” disabled at `min`. “+” disabled at `max`
+- On the detail page: `min` 1, `max` `stock_qty`. `stock_qty` 0 → the control and “Add to cart” are disabled and the quantity shows 0
+
+Add the control to `/dev/ui` with `min` 1 and `max` 3.
+
+In `notes_week5.md`, two sentences: where the quantity state lives, and why the detail page and not `QuantityInput` owns it.
 
 ---
 
@@ -122,31 +201,42 @@ Write what you did in `notes_week5.md`.
 
 | # | Check | Expect |
 | - | ----- | ------ |
-| 1 | `GET /api/books/1` | 200, one book in `data` |
-| 2 | `GET /api/books/999999` | 404, `NOT_FOUND` |
-| 3 | Open a card from home | detail title and price match the card |
-| 4 | Add to cart, open `/cart` | line, subtotal, header count |
-| 5 | Reload | cart remains |
-| 6 | Guest on `/cart` | login link, place-order does nothing |
-| 7 | Admin create and delete from week 4 | still work |
+| 1 | `/dev/ui` | four grid states, pagination, quantity control render |
+| 2 | Open `/` | hero, then skeletons, then cards from the API |
+| 3 | `GET /api/books?title=the` vs the grid after searching “the” | same titles |
+| 4 | Search with no match | empty panel and Clear |
+| 5 | Go to page 2, reload | still page 2, Previous enabled |
+| 6 | Stop the API, reload `/` | error and Retry. Start the API, Retry → cards |
+| 7 | Open `/`, search, next page | exactly 3 requests in the network tab |
+| 8 | Click a card | breadcrumb, two cards, title and price match the card |
+| 9 | Switch tabs | Description and Details swap, underline moves |
+| 10 | `/books/999999` | “Book not found” and a link to `/` |
+| 11 | Detail of the `stock_qty` 0 book | red badge, quantity 0, controls disabled |
+| 12 | Related books | 4 cards, current book not among them |
+| 13 | Login and `/account` from week 2 | still work inside `AppLayout` |
 
 ---
 
 ## Docs
 
+- [Bookory product page](https://demo2.pavothemes.com/bookory/product/the-girl-and-the-last-sleepover/)
+- [React Router — useSearchParams, useParams](https://reactrouter.com/)
+- [React — useEffect](https://react.dev/reference/react/useEffect)
+- [Tailwind — animate-pulse](https://tailwindcss.com/docs/animation)
 - Layout: `../../book_store/README_api.md`, `../../book_store/README_web.md`
 
 ---
 
 ## Submission
 
-- [ ] Public book detail page
-- [ ] Cart in `localStorage`, cart page, header count
-- [ ] `notes_week5.md` with the edge cases and checklist
-- [ ] No `POST /api/orders` from the UI
+- [ ] `BookGrid` with skeleton, empty, error; `Pagination`; header search
+- [ ] `models/Book.ts`, `BookListData`, home page on `Book.index()` with URL search and page
+- [ ] `BookDetailPage` on sample data with breadcrumb, two cards, tabs, related books; `QuantityInput`
+- [ ] `notes_week5.md` with the Bookory notes, request count, and checklist
+- [ ] No image, font, or icon files copied from Bookory
 
 ---
 
 ## Next
 
-`tasks_6.md` — Place order and order detail.
+`tasks_6.md` — `GET /api/books/{id}` on the detail page, then the cart.

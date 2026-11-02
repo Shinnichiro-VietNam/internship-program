@@ -1,210 +1,309 @@
-# Book Store Design Tasks 6 — Week 6: Place order and order detail
+# Book Store Design Tasks 6 — Week 6: Book detail UI, Book detail API, Shopping cart UI
 
-**Duration:** ~28 hours · **Prerequisite:** `tasks_5.md` complete. The cart survives a reload.
+**Duration:** ~25 hours · **Prerequisite:** `tasks_5.md` complete. `/` reads `Book.index()`. `/books/:id` renders from `sampleBooks`. `QuantityInput` works.
+
+Finish the detail screen pieces, then put the real book behind it with `GET /api/books/{book}`. The rest of the week is the cart: a Zustand store in the browser, the “Add to cart” button that opens a cart drawer, the header badge, and the cart page. Placing the order is week 7.
 
 Continue in `../../book_store/`. Write `../task_1/notes_week6.md`.
 
-A logged-in user turns the cart into an order and opens that order. This week is longer because the write touches customers, orders, order lines, and stock in one transaction.
+**UI reference:** [Bookory product page](https://demo2.pavothemes.com/bookory/product/the-girl-and-the-last-sleepover/) and [Bookory cart](https://demo2.pavothemes.com/bookory/cart/). On Bookory, “Add to cart” does not leave the page. A “Shopping cart” drawer slides in from the right, and “View cart” inside it opens the cart page. Same rule as weeks 4 and 5: layout and color roles only. No files, names, or the Bookory logo.
 
 ```text
-Cart → Order.store({ items }) → POST /api/orders
-        ↓
-/orders/:id → Order.show(id) → GET /api/orders/{id}
+BookCard → /books/:id → Book.show(id) → GET /api/books/{book} → detail
+                              ↓
+                 Add to cart → useCartStore (localStorage "cart") → CartDrawer opens, header badge
+                              ↓
+                 View cart  → /cart → lines, totals, checkout button (disabled until week 7)
 ```
-
-A new order has status `pending`. No payment gateway, address form, or shipping fee.
 
 ---
 
 ## Blocks overview
 
-| Block | Exercises | Focus | ~Hours |
-| ----- | --------- | ----- | ------ |
-| A | 1–2 | Customers, orders, order items | 6 |
-| B | 3–4 | `POST /api/orders` in a transaction | 10 |
-| C | 5–6 | Cart submit and order detail | 8 |
-| D | 7 | Checklist | 4 |
+| Block | Exercise | Task | ~Hours |
+| ----- | -------- | ---- | ------ |
+| A | 1 | Create UI Book Detail (finish) | 4 |
+| B | 2–3 | Integrate API Book Detail | 7 |
+| C | 4–6 | Create UI Shopping Cart | 14 |
+
+Block C, hour by hour:
+
+| Exercise | Piece | ~Hours |
+| -------- | ----- | ------ |
+| 4 | Cart store in `localStorage` | 3 |
+| 5 | Cart drawer, Add to cart, header badge | 5 |
+| 6 | View cart page (`/cart`) | 6 |
+
+---
+
+## Bookory reference (drawer and cart page)
+
+On the home page, hover a card and click “Add to cart”, or click the cart icon in the header. Then open `/bookory/cart/`. Write a row per part in `notes_week6.md`.
+
+Drawer (“Shopping cart”):
+
+| Part | Bookory | This week |
+| ---- | ------- | --------- |
+| Opening | Slides in from the right over a dark transparent overlay. Opens after “Add to cart” and when the header cart icon is clicked | Same. `CartDrawer` |
+| Header | “Shopping cart” left, “CLOSE ×” right | Same |
+| Empty | “No products in the cart.” | Same |
+| Line | Small cover, title, vendor, “1 × $289.38”, small × top right | Small cover block, title link, author, “2 × 150.000đ”, × remove. No vendor |
+| Footer | “Subtotal: $289.38”, light gray pill “VIEW CART”, accent pill “CHECKOUT” | Same. “View cart” links to `/cart`. “Checkout” disabled this week, or a login link for guests |
+| Closing | ×, click on the overlay | Same, plus the Escape key |
+
+Cart page:
+
+| Part | Bookory | This week |
+| ---- | ------- | --------- |
+| Title band | Light gray, “Cart” left, “HOME → CART” right | `Breadcrumb` + same band as `AuthLayout` |
+| Empty cart | Large gray cart icon, “Your cart is currently empty.”, accent pill “Return to shop” | Same, inline SVG icon, link to `/` |
+| Table | Columns PRODUCT, PRICE, QUANTITY, SUBTOTAL in small uppercase. × at the far left of each row. Thumbnail + title + vendor + stock text | Same columns. Cover block + title link + author + `StockBadge`. `QuantityInput` in the quantity column |
+| Under the table | Coupon input, “Apply coupon”, “Update cart” | Skip all three. One link “Continue shopping” to `/`. Quantity changes apply at once, so there is no “Update cart” |
+| Totals | Right card “Cart totals”: Subtotal, Total, accent pill “Proceed to checkout” | Same two rows. Button disabled this week, or a login link for guests |
+| Below | “You may be interested in…” | Skip |
 
 ---
 
 ## Rules (this week)
 
-- Follow `../../book_store/README_api.md`. One Action, `handle()`, and `DB::transaction()` inside it.
-- `unit_price` is copied from `books.price`. The browser does not send a price.
-- `POST /api/orders` and `GET /api/orders/{order}` use `auth:sanctum`. A guest gets 401.
-- Stock is checked inside the transaction. Quantity above stock, or a missing book, rolls back and returns 400 with `errors.code` = `BAD_REQUEST`.
-- A user reads only their own order. Someone else’s id returns 404.
-- The page calls `Order.store` and `Order.show`. It does not import Axios.
-- After 201, clear the cart.
-- Book admin from week 4 stays as it is. An order list for an admin is not this week.
+- Follow `../../book_store/README_api.md`. Show is `Queries/Book/FindBookQuery`. The controller does not write `where`.
+- Follow `../../book_store/README_web.md`. Pages call `Book.show` and `Book.index`. They do not import Axios.
+- Cart lines live in the browser only (`localStorage` key `cart`). No cart table or cart API.
+- Quantity never goes above `stock_qty`. `stock_qty` 0 disables add.
+- No `POST /api/orders`. “Proceed to checkout” does nothing yet.
+- Delete `pages/books/sampleBooks.ts` at the end of Block B. `/dev/ui` keeps a two-item inline array for previews.
 
 ---
 
-## Tables
+## Exercise 1: Detail pieces (Block A)
 
-Copy the column rules from `../../laravel/task_1/database/migrations/`:
+Pull three pieces out of `BookDetailPage` so the cart page and the API states can reuse them.
 
-- `customers` — `customer_id`, `full_name`, nullable `city`, nullable `email`
-- `orders` — `order_id`, `customer_id`, `order_date`, `status`
-- `order_items` — primary key (`order_id`, `book_id`), `quantity` > 0, `unit_price` > 0
+| Component | Props | Shows |
+| --------- | ----- | ----- |
+| `components/Breadcrumb.tsx` | `items: { label, to? }[]` | Small uppercase row with arrows. Last item has no link and uses the accent color |
+| `components/StockBadge.tsx` | `stockQty` | Green pill “In stock” or red pill “Out of stock”. Used on the detail page and the cart lines |
+| `components/BookDetailSkeleton.tsx` | none | Gray blocks in the shape of the two detail cards: tall cover left, title, meta, price, button right. `animate-pulse` |
 
-`Enums/OrderStatus.php`: `pending`, `paid`, `shipped`, `cancelled`.
-
-On the user’s first order, create a `customers` row from `users.name` and `users.email` and save `users.customer_id`. The next order reuses that row.
-
----
-
-## Request and response
-
-`POST /api/orders`
-
-```json
-{
-  "items": [
-    { "book_id": 1, "quantity": 2 }
-  ]
-}
-```
-
-Success `201`, `data`:
-
-```json
-{
-  "id": 1,
-  "order_date": "2026-10-12",
-  "status": "pending",
-  "items": [
-    { "book_id": 1, "title": "…", "quantity": 2, "unit_price": 1500 }
-  ],
-  "total": 3000
-}
-```
-
-`GET /api/orders/{order}` returns the same `data` shape. `total` is the sum of `quantity * unit_price`, computed in the Resource or the Action. Same number either way. Write which one you picked in the notes.
+- `BookDetailPage` uses all three
+- `/dev/ui` shows `Breadcrumb` with three items, both badges, and the skeleton
+- Check the detail page at a phone width: cards stack, breadcrumb wraps, the quantity row and button stay on one line
 
 ---
 
-## Exercise 1: Schema
-
-Migrations for the three tables and `users.customer_id`. Foreign keys: `orders.customer_id` → `customers`, `order_items` → `orders` and `books`.
-
-Run only these new migrations.
-
----
-
-## Exercise 2: Models
-
-`Customer`, `Order`, `OrderItem`.
-
-- `Order` belongs to `Customer` and has many `OrderItem`
-- `OrderItem` belongs to `Book`
-- `User` belongs to `Customer` when `customer_id` is set
-
----
-
-## Exercise 3: `CreateOrderAction`
-
-`Actions/Order/CreateOrderAction::handle(User $user, array $items)`.
-
-Inside one transaction:
-
-1. Use the user’s customer, or create one and store `customer_id` on the user.
-2. Load each book. A missing book fails the transaction.
-3. Reject `quantity` < 1 or `quantity` > `stock_qty`.
-4. Insert the order with status `pending` and today’s `order_date`.
-5. Insert items with `unit_price` from `books.price`.
-6. Decrement `stock_qty`.
-
-Return the order with items. No mail and no log call in this Action.
-
----
-
-## Exercise 4: Routes
-
-| Method | Path | Auth | Success |
-| ------ | ---- | ---- | ------- |
-| POST | `/api/orders` | logged-in user | 201 |
-| GET | `/api/orders/{order}` | owner of that order | 200 |
+## Exercise 2: `GET /api/books/{book}` (Block B)
 
 | Class | Job |
 | ----- | --- |
-| `Http/Requests/Order/StoreOrderRequest` | `items` required, at least one, `book_id` integer, `quantity` integer |
-| `Queries/Order/FindOrderQuery` | order by id, with items and book titles, or null |
-| `Http/Resources/Order/OrderResource` | the `data` shape above, including `total` |
-| `Http/Controllers/OrderController` | `store` calls the Action, `show` calls the Query |
-| `Policies/OrderPolicy` | `create` needs a user. `view` needs that user’s `customer_id` |
+| `Queries/Book/FindBookQuery` | `handle(int $id): ?Book`. Returns the book or `null` |
+| `Http/Controllers/BookController@show` | `authorize('view', $book)`. `null` → 404 through the existing error renderer. Else `httpOk(new BookResource($book))` |
+| `Policies/BookPolicy::view` | public, same as `viewAny` |
+| `routes/api.php` | `GET /books/{book}` under the existing book route |
+
+Same JSON as one item of the list: `id`, `title`, `author`, `price`, `stock_qty`, `published_year`.
 
 ```bash
-curl -s -X POST http://127.0.0.1:8000/api/orders \
-  -H "Authorization: Bearer TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"items":[{"book_id":1,"quantity":1}]}'
+curl -s http://127.0.0.1:8000/api/books/1
+curl -s -i http://127.0.0.1:8000/api/books/999999
 ```
 
-Guest → 401. Quantity above stock → 400 and the stock row unchanged.
+Second call: HTTP 404, `errors.code` = `NOT_FOUND`.
 
 ---
 
-## Exercise 5: Place order from the cart
+## Exercise 3: Wire the detail page (Block B)
 
-`web/src/models/Order.ts` extends `BaseModel` with `baseUrl = "orders"`.
+`BookDetailPage` reads `id` from `useParams`, then `Book.show<ApiSuccess<Book>>(id)`.
 
-Enable the week 5 button for a logged-in user.
+State: `book`, `status` (`"loading" | "error" | "notfound" | "ready"`), `errorMessage`.
 
-- Label “Place order”
-- `Order.store({ items })` sends `book_id` and `quantity` only
-- On 201, `useCartStore.getState()` clears the lines, the header count goes to 0, go to `/orders/{id}`
-- On 400, stay on `/cart` and show `message`
-- Disable the button while the request runs
-- Guest behavior from week 5 stays: link to `/login`, cart kept
+| State | Shows |
+| ----- | ----- |
+| `loading` | `BookDetailSkeleton` |
+| `notfound` (404) | `EmptyState` “Book not found” with a link to `/` |
+| `error` (other) | `ErrorState` with the message from `helper/errors.ts` and Retry |
+| `ready` | The week 5 layout with the real book |
 
----
+- One `useEffect` keyed on `[id]`. Moving from `/books/1` to `/books/2` through a related card reloads and scrolls to the top
+- Related books: `Book.index({ author: book.author, per_page: 5 })`, drop the current book, show up to 4. Empty → hide the section. This call starts after the book arrives
+- Remove the `sampleBooks` import and delete the file
 
-## Exercise 6: Order detail
-
-Route `/orders/:id`, inside `RequireAuth`. Page `web/src/pages/orders/OrderDetailPage.tsx`.
-
-- `Order.show(id)`
-- Show id, date, status, each line (title, quantity, unit price, line total), and the order total
-- 404 → the API message and a link to `/cart`
-
-`/account` stays name, email, and logout. A full order history page is later. Skip it unless the detail page is done, and if you add it, say so in the notes.
+In `notes_week6.md`, write how you tell a 404 from a network error in the `catch`, and how many requests the page makes on first open.
 
 ---
 
-## Exercise 7: Checklist (`notes_week6.md`)
+## Exercise 4: Cart store (Block C)
+
+`web/src/stores/cartStore.ts`. A Zustand store, `useCartStore`, same `create()` shape as `useAuthStore`.
+
+A line:
+
+```ts
+{
+  bookId: number
+  title: string
+  author: string
+  price: number
+  stockQty: number
+  quantity: number
+}
+```
+
+| Action | Rule |
+| ------ | ---- |
+| `add(book, quantity)` | Same `bookId` merges into one line. Quantities sum, capped at `stockQty` |
+| `setQuantity(bookId, quantity)` | Clamped to 1..`stockQty` |
+| `remove(bookId)` | Drops the line |
+| `clear()` | Empties the cart |
+| `openDrawer()`, `closeDrawer()` | Toggle `isDrawerOpen`. Not persisted |
+
+Derived values, as functions on the store or a `helper/cart.ts`: `lineCount` (number of lines), `itemCount` (sum of quantities), `subtotal` (sum of `price * quantity`).
+
+Persist the lines under `localStorage` key `cart`. `isDrawerOpen` is never saved. Read the lines on startup. Write which Zustand approach you used (manual `localStorage` like `authStore`, or `persist` middleware) and why.
+
+---
+
+## Exercise 5: Add to cart, drawer, header badge (Block C)
+
+### 5.1 `components/CartDrawer.tsx`
+
+Rendered once, inside `AppLayout`, so it is available on every page. Reads `useCartStore` with the hook.
+
+| Part | Behavior |
+| ---- | -------- |
+| Overlay | Full screen, dark and transparent. Click closes the drawer |
+| Panel | Fixed to the right edge, full height, white, about 24rem wide. Slides in and out with a Tailwind `transition-transform` on `translate-x` |
+| Header | “Shopping cart” and a “Close ×” button |
+| Empty | “No products in the cart.” centered |
+| Lines | Scrollable list. Each line: small cover block, title as a link to `/books/:id` (closes the drawer), author in gray, “<quantity> × <formatPrice(price)>”, a small × that calls `remove` |
+| Footer | Row “Subtotal” with `formatPrice(subtotal)` bold. `Button` secondary `fullWidth` “View cart” linking to `/cart` (closes the drawer). Under it: logged-in → accent `Button` `fullWidth` “Checkout”, disabled this week; guest → link “Log in to checkout” to `/login` |
+| Keyboard | Escape closes. While open, the page behind does not scroll (`overflow-hidden` on `body`) |
+
+Closing uses `closeDrawer`. Nothing in the drawer navigates without closing it first.
+
+### 5.2 Detail page
+
+Enable the week 5 button.
+
+- `Add to cart` calls `add(book, quantity)` then `openDrawer()`. The new line is visible in the drawer at once. No separate “Added to cart” text
+- `stock_qty` 0: button disabled, badge red, quantity 0, as in week 5
+- Trying to add more than the stock left (already have 3 of 3): button disabled with a gray hint “Maximum in cart”
+
+### 5.3 Header
+
+- The cart icon is now a `button`, not a link. Click calls `openDrawer()`
+- The badge from week 4 shows `itemCount`. Hidden when 0
+- The header reads the store with the hook so the badge updates without a reload
+- The menu row keeps its “Cart” link to `/cart` for people who want the full page directly
+
+---
+
+## Exercise 6: View cart page (Block C)
+
+This is the page behind “View cart” in the drawer and “Cart” in the menu row. It shows the same lines as the drawer, with room to change quantities and see the totals.
+
+Route `/cart`, public, inside `AppLayout`. Page `web/src/pages/cart/CartPage.tsx`. Replace the placeholder.
+
+Ways to reach it, all must work:
+
+| From | How |
+| ---- | --- |
+| Drawer | “View cart” button. The drawer closes first |
+| Header | “Cart” link in the menu row |
+| Address bar | Type `/cart` and reload. Lines come back from `localStorage` |
+
+### 6.1 Empty
+
+- Title band “Cart” with `Breadcrumb` “Home → Cart”
+- Centered: a gray cart icon as inline SVG, “Your cart is currently empty.”, accent `Button` “Return to shop” linking to `/`
+
+### 6.2 With lines
+
+Two columns on wide screens, stacked on small.
+
+Left, the lines. A table with a header row in small uppercase gray: PRODUCT, PRICE, QUANTITY, SUBTOTAL. `components/CartLine.tsx`, props `line`, renders one `<tr>`.
+
+| Column | Content |
+| ------ | ------- |
+| Remove | First cell. A small gray “×” button, calls `remove` |
+| Product | Small cover block (same palette as `BookCard`), then title as a link to `/books/:id`, author in gray, `StockBadge` |
+| Price | `formatPrice(line.price)` |
+| Quantity | `QuantityInput`, `min` 1, `max` `line.stockQty`, calls `setQuantity` |
+| Subtotal | `formatPrice(line.price * line.quantity)` |
+
+Under the table: a link “Continue shopping” to `/`. No coupon, no “Update cart”.
+
+Right, `components/CartTotals.tsx`, a white card with a thin border.
+
+| Row | Content |
+| --- | ------- |
+| Heading | “Cart totals” |
+| Subtotal | `formatPrice(subtotal)` |
+| Total | `formatPrice(subtotal)`, large, bold |
+| Button | Logged-in: accent `Button` `fullWidth` “Proceed to checkout”, disabled, gray hint “Available next week”. Guest: a link “Log in to checkout” to `/login` |
+
+The drawer footer and `CartTotals` show the same subtotal. Both read it from the store, so they cannot disagree.
+
+Changing a quantity updates the line subtotal, the totals card, the drawer, and the header badge without a reload.
+
+### 6.3 Edge cases
+
+| Case | Expected |
+| ---- | -------- |
+| Add the same book twice | one line, summed quantity, not above stock |
+| Set quantity above stock | `QuantityInput` stops at `stockQty` |
+| Remove the last line | empty state on `/cart`, “No products in the cart.” in the drawer |
+| Reload `/cart` | lines still there, drawer closed |
+| Logout with lines in the cart | lines stay, checkout becomes the login link in both places |
+| Add from a book with `stock_qty` 0 | not possible, button disabled |
+| Open the drawer, press Escape | drawer closes, page scrolls again |
+| Click a title inside the drawer | drawer closes, detail page opens |
+
+---
+
+## Test checklist (`notes_week6.md`)
 
 | # | Check | Expect |
 | - | ----- | ------ |
-| 1 | POST `/api/orders` with no token | 401 |
-| 2 | POST a valid cart | 201, `status` `pending`, `total` equals price × quantity |
-| 3 | Book `stock_qty` after that order | decreased by the quantity |
-| 4 | POST quantity above stock | 400, stock unchanged, no new order |
-| 5 | Cart page after 201 | empty cart, browser opens `/orders/{id}` |
-| 6 | GET another user’s order id | 404 |
-| 7 | Reload order detail | same lines and total |
-| 8 | Home, login, admin books, and `/dev/ui` | still work |
+| 1 | `GET /api/books/1` | 200, one book in `data` |
+| 2 | `GET /api/books/999999` | 404, `NOT_FOUND` |
+| 3 | Open a card from `/` | skeleton, then title and price match the card |
+| 4 | `/books/999999` | “Book not found” and a link to `/` |
+| 5 | Stop the API, open a detail page | error and Retry |
+| 6 | Related books | same author, current book not among them, hidden when none |
+| 7 | Add to cart, quantity 2 | drawer slides in with the line “2 × price”, subtotal, header badge 2 |
+| 8 | Click the header cart icon | drawer opens. × and the overlay close it |
+| 9 | “View cart” in the drawer | drawer closes, `/cart` opens with the same line |
+| 10 | Add the same book again | one line, quantity summed, capped at stock |
+| 11 | Change quantity on `/cart` | line subtotal, totals card, drawer subtotal, badge all update |
+| 12 | Remove the last line | “Return to shop” on `/cart`, “No products in the cart.” in the drawer |
+| 13 | Reload `/cart` | lines remain, drawer closed |
+| 14 | Guest | “Log in to checkout” in the drawer and in Cart totals. Logged in: disabled buttons |
+| 15 | Phone width on detail, drawer, and cart | stacked layout, drawer covers the full width, nothing overflows |
+| 16 | `/dev/ui` | breadcrumb, badges, detail skeleton render; `sampleBooks` no longer exists |
 
 ---
 
 ## Docs
 
+- [Bookory cart](https://demo2.pavothemes.com/bookory/cart/)
+- [Zustand](https://zustand.docs.pmnd.rs/), [persist middleware](https://zustand.docs.pmnd.rs/integrations/persisting-store-data)
+- [React Router — useParams](https://reactrouter.com/)
 - Layout: `../../book_store/README_api.md`, `../../book_store/README_web.md`
-- Order tables to copy: `../../laravel/task_1/database/migrations/`
-- [Database transactions](https://laravel.com/docs/13.x/database#database-transactions)
 
 ---
 
 ## Submission
 
-- [ ] `POST /api/orders` in a transaction, price taken from the book
-- [ ] Owner-only `GET /api/orders/{order}`
-- [ ] Cart places the order and opens the detail page
-- [ ] `notes_week6.md` checklist
+- [ ] `Breadcrumb`, `StockBadge`, `BookDetailSkeleton`
+- [ ] `GET /api/books/{book}` with `FindBookQuery`, detail page on `Book.show`, related books, `sampleBooks` deleted
+- [ ] `cartStore` in `localStorage`, `CartDrawer`, Add to cart opens the drawer, header badge, `/cart` with `CartLine` and `CartTotals`
+- [ ] `notes_week6.md` with the Bookory notes, edge cases, and checklist
+- [ ] No image, font, or icon files copied from Bookory
 - [ ] `.env` not committed
 
 ---
 
 ## Next
 
-An admin order list is a later task. Book create, edit, and delete are already in week 4.
+`task_7.md` — Admin layout, book management table on `Book.index()`, add and edit book forms. Placing the order comes after the admin weeks.
