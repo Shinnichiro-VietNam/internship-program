@@ -1,30 +1,47 @@
 import React from "react";
 
-//label, error string, plus type, value, onChange, name
-
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+  label: React.ReactNode;
   error?: string;
+  suffix?: React.ReactNode;
 };
 
 export function Input({
   label,
   error,
+  suffix,
   type = "text",
   className = "",
+  id,
+  name,
   ...rest
 }: InputProps) {
+  const inputId = id ?? name;
+
   return (
-    <div>
-      <label>
-        {label}
+    <p className="form-row">
+      <label htmlFor={inputId}>{label}</label>
+      {suffix ? (
+        <span className="password-input">
+          <input
+            id={inputId}
+            name={name}
+            type={type}
+            className={["input-text", className].filter(Boolean).join(" ")}
+            {...rest}
+          />
+          {suffix}
+        </span>
+      ) : (
         <input
+          id={inputId}
+          name={name}
           type={type}
-          className={`border px-3 py-2 rounded-md w-full ${className}`.trim()}
+          className={["input-text", className].filter(Boolean).join(" ")}
           {...rest}
         />
-      </label>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-    </div>
+      )}
+      {error && <span className="field-error">{error}</span>}
+    </p>
   );
 }
