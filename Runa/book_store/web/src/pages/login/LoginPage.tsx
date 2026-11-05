@@ -2,11 +2,11 @@ import { Formik, Form, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { AuthForm } from '../../components/AuthForm';
+import { AuthLayout } from '../../components/AuthLayout';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { PasswordInput } from '../../components/PasswordInput';
-import { RequiredMark } from '../../components/RequiredMark';
+import { FormError, formErrorMessages } from '../../components/FormError';
 import { Auth } from '../../models/Auth';
 import { useAuthStore } from '../../stores/authStore';
 import { parseApiError } from '../../helper/errors';
@@ -54,10 +54,7 @@ export function LoginPage() {
   };
 
   return (
-    <AuthForm
-      error={formError}
-      footer={<Link to="/register">Register</Link>}
-    >
+    <AuthLayout title="Login">
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
@@ -70,32 +67,28 @@ export function LoginPage() {
           handleChange,
           handleBlur,
           isSubmitting,
+          submitCount,
         }) => (
-          <Form>
+          <Form noValidate>
+            <FormError
+              messages={formErrorMessages(errors, submitCount, formError)}
+            />
             <h2 className="form-title">Login</h2>
             <Input
-              label={
-                <>
-                  Username or email address
-                  <RequiredMark />
-                </>
-              }
+              label="Email address"
               name="email"
               type="email"
-              placeholder="Enter your username or email address..."
+              required
+              placeholder="Enter your email..."
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.email ? errors.email : undefined}
             />
             <PasswordInput
-              label={
-                <>
-                  Password
-                  <RequiredMark />
-                </>
-              }
+              label="Password"
               name="password"
+              required
               placeholder="Enter your password..."
               value={values.password}
               onChange={handleChange}
@@ -120,14 +113,21 @@ export function LoginPage() {
             <Button
               type="submit"
               size="lg"
+              fullWidth
               disabled={isSubmitting}
-              className="w-full clear-both"
+              className="auth-submit clear-both"
             >
-              Log in
+              {isSubmitting ? 'Logging in…' : 'Log in'}
             </Button>
+            <p className="mt-[30px] text-center font-light">
+              No account yet?{' '}
+              <Link to="/register" className="text-accent">
+                Register
+              </Link>
+            </p>
           </Form>
         )}
       </Formik>
-    </AuthForm>
+    </AuthLayout>
   );
 }
