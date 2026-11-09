@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 import { Link } from 'react-router-dom';
-import footerLogo from '../assets/icons/logo-only.svg';
+import footerLogo from '../assets/icons/bookory-footer.png';
 import paymentMarks from '../assets/images/footer_img.png';
 import { FooterFacebookIcon } from './icons/FooterFacebookIcon';
 import { InstagramIcon } from './icons/InstagramIcon';
@@ -15,12 +15,25 @@ const socials: { label: string; icon: ComponentType }[] = [
 ];
 
 const columns = [
-  { title: 'Explore', items: ['About us', 'Sitemap', 'Bookmarks', 'Sign in/Join'] },
+  {
+    title: 'Explore',
+    items: ['About us', 'Sitemap', 'Bookmarks', 'Sign in/Join'],
+  },
   {
     title: 'Our Service',
-    items: ['Help Center', 'Returns', 'Product Recalls', 'Accessibility', 'Contact Us', 'Store Pickup'],
+    items: [
+      'Help Center',
+      'Returns',
+      'Product Recalls',
+      'Accessibility',
+      'Contact Us',
+      'Store Pickup',
+    ],
   },
-  { title: 'Categories', items: ['Action', 'Comedy', 'Drama', 'Horror', 'Kids'] },
+  {
+    title: 'Categories',
+    items: ['Action', 'Comedy', 'Drama', 'Horror', 'Kids'],
+  },
 ];
 
 function stop(event: { preventDefault: () => void }) {
@@ -34,7 +47,11 @@ export function Footer() {
         <div className="footer-columns mx-auto max-w-[1290px]">
           <div className="footer-brand">
             <Link to="/" className="mb-[35px] inline-flex">
-              <img src={footerLogo} alt="Bookory" className="h-auto w-[150px]" />
+              <img
+                src={footerLogo}
+                alt="Bookory"
+                className="h-auto w-[150px]"
+              />
             </Link>
             <p className="mb-5 text-lighter">
               1418 River Drive, Suite 35
@@ -95,11 +112,19 @@ export function Footer() {
         <div className="mx-auto flex max-w-[1290px] items-center justify-between gap-4 max-[767px]:flex-col max-[767px]:items-start">
           <p>
             © 2026{' '}
-            <a href="#bookory" className="text-accent hover:text-primary-hover" onClick={stop}>
+            <a
+              href="#bookory"
+              className="text-accent hover:text-primary-hover"
+              onClick={stop}
+            >
               Bookory
             </a>
             . Designed by{' '}
-            <a href="#pavothemes" className="text-accent hover:text-primary-hover" onClick={stop}>
+            <a
+              href="#pavothemes"
+              className="text-accent hover:text-primary-hover"
+              onClick={stop}
+            >
               Pavothemes
             </a>
           </p>

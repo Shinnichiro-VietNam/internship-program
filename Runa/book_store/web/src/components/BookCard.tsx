@@ -1,32 +1,40 @@
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../helper/format';
-import type { Book } from '../types/book';
-
-const coverColors = ['#f65d4e', '#3d9cd2', '#0f834d', '#e2a03d', '#6b5b95'];
+import type { SampleBook } from '../pages/home/sampleBooks';
+import { BookActions } from './BookActions';
+import { BookCover } from './BookCover';
+import { BookStars } from './BookStars';
 
 type BookCardProps = {
-  book: Book;
+  book: SampleBook;
 };
 
 export function BookCard({ book }: BookCardProps) {
-  const letter = book.title.trim().charAt(0).toUpperCase();
-  const color = coverColors[Math.abs(book.id) % coverColors.length];
-  const inStock = book.stock_qty > 0;
+  const price = formatPrice(book.price);
 
   return (
-    <Link to={`/books/${book.id}`} className="block text-text">
-      <div
-        className="flex aspect-[3/4] items-center justify-center text-5xl font-semibold text-white"
-        style={{ backgroundColor: color }}
-      >
-        {letter}
+    <article className="book-card">
+      <div className="group relative">
+        <Link to={`/books/${book.id}`} aria-label={book.title}>
+          <BookCover src={book.cover} />
+        </Link>
+        <BookActions />
       </div>
-      <h3 className="mt-3 line-clamp-2 font-bold text-ink">{book.title}</h3>
-      <p className="mt-1 text-sm text-lighter">{book.author}</p>
-      <p className="mt-2 font-bold text-accent">{formatPrice(book.price)}</p>
-      <p className={`mt-1 text-sm ${inStock ? 'text-[#0f834d]' : 'text-[#e2401c]'}`}>
-        {inStock ? 'In stock' : 'Out of stock'}
+      <h3 className="mt-[14px] text-sm font-semibold leading-[1.4]">
+        <Link
+          to={`/books/${book.id}`}
+          className="block truncate text-ink no-underline hover:text-accent"
+        >
+          {book.title}
+        </Link>
+      </h3>
+      <BookStars />
+      <p className="mt-1 text-[13px] font-normal leading-[1.4] text-lighter">
+        {book.author}
       </p>
-    </Link>
+      <p className="mt-[6px] text-accent font-semibold leading-[1.3]">
+        {price}
+      </p>
+    </article>
   );
 }

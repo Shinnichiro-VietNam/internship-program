@@ -9,6 +9,7 @@ const socials = [
   { label: 'Twitter', icon: TwitterIcon },
   { label: 'Instagram', icon: InstagramIcon },
   { label: 'Pinterest', icon: PinterestIcon },
+  // Add link -> if needed
 ];
 
 export function TopBar() {
@@ -20,14 +21,14 @@ export function TopBar() {
             <a
               href="#store"
               className="mr-[33px] shrink-0 text-[12px] font-semibold underline hover:text-accent"
-              onClick={(event) => event.preventDefault()}
+              onClick={(event) => event.preventDefault()} //No link to store -> event stop
             >
               Find a Book Store
             </a>
             <a
               href="#phone"
               className="inline-flex shrink-0 items-center gap-1.5 text-[12px] font-semibold text-white hover:text-accent"
-              onClick={(event) => event.preventDefault()}
+              onClick={(event) => event.preventDefault()} //No Link to phone -> event stop and no shrink
             >
               <span className="text-accent">
                 <PhoneIcon />
@@ -42,7 +43,7 @@ export function TopBar() {
                 href="#social"
                 aria-label={label}
                 className="text-white hover:text-accent"
-                onClick={(event) => event.preventDefault()}
+                onClick={(event) => event.preventDefault()} // No link to social -> event stop
               >
                 <Icon />
               </a>

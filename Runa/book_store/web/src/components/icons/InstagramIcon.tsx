@@ -9,7 +9,7 @@ export function InstagramIcon() {
       aria-hidden="true"
     >
       {/*
-        [練習用/自作コード]
+        [練習用]
         このSVGコードは、Font Awesome Free 7.3.1 (https://fontawesome.com) の
         デザインをお手本に、自力で数値を打ち直して(トレースして)作成したものです。
         Based on Font Awesome Free by @fontawesome (Licensed under CC BY 4.0)

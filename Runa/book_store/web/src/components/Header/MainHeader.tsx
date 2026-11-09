@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import bookoryLogo from '../../assets/icons/bookory-logo1.svg';
+import bookoryLogo from '../../assets/icons/bookory-logo1.png';
 import { Auth } from '../../models/Auth';
 import { useAuthStore } from '../../stores/authStore';
 import { Button } from '../Button';
@@ -32,7 +32,11 @@ export function MainHeader() {
         <div className="mx-auto flex min-h-[114px] max-w-[1290px] items-center">
           <div className="header-logo-col flex shrink-0 items-center">
             <Link to="/" className="inline-flex items-center">
-              <img src={bookoryLogo} alt="Bookory" className="h-auto w-[150px]" />
+              <img
+                src={bookoryLogo}
+                alt="Bookory"
+                className="h-auto w-[150px]"
+              />
             </Link>
           </div>
           <div className="header-categories-wrap">
@@ -50,14 +54,21 @@ export function MainHeader() {
             </Button>
             <CategoryMenu />
           </div>
-          <form className="header-search" onSubmit={(event) => event.preventDefault()}>
+          <form
+            className="header-search"
+            onSubmit={(event) => event.preventDefault()}
+          >
             <Input
               type="search"
               placeholder="Search products..."
               aria-label="Search"
               className="w-full border px-4 py-2 rounded-md transition-all duration-700 placeholder:transition-opacity placeholder:duration-300 focus:placeholder:opacity-0"
               suffix={
-                <button type="button" className="header-search-icon" aria-label="Search">
+                <button
+                  type="button"
+                  className="header-search-icon"
+                  aria-label="Search"
+                >
                   <SearchIcon />
                 </button>
               }
@@ -69,18 +80,25 @@ export function MainHeader() {
               className="header-account inline-flex items-center gap-2 hover:text-accent"
               aria-label={user ? user.name : 'Login'}
             >
-              {user ? <UserAvatar name={user.name} /> : <UserIcon />}
+              {user ? <UserAvatar /> : <UserIcon />}
               {user ? <span className="text-[14px]">{user.name}</span> : null}
             </Link>
-            <span className="header-wish inline-flex hover:text-accent" aria-hidden="true">
+            <span
+              className="header-wish inline-flex hover:text-accent"
+              aria-hidden="true"
+            >
               <span className="relative inline-flex">
                 <HeartIcon />
-                <CountBadge />
+                <CountBadge count={0} />
               </span>
             </span>
-            <Link to="/cart" className="relative inline-flex hover:text-accent" aria-label="Cart">
+            <Link
+              to="/cart"
+              className="relative inline-flex hover:text-accent"
+              aria-label="Cart"
+            >
               <CartIcon />
-              <CountBadge />
+              <CountBadge count={0} />
             </Link>
           </div>
         </div>

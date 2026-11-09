@@ -6,21 +6,15 @@ type HeroSlideProps = {
   slide: HeroSlideData;
 };
 
+// display the left slide(small screen big title price shop now button)
 export function HeroSlide({ slide }: HeroSlideProps) {
   const priced = Boolean(slide.price);
 
   return (
-    <div className={priced ? 'hero-copy hero-copy-priced' : 'hero-copy'}>
-      <p className="hero-eyebrow">
-        <svg className="hero-scribble" viewBox="0 0 160 18" aria-hidden="true">
-          <path
-            d="M2 11c18-9 28 8 46-1s28 9 46-2 30 8 64 0"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-          />
-        </svg>
+    <div
+      className={`relative z-[1] w-1/2 py-[60px] pr-[30px] pl-[170px] max-[1200px]:pl-[70px] max-[900px]:w-auto max-[900px]:p-0 ${priced ? 'hero-copy-priced' : ''}`}
+    >
+      <p className="relative mb-5 text-lighter text-3 font-medium leading-5 text-uppercase">
         {slide.eyebrow}
       </p>
       <h2 className="hero-title">
@@ -29,12 +23,20 @@ export function HeroSlide({ slide }: HeroSlideProps) {
         ))}
       </h2>
       {slide.originalPrice ? (
-        <p className="hero-was">
+        <p className="mb-[3px] text-[14px] leading-[24px] text-lighter">
           Original Price <s>{slide.originalPrice}</s>
         </p>
       ) : null}
-      {slide.price ? <p className="hero-price">{slide.price}</p> : null}
-      <Button type="button" variant="secondary" className="hero-shop">
+      {slide.price ? (
+        <p className="mb-6 text-[26px] font-semibold leading-[32px] text-accent">
+          {slide.price}
+        </p>
+      ) : null}
+      <Button
+        type="button"
+        variant="secondary"
+        className="h-auto! gap-2 px-6! py-[13px] leading-[17px] [&_svg]:size-[14px] [&_svg]:rotate-[-90deg] [&_svg]:text-accent"
+      >
         Shop Now
         <ChevronIcon />
       </Button>

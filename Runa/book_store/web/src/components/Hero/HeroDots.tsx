@@ -15,7 +15,9 @@ export function HeroDots({ count, active, onSelect }: HeroDotsProps) {
           aria-label={`Slide ${index + 1}`}
           aria-current={index === active ? 'true' : undefined}
           onClick={() => onSelect(index)}
-        />
+        >
+          <span />
+        </button>
       ))}
     </div>
   );
