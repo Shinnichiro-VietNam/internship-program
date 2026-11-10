@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import bookoryLogo from '../../assets/icons/bookory-logo1.png';
 import { Auth } from '../../models/Auth';
 import { useAuthStore } from '../../stores/authStore';
@@ -18,6 +18,21 @@ import { UserAvatar } from './UserAvatar';
 export function MainHeader() {
   const token = useAuthStore((s) => s.token);
   const user = useAuthStore((s) => s.user);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlTitle = searchParams.get('title') ?? '';
+
+  function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const value = String(form.get('title') ?? '').trim();
+
+    if (value) {
+      navigate(`/?title=${encodeURIComponent(value)}`);
+    } else {
+      navigate('/');
+    }
+  }
 
   useEffect(() => {
     if (!token || user) return;
@@ -54,18 +69,18 @@ export function MainHeader() {
             </Button>
             <CategoryMenu />
           </div>
-          <form
-            className="header-search"
-            onSubmit={(event) => event.preventDefault()}
-          >
+          <form className="header-search" onSubmit={handleSearch}>
             <Input
+              key={urlTitle}
               type="search"
+              name="title"
+              defaultValue={urlTitle}
               placeholder="Search products..."
               aria-label="Search"
               className="w-full border px-4 py-2 rounded-md transition-all duration-700 placeholder:transition-opacity placeholder:duration-300 focus:placeholder:opacity-0"
               suffix={
                 <button
-                  type="button"
+                  type="submit"
                   className="header-search-icon"
                   aria-label="Search"
                 >
