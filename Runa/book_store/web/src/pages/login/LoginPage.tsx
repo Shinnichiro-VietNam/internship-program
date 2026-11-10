@@ -59,6 +59,7 @@ export function LoginPage() {
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
+        validateOnMount
         onSubmit={handleSubmit}
       >
         {({
@@ -67,6 +68,7 @@ export function LoginPage() {
           touched,
           handleChange,
           handleBlur,
+          isValid,
           isSubmitting,
           submitCount,
         }) => (
@@ -115,7 +117,7 @@ export function LoginPage() {
               type="submit"
               size="lg"
               fullWidth
-              disabled={isSubmitting}
+              disabled={!isValid || isSubmitting}
               className="auth-submit clear-both"
             >
               {isSubmitting ? 'Logging in…' : 'Log in'}
