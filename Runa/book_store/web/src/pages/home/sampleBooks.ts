@@ -15,8 +15,8 @@ export type SampleBook = Book & {
 export const sampleBooks: SampleBook[] = [
   {
     id: 1,
-    title: 'リーダブルコード',
-    author: 'イリイ・メイヤーズ',
+    title: 'The Art of Readable Code',
+    author: 'Dustin Boswell',
     price: 3200,
     stock_qty: 30,
     published_year: 2018,
@@ -24,8 +24,8 @@ export const sampleBooks: SampleBook[] = [
   },
   {
     id: 2,
-    title: '達人プログラマー',
-    author: 'アンディ・ハント',
+    title: 'The Pragmatic Programmer',
+    author: 'Andy Hunt',
     price: 3800,
     stock_qty: 22,
     published_year: 2020,
@@ -33,7 +33,7 @@ export const sampleBooks: SampleBook[] = [
   },
   {
     id: 3,
-    title: 'オブジェクト指向におけるデザインパターン',
+    title: 'Design Patterns',
     author: 'GoF',
     price: 5200,
     stock_qty: 14,
@@ -42,7 +42,7 @@ export const sampleBooks: SampleBook[] = [
   },
   {
     id: 4,
-    title: 'リファクタリング',
+    title: 'Refactoring',
     author: 'Martin Fowler',
     price: 4800,
     stock_qty: 18,
@@ -51,7 +51,7 @@ export const sampleBooks: SampleBook[] = [
   },
   {
     id: 5,
-    title: 'データベースシステム概論',
+    title: 'Database System Concepts',
     author: 'Silberschatz',
     price: 6500,
     stock_qty: 10,
@@ -60,7 +60,7 @@ export const sampleBooks: SampleBook[] = [
   },
   {
     id: 6,
-    title: 'SQLパフォーマンスの教科書',
+    title: 'SQL Performance Explained',
     author: 'Markus Winand',
     price: 3600,
     stock_qty: 20,
@@ -78,8 +78,8 @@ export const sampleBooks: SampleBook[] = [
   },
   {
     id: 8,
-    title: '未刊行プロトタイプ資料',
-    author: '編集部',
+    title: 'Unpublished Prototype Notes',
+    author: 'Editorial',
     price: 1000,
     stock_qty: 0,
     published_year: 2025,

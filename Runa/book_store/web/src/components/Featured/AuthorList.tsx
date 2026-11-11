@@ -6,8 +6,8 @@ import author2 from '../../assets/images/author2.jpg';
 import author3 from '../../assets/images/author3.jpg';
 
 const authors = [
-  { name: 'イリイ・メイヤーズ', photo: author9 },
-  { name: 'アンディ・ハント', photo: author10 },
+  { name: 'Dustin Boswell', photo: author9 },
+  { name: 'Andy Hunt', photo: author10 },
   { name: 'Martin Fowler', photo: author11 },
   { name: 'Silberschatz', photo: author1 },
   { name: 'Markus Winand', photo: author2 },

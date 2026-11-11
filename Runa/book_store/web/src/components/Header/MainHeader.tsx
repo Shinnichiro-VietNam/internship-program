@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import bookoryLogo from '../../assets/icons/bookory-logo1.png';
+import bookoryLogo from '../../assets/icons/logo-1.svg';
 import { Auth } from '../../models/Auth';
 import { useAuthStore } from '../../stores/authStore';
 import { Button } from '../Button';

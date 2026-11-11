@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import test01 from '../../assets/images/test_01.jpg';
-import test02 from '../../assets/images/test_02.jpg';
-import test03 from '../../assets/images/test_03.jpg';
-import test04 from '../../assets/images/test_04.jpg';
+import test01 from '../../assets/images/test_01.png';
+import test02 from '../../assets/images/test_02.png';
+import test03 from '../../assets/images/test_03.png';
 import { SectionHeader } from '../SectionHeader';
 import { TestimonialCard } from './TestimonialCard';
 
@@ -50,7 +49,7 @@ const reviews: Review[] = [
     name: 'Lena Ortiz',
     city: 'Brooklyn',
     tone: 'blue',
-    photo: test04,
+    photo: test01,
     quote:
       'Every order feels carefully packed. I found two out-of-print titles here that I could not get anywhere else, and both arrived looking new.',
   },
@@ -59,7 +58,7 @@ const reviews: Review[] = [
     name: 'Chris Hale',
     city: 'Chicago',
     tone: 'pink',
-    photo: test01,
+    photo: test02,
     quote:
       'The prices are fair, the descriptions are honest, and the sale shelf is always worth a look. I keep coming back for another stack.',
   },

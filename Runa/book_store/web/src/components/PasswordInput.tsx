@@ -1,5 +1,5 @@
 import { useState, type ComponentProps } from 'react';
-import { EyeIcon } from './EyeIcon';
+import { EyeIcon } from './icons/EyeIcon';
 import { Input } from './Input';
 
 type PasswordInputProps = Omit<ComponentProps<typeof Input>, 'type' | 'suffix'>;

@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 import { Link } from 'react-router-dom';
-import footerLogo from '../assets/icons/bookory-footer.png';
+import footerLogo from '../assets/icons/logo.svg';
 import paymentMarks from '../assets/images/footer_img.png';
 import { FooterFacebookIcon } from './icons/FooterFacebookIcon';
 import { InstagramIcon } from './icons/InstagramIcon';
