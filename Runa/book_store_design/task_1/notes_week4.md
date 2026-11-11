@@ -6,9 +6,15 @@
 | Product          | https://demo2.pavothemes.com/bookory/product/    | Not this week. Week 5                                                                                                                                                                                                                                                                                                        |
 | Login / Register | https://demo2.pavothemes.com/bookory/my-account/ | Light gray title band, breadcrumb, label with a red asterisk, pill inputs, eye icon on the password, full-width coral button. Bookory puts Login and Register in two columns on one page. This app keeps `/login` and `/register` as two routes, one column each                                                             |
 
-## Skipped on Login
+## Visual only on Login
 
-Bookory shows “Remember me” and “Lost your password?”. Both stay out. There is no API for remembering a session beyond the token we already store, and no API for resetting a password.
+Bookory shows “Remember me” and “Lost your password?”. Keep both on the page so the layout matches. There is no API for remembering a session beyond the token we already store, and no API for resetting a password, so neither control sends a request.
+
+Register shows “I am a customer” and “I am a vendor”. The choice stays on the page only. `Auth.register` still sends `name`, `email`, and `password`.
+
+`password_confirmation` lives only in the Formik values. On submit the page passes `{ name, email, password }` to `Auth.register`, so the confirmation field is checked by Yup and never added to the request body. `Input` now takes `required` and draws the red asterisk, and an error turns the border red with a small red message underneath. `Button` takes `fullWidth`; `primary` uses `bg-accent`, and `secondary` is white with a thin gray border and dark text.
+
+Bookory shows star ratings on a book card. `Book` has no rating field, so `BookCard` skips the stars.
 
 ## Colors
 
