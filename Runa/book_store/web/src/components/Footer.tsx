@@ -44,7 +44,7 @@ export function Footer() {
   return (
     <footer className="bg-dark text-white">
       <div className="px-[30px] pt-20 pb-[70px] max-[767px]:px-[15px] max-[767px]:pt-[60px] max-[767px]:pb-[50px]">
-        <div className="footer-columns mx-auto max-w-[1290px]">
+        <div className="footer-columns mx-auto max-w-[1480px]">
           <div className="footer-brand">
             <Link to="/" className="mb-[35px] inline-flex">
               <img
@@ -109,7 +109,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border px-[30px] py-[45px] max-[767px]:px-[15px] max-[767px]:py-[25px]">
-        <div className="mx-auto flex max-w-[1290px] items-center justify-between gap-4 max-[767px]:flex-col max-[767px]:items-start">
+        <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4 max-[767px]:flex-col max-[767px]:items-start">
           <p>
             © 2026{' '}
             <a

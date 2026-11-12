@@ -60,9 +60,9 @@ export function HomePage() {
     <>
       <Hero />
       <section className="pt-[70px] pb-20">
-        <div className="mx-auto max-w-[1290px] px-[30px]">
+        <div className="mx-auto max-w-[1480px] px-[30px]">
           <SectionHeader
-            title={title ? `${total} results for “${title}”` : '人気の本'}
+            title={title ? `${total} results for “${title}”` : 'Popular Books'}
             action={
               title ? (
                 <Link to="/" className="ml-6 text-accent no-underline">

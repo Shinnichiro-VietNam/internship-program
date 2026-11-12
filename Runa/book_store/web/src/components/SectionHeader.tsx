@@ -14,7 +14,7 @@ export function SectionHeader({ title, action, compact = false }: SectionHeaderP
   return (
     <div className="mb-8 flex items-center">
       <h2
-        className={`mr-[65px] font-['Sora',Helvetica,sans-serif] text-[36px] leading-[44px] font-semibold whitespace-nowrap text-black max-sm:mr-5 ${small}`}
+        className={`mr-[65px] font-['Sora',Helvetica,sans-serif] text-[44px] leading-[52px] font-semibold whitespace-nowrap text-black max-sm:mr-5 ${small}`}
       >
         {title}
       </h2>

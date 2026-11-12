@@ -11,7 +11,7 @@ type DailyDealsProps = {
 export function DailyDeals({ books }: DailyDealsProps) {
   return (
     <section className="pb-20" aria-label="Daily Deals">
-      <div className="mx-auto max-w-[1290px] px-[30px]">
+      <div className="mx-auto max-w-[1480px] px-[30px]">
         <SectionHeader title="Daily Deals" />
         <SplitColumns
           columns="grid-cols-[minmax(0,1fr)_270px]"

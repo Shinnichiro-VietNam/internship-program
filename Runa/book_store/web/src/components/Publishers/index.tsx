@@ -19,7 +19,7 @@ const publishers = [
 export function Publishers() {
   return (
     <section className="pb-[100px]" aria-label="Featured Publishers">
-      <div className="mx-auto max-w-[1290px] px-[30px]">
+      <div className="mx-auto max-w-[1480px] px-[30px]">
         <SectionHeader title="Featured Publishers" action={<ViewAllLink />} compact />
         <ul className="mt-2 flex list-none items-center justify-between gap-7 p-0 max-[900px]:grid max-[900px]:grid-cols-3 max-[900px]:gap-x-4 max-[900px]:gap-y-8 max-sm:grid-cols-2">
           {publishers.map(({ name, src }) => (

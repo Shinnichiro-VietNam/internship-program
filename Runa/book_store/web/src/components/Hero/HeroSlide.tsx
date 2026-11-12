@@ -1,45 +1,80 @@
-import { Button } from '../Button';
 import { ChevronIcon } from '../icons/ChevronIcon';
+import { HeroEyebrow } from './HeroEyebrow';
 import type { HeroSlideData } from './heroSlides';
+import underline from '../../assets/images/revslider_vector.png';
 
 type HeroSlideProps = {
   slide: HeroSlideData;
+  motion: boolean;
 };
 
-// display the left slide(small screen big title price shop now button)
-export function HeroSlide({ slide }: HeroSlideProps) {
+const lineMotion = {
+  left: 'hero-from-left',
+  right: 'hero-from-right',
+  bottom: 'hero-rise hero-rise-line',
+} as const;
+
+function LineText({
+  text,
+  mark,
+  motion,
+}: {
+  text: string;
+  mark?: string;
+  motion: boolean;
+}) {
+  if (!mark) return text;
+  const start = text.indexOf(mark);
+  if (start < 0) return text;
+
+  return (
+    <>
+      {text.slice(0, start)}
+      <span className="hero-mark">
+        {mark}
+        <img
+          className={motion ? 'hero-underline is-motion' : 'hero-underline'}
+          src={underline}
+          alt=""
+        />
+      </span>
+      {text.slice(start + mark.length)}
+    </>
+  );
+}
+
+export function HeroSlide({ slide, motion }: HeroSlideProps) {
   const priced = Boolean(slide.price);
 
   return (
-    <div
-      className={`relative z-[1] w-1/2 py-[60px] pr-[30px] pl-[170px] max-[1200px]:pl-[70px] max-[900px]:w-auto max-[900px]:p-0 ${priced ? 'hero-copy-priced' : ''}`}
-    >
-      <p className="relative mb-5 text-lighter text-3 font-medium leading-5 text-uppercase">
-        {slide.eyebrow}
-      </p>
+    <div className={`hero-copy${priced ? ' hero-copy-priced' : ''}`}>
+      <HeroEyebrow text={slide.eyebrow} motion={motion} />
       <h2 className="hero-title">
         {slide.lines.map((line) => (
-          <span key={line}>{line}</span>
+          <span
+            key={line.text}
+            className={motion ? `hero-line ${lineMotion[line.from]}` : 'hero-line'}
+          >
+            <LineText text={line.text} mark={line.mark} motion={motion} />
+          </span>
         ))}
       </h2>
       {slide.originalPrice ? (
-        <p className="mb-[3px] text-[14px] leading-[24px] text-lighter">
+        <p className={motion ? 'hero-original hero-rise hero-rise-original' : 'hero-original'}>
           Original Price <s>{slide.originalPrice}</s>
         </p>
       ) : null}
       {slide.price ? (
-        <p className="mb-6 text-[26px] font-semibold leading-[32px] text-accent">
+        <p className={motion ? 'hero-price hero-rise hero-rise-price' : 'hero-price'}>
           {slide.price}
         </p>
       ) : null}
-      <Button
-        type="button"
-        variant="secondary"
-        className="h-auto! gap-2 px-6! py-[13px] leading-[17px] [&_svg]:size-[14px] [&_svg]:rotate-[-90deg] [&_svg]:text-accent"
-      >
-        Shop Now
-        <ChevronIcon />
-      </Button>
+      <div className={motion ? 'hero-rise hero-rise-button' : undefined}>
+        <button type="button" className="hero-shop">
+          Shop Now
+          <ChevronIcon />
+        </button>
+      </div>
     </div>
   );
 }

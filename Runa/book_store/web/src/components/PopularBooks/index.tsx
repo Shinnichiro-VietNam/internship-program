@@ -64,7 +64,7 @@ export function PopularBooks({
         paused.current = false;
       }}
     >
-      <div className="mx-auto max-w-[1290px] px-[30px]">
+      <div className="mx-auto max-w-[1480px] px-[30px]">
         <SectionHeader title={title} action={action} />
         <div className="overflow-hidden">
           <div

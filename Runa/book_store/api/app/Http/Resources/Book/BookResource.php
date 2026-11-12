@@ -17,6 +17,7 @@ class BookResource extends JsonResource
             'price' => $this->price,
             'stock_qty' => $this->stock_qty,
             'published_year' => $this->published_year,
+            'rating' => (float) $this->rating,
         ];
     }
 }
