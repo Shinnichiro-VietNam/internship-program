@@ -9,28 +9,31 @@ const pageItems = [
   '404 page',
 ];
 
-const menuClass: Record<string, string> = {
-  Home: 'header-menu-parent',
-  Shop: 'header-menu-parent',
-  Vendor: 'header-menu-parent',
-  Pages: 'header-menu-parent header-menu-pages',
-  Blog: 'header-menu-parent',
-  Contact: 'header-menu-parent',
+type MenuId = 'home' | 'shop' | 'vendor' | 'pages' | 'blog' | 'contact';
+
+const menuClass: Record<MenuId, string> = {
+  home: 'header-menu-parent',
+  shop: 'header-menu-parent',
+  vendor: 'header-menu-parent',
+  pages: 'header-menu-parent header-menu-pages',
+  blog: 'header-menu-parent',
+  contact: 'header-menu-parent',
 };
 
 type MenuItem = {
+  id: MenuId;
   label: string;
   to?: string;
   caret: boolean;
 };
 
 const menu: MenuItem[] = [
-  { label: 'Home', to: '/', caret: false },
-  { label: 'Shop', caret: false },
-  { label: 'Vendor', caret: false },
-  { label: 'Pages', caret: true },
-  { label: 'Blog', caret: false },
-  { label: 'Contact', caret: false },
+  { id: 'home', label: 'Home', to: '/', caret: false },
+  { id: 'shop', label: 'Shop', caret: false },
+  { id: 'vendor', label: 'Vendor', caret: false },
+  { id: 'pages', label: 'Pages', caret: true },
+  { id: 'blog', label: 'Blog', caret: false },
+  { id: 'contact', label: 'Contact', caret: false },
 ];
 
 function MenuLink({ item }: { item: MenuItem }) {
@@ -65,9 +68,9 @@ function MenuLink({ item }: { item: MenuItem }) {
 
 function NavItem({ item }: { item: MenuItem }) {
   return (
-    <li className={menuClass[item.label]}>
+    <li className={menuClass[item.id]}>
       <MenuLink item={item} />
-      {item.label === 'Pages' ? (
+      {item.id === 'pages' ? (
         <ul className="header-pages-menu">
           {pageItems.map((label) => (
             <li key={label}>
@@ -88,7 +91,7 @@ export function Navigation() {
       <div className="px-[30px]">
         <ul className="header-menu mx-auto flex max-w-[1480px] items-center justify-center">
           {menu.map((item) => (
-            <NavItem key={item.label} item={item} />
+            <NavItem key={item.id} item={item} />
           ))}
         </ul>
       </div>
