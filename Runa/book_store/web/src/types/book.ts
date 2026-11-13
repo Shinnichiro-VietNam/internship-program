@@ -5,4 +5,12 @@ export type Book = {
   price: number;
   stock_qty: number;
   published_year: number | null;
+  rating?: number;
+};
+export type BookListData = {
+  items: Book[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
 };

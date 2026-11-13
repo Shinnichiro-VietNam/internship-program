@@ -1,14 +1,17 @@
-import type { SampleBook } from '../pages/home/sampleBooks';
+import type { ReactNode } from 'react';
+import type { Book } from '../types/book';
 import { BookCard } from './BookCard';
 import { BookCardSkeleton } from './BookCardSkeleton';
 import { EmptyState } from './EmptyState';
 import { ErrorState } from './ErrorState';
 
 type BookGridProps = {
-  books: SampleBook[];
+  books: Book[];
   status: 'loading' | 'error' | 'empty' | 'ready';
   errorMessage: string;
   onRetry: () => void;
+  emptyMessage?: string;
+  emptyAction?: ReactNode;
 };
 
 export function BookGrid({
@@ -16,6 +19,8 @@ export function BookGrid({
   status,
   errorMessage,
   onRetry,
+  emptyMessage,
+  emptyAction,
 }: BookGridProps) {
   if (status === 'loading') {
     return (
@@ -32,7 +37,12 @@ export function BookGrid({
   }
 
   if (status === 'empty') {
-    return <EmptyState message="No books found." />;
+    return (
+      <EmptyState
+        message={emptyMessage ?? 'No books found.'}
+        action={emptyAction}
+      />
+    );
   }
 
   return (

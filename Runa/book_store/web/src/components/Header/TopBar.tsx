@@ -15,8 +15,7 @@ const socials = [
 export function TopBar() {
   return (
     <div className="bg-dark text-white">
-      <div className="px-[30px]">
-        <div className="mx-auto flex h-11 max-w-[1290px] items-center justify-between">
+      <div className="header-row flex h-11 items-center justify-between">
           <div className="flex min-w-0 items-center">
             <a
               href="#store"
@@ -50,7 +49,6 @@ export function TopBar() {
             ))}
           </div>
         </div>
-      </div>
     </div>
   );
 }

@@ -13,7 +13,7 @@ type NewReleaseProps = {
 export function NewRelease({ books }: NewReleaseProps) {
   return (
     <section className="pb-20" aria-label="New Release">
-      <div className="mx-auto max-w-[1290px] px-[30px]">
+      <div className="mx-auto max-w-[1480px] px-[30px]">
         <SplitColumns
           main={
             <>

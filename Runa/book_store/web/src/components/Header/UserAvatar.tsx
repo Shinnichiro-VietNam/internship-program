@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import test01 from '../../assets/images/test_01.jpg';
-import test02 from '../../assets/images/test_02.jpg';
-import test03 from '../../assets/images/test_03.jpg';
+import test01 from '../../assets/images/test_01.png';
+import test02 from '../../assets/images/test_02.png';
+import test03 from '../../assets/images/test_03.png';
 const looks = [{ image: test01 }, { image: test02 }, { image: test03 }];
 
 export function UserAvatar() {

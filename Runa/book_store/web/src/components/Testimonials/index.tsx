@@ -5,6 +5,8 @@ import test03 from '../../assets/images/test_03.png';
 import { SectionHeader } from '../SectionHeader';
 import { TestimonialCard } from './TestimonialCard';
 
+const backgrounds = ['#E9F7FA', '#F5F7FE', '#FEF5F5', '#F4FBF2'];
+
 const DESKTOP_VISIBLE = 3;
 
 type Review = {
@@ -12,7 +14,6 @@ type Review = {
   name: string;
   city: string;
   quote: string;
-  tone: 'blue' | 'pink' | 'mint';
   photo: string;
 };
 
@@ -21,7 +22,6 @@ const reviews: Review[] = [
     id: 'john',
     name: 'John Doe',
     city: 'New York',
-    tone: 'blue',
     photo: test01,
     quote:
       'I am so happy to find a site where I can shop for unusual items. The packaging was phenomenal and my book arrived on time in perfect condition.',
@@ -30,7 +30,6 @@ const reviews: Review[] = [
     id: 'pam',
     name: 'Pam Pruitt',
     city: 'New York',
-    tone: 'pink',
     photo: test02,
     quote:
       'This is the best book store! The prices are great, and there is always a sale of some kind going on. You can find just what you are looking for. So great!',
@@ -39,7 +38,6 @@ const reviews: Review[] = [
     id: 'joel',
     name: 'Joel M.',
     city: 'New York',
-    tone: 'mint',
     photo: test03,
     quote:
       'I am so happy to find a site where I can shop for unusual items. The packaging was phenomenal and my book arrived on time in perfect condition.',
@@ -48,7 +46,6 @@ const reviews: Review[] = [
     id: 'lena',
     name: 'Lena Ortiz',
     city: 'Brooklyn',
-    tone: 'blue',
     photo: test01,
     quote:
       'Every order feels carefully packed. I found two out-of-print titles here that I could not get anywhere else, and both arrived looking new.',
@@ -57,7 +54,6 @@ const reviews: Review[] = [
     id: 'chris',
     name: 'Chris Hale',
     city: 'Chicago',
-    tone: 'pink',
     photo: test02,
     quote:
       'The prices are fair, the descriptions are honest, and the sale shelf is always worth a look. I keep coming back for another stack.',
@@ -113,7 +109,7 @@ export function Testimonials() {
         paused.current = false;
       }}
     >
-      <div className="mx-auto max-w-[1290px] px-[30px]">
+      <div className="mx-auto max-w-[1480px] px-[30px]">
         <SectionHeader
           title="What Client Says"
           compact
@@ -145,8 +141,12 @@ export function Testimonials() {
             className="m-0 flex list-none gap-6 p-0 transition-transform duration-500 ease-in-out [--gap:24px] motion-reduce:transition-none [&>li]:min-w-0 [&>li]:flex-[0_0_calc((100%-(var(--visible)-1)*var(--gap))/var(--visible))]"
             style={trackStyle}
           >
-            {reviews.map((review) => (
-              <TestimonialCard key={review.id} {...review} />
+            {reviews.map((review, index) => (
+              <TestimonialCard
+                key={review.id}
+                {...review}
+                background={backgrounds[index % backgrounds.length]}
+              />
             ))}
           </ul>
         </div>

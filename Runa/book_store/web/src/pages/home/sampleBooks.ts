@@ -10,6 +10,7 @@ import type { Book } from '../../types/book';
 
 export type SampleBook = Book & {
   cover: string;
+  rating: number;
 };
 
 export const sampleBooks: SampleBook[] = [
@@ -20,6 +21,7 @@ export const sampleBooks: SampleBook[] = [
     price: 3200,
     stock_qty: 30,
     published_year: 2018,
+    rating: 5,
     cover: cover1,
   },
   {
@@ -29,6 +31,7 @@ export const sampleBooks: SampleBook[] = [
     price: 3800,
     stock_qty: 22,
     published_year: 2020,
+    rating: 4.5,
     cover: cover2,
   },
   {
@@ -38,6 +41,7 @@ export const sampleBooks: SampleBook[] = [
     price: 5200,
     stock_qty: 14,
     published_year: 1994,
+    rating: 5,
     cover: cover3,
   },
   {
@@ -47,6 +51,7 @@ export const sampleBooks: SampleBook[] = [
     price: 4800,
     stock_qty: 18,
     published_year: 2019,
+    rating: 4.5,
     cover: cover4,
   },
   {
@@ -56,6 +61,7 @@ export const sampleBooks: SampleBook[] = [
     price: 6500,
     stock_qty: 10,
     published_year: 2021,
+    rating: 5,
     cover: cover5,
   },
   {
@@ -65,6 +71,7 @@ export const sampleBooks: SampleBook[] = [
     price: 3600,
     stock_qty: 20,
     published_year: 2015,
+    rating: 4.5,
     cover: cover6,
   },
   {
@@ -74,6 +81,7 @@ export const sampleBooks: SampleBook[] = [
     price: 4200,
     stock_qty: 25,
     published_year: 2008,
+    rating: 5,
     cover: cover7,
   },
   {
@@ -83,6 +91,7 @@ export const sampleBooks: SampleBook[] = [
     price: 1000,
     stock_qty: 0,
     published_year: 2025,
+    rating: 4.5,
     cover: cover8,
   },
 ];

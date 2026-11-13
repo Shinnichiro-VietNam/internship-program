@@ -43,8 +43,7 @@ export function MainHeader() {
 
   return (
     <div className="relative z-20 border-b border-border">
-      <div className="px-[30px]">
-        <div className="mx-auto flex min-h-[114px] max-w-[1290px] items-center">
+      <div className="header-row flex min-h-[114px] items-center">
           <div className="header-logo-col flex shrink-0 items-center">
             <Link to="/" className="inline-flex items-center">
               <img
@@ -116,7 +115,6 @@ export function MainHeader() {
               <CountBadge count={0} />
             </Link>
           </div>
-        </div>
       </div>
     </div>
   );
