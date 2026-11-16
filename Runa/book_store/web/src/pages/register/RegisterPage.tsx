@@ -2,12 +2,12 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { AuthLayout } from '../../components/AuthLayout';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
-import { PasswordInput } from '../../components/PasswordInput';
-import { PasswordStrength } from '../../components/PasswordStrength';
-import { FormError } from '../../components/FormError';
+import { AuthLayout } from '../../components/layout/AuthLayout';
+import { Input } from '../../components/forms/Input';
+import { Button } from '../../components/ui/Button';
+import { PasswordInput } from '../../components/forms/PasswordInput';
+import { PasswordStrength } from '../../components/forms/PasswordStrength';
+import { FormError } from '../../components/forms/FormError';
 import { formErrorMessages } from '../../helper/formErrorMessages';
 import { Auth } from '../../models/Auth';
 import { useAuthStore } from '../../stores/authStore';
@@ -166,7 +166,13 @@ export function RegisterPage() {
               </label>
             </p>
 
-            <Button type="submit" size="lg" fullWidth disabled={isSubmitting} className="auth-submit">
+            <Button
+              type="submit"
+              size="lg"
+              fullWidth
+              disabled={isSubmitting}
+              className="auth-submit"
+            >
               {isSubmitting ? 'Creating account…' : 'Register'}
             </Button>
             <p className="mt-[30px] text-center font-light">

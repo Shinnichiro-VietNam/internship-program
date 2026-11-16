@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../components/Button';
-import { Input } from '../components/Input';
-import { Select } from '../components/Select';
-import { DateInput } from '../components/DateInput';
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/forms/Input';
+import { Select } from '../components/forms/Select';
+import { DateInput } from '../components/forms/DateInput';
 import api from '../plugins/axios';
 import { parseApiError } from '../helper/errors';
-import { BookGrid } from '../components/BookGrid';
-import { sampleBooks } from './home/sampleBooks';
-import { Pagination } from '../components/Pagination';
+import { BookGrid } from '../components/books/BookGrid';
+import { sampleBooks } from './books/sampleBooks';
+import { Pagination } from '../components/ui/Pagination';
 
 export function UiPreviewPage() {
   const [text, setText] = useState<string>('');
