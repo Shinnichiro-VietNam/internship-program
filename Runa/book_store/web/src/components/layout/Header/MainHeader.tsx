@@ -34,11 +34,25 @@ export function MainHeader() {
     }
   }
 
+  // useEffect(() => {
+  //   if (!token || user) return;
+  //   Auth.me()
+  //     .then((res) => useAuthStore.getState().setUser(res.data))
+  //     .catch(() => {});
+  // }, [token, user]);
+
   useEffect(() => {
     if (!token || user) return;
-    Auth.me()
-      .then((res) => useAuthStore.getState().setUser(res.data))
-      .catch(() => {});
+
+    const fetchUser = async () => {
+      try {
+        const res = await Auth.me();
+        useAuthStore.getState().setUser(res.data);
+      } catch {
+        console.error('Failed to fetch user');
+      }
+    };
+    fetchUser();
   }, [token, user]);
 
   return (

@@ -8,11 +8,26 @@ export function AccountPage() {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
 
+  // useEffect(() => {
+  //   if (user) return;
+  //   Auth.me()
+  //     .then((res) => useAuthStore.getState().setUser(res.data))
+  //     .catch(() => {});
+  // }, [user]);
+
   useEffect(() => {
     if (user) return;
-    Auth.me()
-      .then((res) => useAuthStore.getState().setUser(res.data))
-      .catch(() => {});
+
+    const fetchUser = async () => {
+      try {
+        const res = await Auth.me();
+        useAuthStore.getState().setUser(res.data);
+      } catch {
+        console.error('Failed to fetch user');
+      }
+    };
+
+    fetchUser();
   }, [user]);
 
   const handleLogout = async () => {

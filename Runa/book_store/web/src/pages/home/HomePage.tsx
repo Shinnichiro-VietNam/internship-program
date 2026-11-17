@@ -32,7 +32,7 @@ export function HomePage() {
       try {
         const response = await BookModel.index<ApiSuccess<BookListData>>({
           page,
-          per_page: 8,
+          per_page: 4,
           ...(title ? { title } : {}),
         });
         const items = response.data.items;
