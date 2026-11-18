@@ -40,13 +40,13 @@ export function BookDetailPage() {
   const related = sampleBooks.filter((item) => item.id !== book.id).slice(0, 4);
 
   return (
-    <div className="mx-auto px-[30px] py-10">
+    <div className="mx-auto px-7.5 py-10">
       <Breadcrumb items={[{ label: 'Home', to: '/' }, { label: book.title }]} />
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-neutral-200 bg-white p-[30px]">
+        <div className="rounded-2xl border border-neutral-200 bg-white p-7.5">
           <div className="aspect-3/4 w-full rounded-4 bg-neutral-200" />
         </div>
-        <div className="mb-[10px] rounded-2xl border border-neutral-200 bg-white p-[30px]">
+        <div className="mb-2.5 rounded-2xl border border-neutral-200 bg-white p-7.5">
           <div className="mb-5 flex items-center justify-between">
             <StockBadge stockQty={book.stock_qty} />
             <div className="flex items-center gap-4 text-xs tracking-wider text-lighter uppercase">
@@ -187,11 +187,11 @@ export function BookDetailPage() {
       </div>
 
       <div className="mt-10">
-        <div className="flex gap-6 justify-center items-center text-[20px] font-[600] text-lighter">
+        <div className="flex gap-6 justify-center items-center text-[20px] font-semibold text-lighter">
           <button
             type="button"
             className={`
-              tab-underline hover:text-ink px-[30px] pb-[10px]
+              tab-underline hover:text-ink px-7.5 pb-2.5
               ${tab === 'description' ? 'active text-ink' : ''}
             `}
             onClick={() => setTab('description')}
@@ -201,7 +201,7 @@ export function BookDetailPage() {
           <button
             type="button"
             className={`
-              tab-underline hover:text-ink px-[30px] pb-[10px]
+              tab-underline hover:text-ink px-7.5 pb-2.5
               ${tab === 'details' ? 'active text-ink' : ''}
             `}
             onClick={() => setTab('details')}
@@ -209,11 +209,11 @@ export function BookDetailPage() {
             Details
           </button>
         </div>
-        <div className="border border-neutral-200 p-4 rounded-2xl py-[35px] px-[30px]">
+        <div className="border border-neutral-200 p-4 rounded-2xl py-8.75 px-7.5">
           {tab === 'description' ? (
             <p className="mt-6 text-neutral-500">No description yet.</p>
           ) : (
-            <table className="border border-neutral-200 max-w-[850px] mx-auto w-full">
+            <table className="border border-neutral-200 max-w-212.5 mx-auto w-full">
               <tbody>
                 <tr className="border-b border-neutral-200 text-[14px]">
                   <th className="text-left border-r border-neutral-200">
@@ -239,12 +239,8 @@ export function BookDetailPage() {
         </div>
       </div>
 
-      <section className="mt-[60px]">
-        <SectionHeader
-          title="Related books"
-          size="sm"
-          marginBottom="mb-[30px]"
-        />
+      <section className="mt-15">
+        <SectionHeader title="Related books" size="sm" marginBottom="mb-7.5" />
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {related.map((item, index) => (
             <div
