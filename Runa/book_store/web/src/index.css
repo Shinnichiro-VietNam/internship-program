@@ -18,6 +18,26 @@
   --color-success: #0f834d;
 }
 
+@layer components {
+  .tab-underline {
+    @apply relative inline-block;
+  }
+
+  .tab-underline::after {
+    @apply content-[''] absolute bottom-0 left-0 w-full h-[2px] bg-primary;
+    @apply scale-x-0 origin-center transition-transform duration-100;
+  }
+
+  .tab-underline:hover::after, .tab-underline.active::after {
+    @apply scale-x-100;
+  }
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
 .input-text {
   width: 100%;
   box-sizing: border-box;
@@ -843,7 +863,7 @@
 }
 
 .footer-links a {
-  color: #999;
+  color: var(--color-lighter);
 }
 
 .footer-links a:hover {
@@ -1095,8 +1115,8 @@
   padding: 17px 30px;
   border: 0;
   border-radius: 50px;
-  background: #fff;
-  color: #000;
+  background: var(--color-background);
+  color: var(--color-ink);
   font: 600 14px/17px 'Sora', Helvetica, sans-serif;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   cursor: pointer;
@@ -1115,13 +1135,13 @@
 }
 
 .hero-shop:hover {
-  background: #000;
-  color: #fff;
+  background: var(--color-ink);
+  color: var(--color-background);
   box-shadow: none;
 }
 
 .hero-shop:hover svg {
-  color: #fff;
+  color: var(--color-background);
 }
 
 .hero-figure {
@@ -1558,4 +1578,45 @@
     opacity: 1;
     transform: none;
   }
+}
+
+.heart-icon:hover + .wishlist-text {
+  color: var(--color-ink);
+}
+
+.product-detail {
+  color: var(--color-ink);
+}
+.product-detail:hover {
+  color: var(--color-primary);
+}
+
+.share-social {
+  display: flex;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.share-social a {
+  margin-right: 10px;
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  line-height: 34px;
+  color: var(--color-background);
+}
+
+.share-facebook {background: #3B5998}
+.share-twitter {background: #1DA1F2}
+.share-linkedin {background: #0077B5}
+.share-pinterest {background: #E60023}
+
+table, th, td {
+  padding: 1em 1.41575em;
+  text-align: left;
+  vertical-align: top;
+  word-break: break-all;
 }
