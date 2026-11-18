@@ -1,8 +1,8 @@
-import type { SampleBook } from '../../../pages/books/sampleBooks';
-import { BookCard } from '../../books/BookCard.tsx';
-import { SectionHeader } from '../../ui/SectionHeader';
-import { SplitColumns } from '../../ui/SplitColumns';
-import { ViewAllLink } from '../../ui/ViewAllLink';
+import type { SampleBook } from '../../../books/sampleBooks';
+import { BookCard } from '../../../../components/books/BookCard';
+import { SectionHeader } from '../../../../components/ui/SectionHeader';
+import { SplitColumns } from '../SplitColumns';
+import { ViewAllLink } from '../ViewAllLink';
 import { MostViewed } from './MostViewed';
 import { SaleBanner } from './SaleBanner';
 
@@ -13,13 +13,13 @@ type NewReleaseProps = {
 export function NewRelease({ books }: NewReleaseProps) {
   return (
     <section className="pb-20" aria-label="New Release">
-      <div className="mx-auto max-w-[1480px] px-[30px]">
+      <div className="mx-auto max-w-370 px-7.5">
         <SplitColumns
           main={
             <>
               <SaleBanner />
               <SectionHeader title="New Release" action={<ViewAllLink />} />
-              <div className="grid grid-cols-3 gap-[22px]">
+              <div className="grid grid-cols-3 gap-5.5">
                 {books.slice(0, 3).map((book) => (
                   <BookCard key={book.id} book={book} />
                 ))}

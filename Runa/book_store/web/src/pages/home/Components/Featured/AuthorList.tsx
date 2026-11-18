@@ -1,11 +1,11 @@
-import author1 from '../../../assets/images/author1.jpg';
-import author2 from '../../../assets/images/author2.jpg';
-import author3 from '../../../assets/images/author3.jpg';
-import author4 from '../../../assets/images/author4.jpg';
-import author5 from '../../../assets/images/author5.jpg';
-import author6 from '../../../assets/images/author6.jpg';
-import author7 from '../../../assets/images/author7.jpg';
-import author8 from '../../../assets/images/author8.jpg';
+import author1 from '../../../../assets/images/author1.jpg';
+import author2 from '../../../../assets/images/author2.jpg';
+import author3 from '../../../../assets/images/author3.jpg';
+import author4 from '../../../../assets/images/author4.jpg';
+import author5 from '../../../../assets/images/author5.jpg';
+import author6 from '../../../../assets/images/author6.jpg';
+import author7 from '../../../../assets/images/author7.jpg';
+import author8 from '../../../../assets/images/author8.jpg';
 
 const authors = [
   { name: 'Silberschatz', photo: author1 },

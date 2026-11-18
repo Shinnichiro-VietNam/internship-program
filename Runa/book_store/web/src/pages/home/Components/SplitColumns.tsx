@@ -12,7 +12,7 @@ export function SplitColumns({
   columns = 'grid-cols-[minmax(0,1fr)_300px]',
 }: SplitColumnsProps) {
   return (
-    <div className={`grid items-start gap-[30px] ${columns}`}>
+    <div className={`grid items-start gap-7.5 ${columns}`}>
       <div>{main}</div>
       {side}
     </div>

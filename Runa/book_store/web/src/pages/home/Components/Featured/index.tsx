@@ -1,5 +1,5 @@
-import { SectionHeader } from '../../ui/SectionHeader';
-import { ViewAllLink } from '../../ui/ViewAllLink';
+import { SectionHeader } from '../../../../components/ui/SectionHeader';
+import { ViewAllLink } from '../ViewAllLink';
 import { AuthorList } from './AuthorList';
 import { PromoCards } from './PromoCards';
 
