@@ -25,7 +25,7 @@
 
   .tab-underline::after {
     @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 bg-primary;
-    @apply scale-x-0 origin-center transition-transform duration-100;
+    @apply scale-x-0 origin-center transition-all duration-300 ease-in-out;
   }
 
   .tab-underline:hover::after, .tab-underline.active::after {
