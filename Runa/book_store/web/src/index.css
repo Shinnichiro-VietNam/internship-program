@@ -24,7 +24,7 @@
   }
 
   .tab-underline::after {
-    @apply content-[''] absolute bottom-0 left-0 w-full h-[2px] bg-primary;
+    @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 bg-primary;
     @apply scale-x-0 origin-center transition-transform duration-100;
   }
 

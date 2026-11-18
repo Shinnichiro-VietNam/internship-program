@@ -68,12 +68,12 @@ export function BookDetailPage() {
               </a>
             </div>
           </div>
-          <h1 className="mb-[10px] text-3xl font-semibold text-black">
+          <h1 className="mb-2.5 text-3xl font-semibold text-black">
             {book.title}
           </h1>
-          <div className="mb-[23px]">
-            <p className="flex items-center text-[12px] pb-[10px]">
-              <span className="mr-5 mb-[6px]">
+          <div className="mb-5.75">
+            <p className="flex items-center text-[12px] pb-2.5">
+              <span className="mr-5 mb-1.5">
                 <span className="pr-5">
                   <span className="text-lighter">Author: </span>
                   <span className="text-ink transition-colors hover:text-primary">
@@ -82,25 +82,25 @@ export function BookDetailPage() {
                 </span>
                 |
               </span>
-              <span className="mb-[6px]">
+              <span className="mb-1.5">
                 <span className="text-lighter">Published:</span> {year}
               </span>
             </p>
             <hr className="border-neutral-200" />
           </div>
-          <p className="text-3xl font-semibold text-accent mb-[15px]">
+          <p className="text-3xl font-semibold text-accent mb-3.75">
             {formatPrice(book.price)}
           </p>
-          <p className="text-neutral-500 mb-[20px]">No description yet.</p>
+          <p className="text-neutral-500 mb-5">No description yet.</p>
           <hr className="border-neutral-200" />
-          <div className="mb-[25px]">
-            <div className="py-[25px]">
+          <div className="mb-6.25">
+            <div className="py-6.25">
               <div className="flex items-center  flex-wrap ">
                 <div className="flex flex-col">
-                  <p className="mt-[-10px] text-[12px] text-lighter mb-[5px] block">
+                  <p className="-mt-2.5 text-[12px] text-lighter mb-1.25 block">
                     Quantity
                   </p>
-                  <div className="mr-[10px] mb-[10px]">
+                  <div className="mr-2.5 mb-2.5">
                     <QuantityInput
                       value={inStock ? quantity : 0}
                       min={1}
@@ -112,7 +112,7 @@ export function BookDetailPage() {
                 </div>
                 <div className="flex items-end">
                   <Button size="lg" disabled>
-                    <span className="mr-[8px]">
+                    <span className="mr-2">
                       <CartIcon />
                     </span>
                     Add to cart
@@ -121,7 +121,7 @@ export function BookDetailPage() {
               </div>
               <button type="button" className="wishlist-button">
                 <div className="flex mt-3 items-center">
-                  <span className="mr-[8px] heart-icon">
+                  <span className="mr-2 heart-icon">
                     <HeartIcon />
                   </span>
                   <span className="text-lighter transition-colors hover:text-ink wishlist-text">
