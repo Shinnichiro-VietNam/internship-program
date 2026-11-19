@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import test01 from '../../../assets/images/test_01.png';
-import test02 from '../../../assets/images/test_02.png';
-import test03 from '../../../assets/images/test_03.png';
-import { SectionHeader } from '../../ui/SectionHeader';
+import test01 from '../../../../assets/images/test_01.png';
+import test02 from '../../../../assets/images/test_02.png';
+import test03 from '../../../../assets/images/test_03.png';
+import { SectionHeader } from '../../../../components/ui/SectionHeader';
 import { TestimonialCard } from './TestimonialCard';
 
 const backgrounds = ['#E9F7FA', '#F5F7FE', '#FEF5F5', '#F4FBF2'];
@@ -99,7 +99,7 @@ export function Testimonials() {
 
   return (
     <section
-      className="pb-[88px]"
+      className="pb-22"
       aria-roledescription="carousel"
       aria-label="What Client Says"
       onMouseEnter={() => {
@@ -109,10 +109,9 @@ export function Testimonials() {
         paused.current = false;
       }}
     >
-      <div className="mx-auto max-w-[1480px] px-[30px]">
+      <div className="mx-auto max-w-370 px-7.5">
         <SectionHeader
           title="What Client Says"
-          compact
           action={
             <div className="ml-6 flex shrink-0 items-center gap-0.5">
               {Array.from({ length: pageCount }, (_, index) => {
@@ -127,7 +126,7 @@ export function Testimonials() {
                     onClick={() => setPage(index)}
                   >
                     <span
-                      className={`block rounded-full ${active ? 'h-1 w-[22px] bg-accent' : 'size-1.5 bg-[#cfcfcf]'}`}
+                      className={`block rounded-full ${active ? 'h-1 w-5.5 bg-accent' : 'size-1.5 bg-[#cfcfcf]'}`}
                     />
                   </button>
                 );

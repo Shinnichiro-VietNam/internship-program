@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { SampleBook } from '../../../pages/books/sampleBooks';
-import { BookCard } from '../../books/BookCard';
-import { SectionHeader } from '../../ui/SectionHeader';
-import { ViewAllLink } from '../../ui/ViewAllLink';
+import type { SampleBook } from '../../../books/sampleBooks';
+import { BookCard } from '../../../../components/books/BookCard';
+import { SectionHeader } from '../../../../components/ui/SectionHeader';
+import { ViewAllLink } from '../ViewAllLink';
 
 const INTERVAL_MS = 4500;
 const SLIDE_MS = 600;
@@ -55,7 +55,7 @@ export function PopularBooks({
   }, []);
   return (
     <section
-      className="pt-[70px] pb-20"
+      className="pt-17.5 pb-20"
       aria-label={title}
       onMouseEnter={() => {
         paused.current = true;
@@ -64,14 +64,14 @@ export function PopularBooks({
         paused.current = false;
       }}
     >
-      <div className="mx-auto max-w-[1480px] px-[30px]">
+      <div className="mx-auto max-w-370 px-7.5">
         <SectionHeader title={title} action={action} />
         <div className="overflow-hidden">
           <div
             className={
-              'flex gap-[22px] [--gap:22px] [--visible:5] [&>.book-card]:min-w-0 [&>.book-card]:flex-[0_0_calc((100%-(var(--visible)-1)*var(--gap))/var(--visible))]' +
+              'flex gap-5.5 [--gap:5.5] [--visible:5] [&>.book-card]:min-w-0 [&>.book-card]:flex-[0_0_calc((100%-(var(--visible)-1)*var(--gap))/var(--visible))]' +
               (animate
-                ? ' transition-transform duration-[600ms] ease-in-out'
+                ? ' transition-transform duration-600 ease-in-out'
                 : '') +
               (shift
                 ? ' -translate-x-[calc((100%-4*var(--gap))/var(--visible)+var(--gap))]'

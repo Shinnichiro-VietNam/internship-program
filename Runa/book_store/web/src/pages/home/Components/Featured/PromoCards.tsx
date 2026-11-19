@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import bannerOff from '../../../assets/images/h3_banner1.jpg';
-import bannerFiction from '../../../assets/images/h3_banner2.jpg';
-import bannerKids from '../../../assets/images/h3_banner3.jpg';
-import { ShopNow } from '../../ui/ShopNow';
+import bannerOff from '../../../../assets/images/h3_banner1.jpg';
+import bannerFiction from '../../../../assets/images/h3_banner2.jpg';
+import bannerKids from '../../../../assets/images/h3_banner3.jpg';
+import { ShopNow } from '../ShopNow';
 
 function Kicker({ children }: { children: string }) {
   return <span className="promo-kicker">{children}</span>;
@@ -12,7 +12,7 @@ function PromoCopy({ kicker, title }: { kicker: string; title: string }) {
   return (
     <span className="promo-card-copy">
       <Kicker>{kicker}</Kicker>
-      <span className="mt-2 block text-[26px] leading-[32px] font-semibold tracking-[-1px] text-accent">
+      <span className="mt-2 block text-[26px] leading-8 font-semibold tracking-[-1px] text-accent">
         {title}
       </span>
       <ShopNow />
