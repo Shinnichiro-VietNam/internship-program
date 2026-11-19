@@ -5,8 +5,9 @@ import { RegisterPage } from '../pages/register/RegisterPage';
 import { AccountPage } from '../pages/account/AccountPage';
 import { RequireAuth } from './RequireAuth';
 import { GuestOnly } from './GuestOnly';
-import { AppLayout } from '../components/AppLayout';
+import { AppLayout } from '../components/layout/AppLayout';
 import { HomePage } from '../pages/home/HomePage';
+import { BookDetailPage } from '../pages/books/BookDetailPage';
 
 export const routes: RouteObject[] = [
   {
@@ -14,7 +15,7 @@ export const routes: RouteObject[] = [
     children: [
       { index: true, element: <HomePage /> },
       { path: 'cart', element: <p className="px-4 py-8">Cart</p> },
-      { path: 'books/:id', element: <p className="px-4 py-8">Book</p> },
+      { path: 'books/:id', element: <BookDetailPage /> },
       {
         element: <RequireAuth />,
         children: [{ path: 'account', element: <AccountPage /> }],

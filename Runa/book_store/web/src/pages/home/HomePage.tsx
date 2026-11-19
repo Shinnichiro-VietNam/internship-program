@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { BookGrid } from '../../components/BookGrid';
-import { Pagination } from '../../components/Pagination';
-import { SectionHeader } from '../../components/SectionHeader';
-import { Hero } from '../../components/Hero';
-import { Featured } from '../../components/Featured';
-import { Publishers } from '../../components/Publishers';
-import { Testimonials } from '../../components/Testimonials';
+import { BookGrid } from '../../components/books/BookGrid';
+import { Pagination } from '../../components/ui/Pagination';
+import { SectionHeader } from '../../components/ui/SectionHeader';
+import { Hero } from '../../components/sections/Hero';
+import { Featured } from '../../components/sections/Featured';
+import { Publishers } from '../../components/sections/Publishers';
+import { Testimonials } from '../../components/sections/Testimonials';
 import { Book as BookModel } from '../../models/Book';
 import type { ApiSuccess } from '../../types/api';
 import type { Book, BookListData } from '../../types/book';
@@ -32,7 +32,7 @@ export function HomePage() {
       try {
         const response = await BookModel.index<ApiSuccess<BookListData>>({
           page,
-          per_page: 8,
+          per_page: 4,
           ...(title ? { title } : {}),
         });
         const items = response.data.items;

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../components/Button';
-import { Input } from '../components/Input';
-import { Select } from '../components/Select';
-import { DateInput } from '../components/DateInput';
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/forms/Input';
+import { Select } from '../components/forms/Select';
+import { DateInput } from '../components/forms/DateInput';
 import api from '../plugins/axios';
 import { parseApiError } from '../helper/errors';
-import { BookGrid } from '../components/BookGrid';
-import { sampleBooks } from './home/sampleBooks';
-import { Pagination } from '../components/Pagination';
+import { BookGrid } from '../components/books/BookGrid';
+import { sampleBooks } from './books/sampleBooks';
+import { Pagination } from '../components/ui/Pagination';
+import { QuantityInput } from '../components/forms/QuantityInput';
 
 export function UiPreviewPage() {
   const [text, setText] = useState<string>('');
@@ -18,6 +19,7 @@ export function UiPreviewPage() {
   const perPage = 4;
   const lastPage = Math.ceil(sampleBooks.length / perPage);
   const visibleBooks = sampleBooks.slice((page - 1) * perPage, page * perPage);
+  const [qty, setQty] = useState(1);
 
   useEffect(() => {
     api
@@ -118,6 +120,11 @@ export function UiPreviewPage() {
             onChange={setPage}
           />
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl space-y-4 p-8">
+        <h2 className="text-2xl font-bold">Quantity control</h2>
+        <QuantityInput value={qty} min={1} max={3} onChange={setQty} />
       </section>
     </>
   );
