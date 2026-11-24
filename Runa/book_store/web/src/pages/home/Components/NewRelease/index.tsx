@@ -1,4 +1,4 @@
-import type { SampleBook } from '../../../books/sampleBooks';
+import type { Book } from '../../../../types/book';
 import { BookCard } from '../../../../components/books/BookCard';
 import { SectionHeader } from '../../../../components/ui/SectionHeader';
 import { SplitColumns } from '../SplitColumns';
@@ -7,7 +7,7 @@ import { MostViewed } from './MostViewed';
 import { SaleBanner } from './SaleBanner';
 
 type NewReleaseProps = {
-  books: SampleBook[];
+  books: Book[];
 };
 
 export function NewRelease({ books }: NewReleaseProps) {

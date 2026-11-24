@@ -8,6 +8,8 @@ use App\Http\Resources\Book\BookResource;
 use App\Http\Responses\ResponseData;
 use Illuminate\Http\Request;
 use App\Http\Resources\PaginationResource;
+use App\Queries\Book\FindBookQuery;
+
 
 class BookController extends Controller
 {
@@ -20,5 +22,18 @@ class BookController extends Controller
         return $this->httpOk(
             (new PaginationResource($books, BookResource::class))->resolve()
         );
+    }
+
+    public function show(int $book, FindBookQuery $query): ResponseData
+    {
+        $found = $query->handle($book);
+
+        if ($found === null) {
+            abort(404);
+        }
+
+        $this->authorize('view', $found);
+
+        return $this->httpOk(new BookResource($found));
     }
 }

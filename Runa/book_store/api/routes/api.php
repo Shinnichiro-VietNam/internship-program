@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 
+
 Route::get('/health', function () {
     return response()->json(['status' => 'OK']);
 });
@@ -17,3 +18,5 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/books', [BookController::class, 'index']);
+
+Route::get('/books/{book}', [BookController::class, 'show']);

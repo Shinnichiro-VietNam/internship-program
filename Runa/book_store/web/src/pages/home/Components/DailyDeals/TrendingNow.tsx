@@ -1,10 +1,10 @@
-import type { SampleBook } from '../../../books/sampleBooks';
+import type { Book } from '../../../../types/book';
 import { BookCard } from '../../../../components/books/BookCard';
 import { SectionHeader } from '../../../../components/ui/SectionHeader';
 import { ViewAllLink } from '../ViewAllLink';
 
 type TrendingNowProps = {
-  books: SampleBook[];
+  books: Book[];
 };
 
 export function TrendingNow({ books }: TrendingNowProps) {

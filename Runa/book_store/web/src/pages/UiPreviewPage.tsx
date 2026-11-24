@@ -6,12 +6,31 @@ import { DateInput } from '../components/forms/DateInput';
 import api from '../plugins/axios';
 import { parseApiError } from '../helper/errors';
 import { BookGrid } from '../components/books/BookGrid';
-import { sampleBooks } from './books/sampleBooks';
 import { Pagination } from '../components/ui/Pagination';
 import { QuantityInput } from '../components/forms/QuantityInput';
 import { BookDetailSkeleton } from '../components/books/BookDetailSkeleton';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { StockBadge } from '../components/ui/StockBadge';
+import type { Book } from '../types/book';
+
+const previewBooks: Book[] = [
+  {
+    id: 1,
+    title: 'Preview Book One',
+    author: 'Author A',
+    price: 150000,
+    stock_qty: 5,
+    published_year: 2020,
+  },
+  {
+    id: 2,
+    title: 'Preview Book Two',
+    author: 'Author B',
+    price: 200000,
+    stock_qty: 0,
+    published_year: 2021,
+  },
+];
 
 export function UiPreviewPage() {
   const [text, setText] = useState<string>('');
@@ -20,8 +39,8 @@ export function UiPreviewPage() {
   const [health, setHealth] = useState<string>('Loading...');
   const [page, setPage] = useState(1);
   const perPage = 4;
-  const lastPage = Math.ceil(sampleBooks.length / perPage);
-  const visibleBooks = sampleBooks.slice((page - 1) * perPage, page * perPage);
+  const lastPage = Math.ceil(previewBooks.length / perPage);
+  const visibleBooks = previewBooks.slice((page - 1) * perPage, page * perPage);
   const [qty, setQty] = useState(1);
 
   useEffect(() => {
@@ -82,7 +101,7 @@ export function UiPreviewPage() {
         <div>
           <h3 className="mb-4 font-semibold">Loading</h3>
           <BookGrid
-            books={sampleBooks}
+            books={previewBooks}
             status="loading"
             errorMessage=""
             onRetry={() => {}}

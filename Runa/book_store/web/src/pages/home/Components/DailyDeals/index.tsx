@@ -1,11 +1,11 @@
-import type { SampleBook } from '../../../books/sampleBooks';
+import type { Book } from '../../../../types/book';
 import { SectionHeader } from '../../../../components/ui/SectionHeader';
 import { SplitColumns } from '../SplitColumns';
 import { TopWeek } from './TopWeek';
 import { TrendingNow } from './TrendingNow';
 
 type DailyDealsProps = {
-  books: SampleBook[];
+  books: Book[];
 };
 
 export function DailyDeals({ books }: DailyDealsProps) {
