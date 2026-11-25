@@ -19,7 +19,7 @@ export function Button({
   const sizes = {
     sm: 'px-[12px] py-[31px]',
     md: 'h-[42px] px-[31px]',
-    lg: 'px-[31px] py-[17px]',
+    lg: 'px-[28px] py-[17px]',
   };
   const variants = {
     primary: 'bg-accent text-white',

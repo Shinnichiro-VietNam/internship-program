@@ -61,15 +61,15 @@ export function MainHeader() {
 
   return (
     <div className="relative z-20 border-b border-border">
-      <div className="header-row flex min-h-[114px] items-center">
+      <div className="header-row flex min-h-28.5 items-center">
         <div className="header-logo-col flex shrink-0 items-center">
           <Link to="/" className="inline-flex items-center">
-            <img src={bookoryLogo} alt="Bookory" className="h-auto w-[150px]" />
+            <img src={bookoryLogo} alt="Bookory" className="h-auto w-37.5" />
           </Link>
         </div>
         <div className="header-categories-wrap">
           <Button type="button" className="header-categories">
-            <span className="inline-flex items-center gap-[10px] text-[14px] font-semibold">
+            <span className="inline-flex items-center gap-2.5 text-[14px] font-semibold">
               <GridIcon />
               Categories
             </span>

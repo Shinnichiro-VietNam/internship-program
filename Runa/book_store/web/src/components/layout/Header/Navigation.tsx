@@ -88,8 +88,8 @@ function NavItem({ item }: { item: MenuItem }) {
 export function Navigation() {
   return (
     <nav className="border-b border-border bg-background" aria-label="Main">
-      <div className="px-[30px]">
-        <ul className="header-menu mx-auto flex max-w-[1480px] items-center justify-center">
+      <div className="px-7.5">
+        <ul className="header-menu mx-auto flex max-w-370 items-center justify-center">
           {menu.map((item) => (
             <NavItem key={item.id} item={item} />
           ))}
