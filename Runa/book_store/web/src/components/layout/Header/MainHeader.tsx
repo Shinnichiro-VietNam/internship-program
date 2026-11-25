@@ -14,6 +14,7 @@ import { UserIcon } from '../../icons/UserIcon';
 import { Input } from '../../forms/Input';
 import { CountBadge } from './CountBadge';
 import { UserAvatar } from './UserAvatar';
+import { useCartStore, itemCount } from '../../../stores/cartStore';
 
 export function MainHeader() {
   const token = useAuthStore((s) => s.token);
@@ -21,6 +22,9 @@ export function MainHeader() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const urlTitle = searchParams.get('title') ?? '';
+  const openDrawer = useCartStore((s) => s.openDrawer);
+  const lines = useCartStore((s) => s.lines);
+  const count = itemCount(lines);
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -116,14 +120,15 @@ export function MainHeader() {
               <CountBadge count={0} />
             </span>
           </span>
-          <Link
-            to="/cart"
+          <button
+            type="button"
             className="relative inline-flex hover:text-accent"
             aria-label="Cart"
+            onClick={openDrawer}
           >
             <CartIcon />
-            <CountBadge count={0} />
-          </Link>
+            {count > 0 ? <CountBadge count={count} /> : null}
+          </button>
         </div>
       </div>
     </div>

@@ -21,6 +21,7 @@ import { FooterFacebookIcon } from '../../components/icons/FooterFacebookIcon';
 import { TwitterIcon } from '../../components/icons/TwitterIcon';
 import { PinterestIcon } from '../../components/icons/PinterestIcon';
 import { LinkedinIcon } from '../../components/icons/LinkedinIcon';
+import { useCartStore } from '../../stores/cartStore';
 
 export function BookDetailPage() {
   const { id } = useParams();
@@ -33,6 +34,9 @@ export function BookDetailPage() {
   const [tab, setTab] = useState<'description' | 'details'>('description');
   const [quantity, setQuantity] = useState(1);
   const [related, setRelated] = useState<Book[]>([]);
+  const add = useCartStore((s) => s.add);
+  const openDrawer = useCartStore((s) => s.openDrawer);
+  const lines = useCartStore((s) => s.lines);
 
   useEffect(() => {
     if (!id) return;
@@ -102,6 +106,11 @@ export function BookDetailPage() {
 
   const inStock = book.stock_qty > 0;
   const year = book.published_year ?? '—';
+  const inCart = lines.find((line) => line.bookId === book.id);
+  const inCartQty = inCart?.quantity ?? 0;
+  const remaining = book.stock_qty - inCartQty;
+  const atMax = inStock && remaining <= 0;
+  const canAdd = inStock && !atMax;
 
   return (
     <div className="mx-auto px-7.5 py-10">
@@ -174,13 +183,25 @@ export function BookDetailPage() {
                     />
                   </div>
                 </div>
-                <div className="flex items-end">
-                  <Button size="lg" disabled>
+                <div className="flex flex-col items-start">
+                  <Button
+                    size="lg"
+                    disabled={!canAdd}
+                    onClick={() => {
+                      add(book, quantity);
+                      openDrawer();
+                    }}
+                  >
                     <span className="mr-2">
                       <CartIcon />
                     </span>
                     Add to cart
                   </Button>
+                  {atMax ? (
+                    <p className="mt-2 text-sm text-neutral-500">
+                      Maximum in cart
+                    </p>
+                  ) : null}
                 </div>
               </div>
               <button type="button" className="wishlist-button">
