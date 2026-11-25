@@ -24,9 +24,7 @@ export function CartPage() {
         {lines.length === 0 ? (
           <div className="py-16 text-center">
             <div className="mb-7.5 pb-4.5 pt-5.75 px-7.5">
-              <div className="flex items-center justify-center">
-                <EmptyCartIcon />
-              </div>
+              <EmptyCartIcon />
               <p className="text-ink text-[18px]">
                 Your cart is currently empty.
               </p>
