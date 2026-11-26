@@ -40,6 +40,30 @@
   color: var(--color-background);
 }
 
+.loader {
+  --size: 0.5px;
+  position: absolute;
+  width: calc(48 * var(--size));
+  height: calc(48 * var(--size));
+  border: calc(5 * var(--size)) dotted var(--color-background);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 .cart-close-icon::before,
 .cart-close-icon::after {
   content: "";
