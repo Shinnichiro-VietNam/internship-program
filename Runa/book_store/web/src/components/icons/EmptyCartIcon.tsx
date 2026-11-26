@@ -7,6 +7,7 @@ export function EmptyCartIcon() {
         viewBox="0 0 328 288"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="pointer-events-none select-none"
       >
         {/* Cart */}
         <path

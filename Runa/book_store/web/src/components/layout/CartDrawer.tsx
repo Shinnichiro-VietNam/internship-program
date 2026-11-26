@@ -50,20 +50,25 @@ export function CartDrawer() {
           <h2 className="m-0 text-lg font-semibold text-ink">Shopping cart</h2>
           <button
             type="button"
-            className="text-sm tracking-wide text-lighter uppercase hover:text-ink"
+            className="group inline-flex items-center gap-1 text-sm tracking-wide text-ink uppercase text-[13px] font-bold"
             onClick={closeDrawer}
+            aria-label="Close cart"
           >
-            Close ×
+            Close
+            <span
+              className="cart-close-icon relative inline-block h-3 w-3"
+              aria-hidden="true"
+            />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-4">
+        <div className="flex-1 overflow-y-auto">
           {lines.length === 0 ? (
-            <p className="mt-10 text-center text-neutral-500">
+            <p className="m-6.25 text-center text-neutral-500 text-[18px]">
               No products in the cart.
             </p>
           ) : (
-            <ul className="m-0 flex list-none flex-col gap-4 p-0">
+            <ul className="m-0 flex list-none flex-col gap-4 pt-3.5 pr-7.5 pb-3.75 pl-3.75">
               {lines.map((line) => (
                 <li
                   key={line.bookId}
@@ -81,13 +86,13 @@ export function CartDrawer() {
                     <p className="m-0 mt-1 text-sm text-neutral-500">
                       {line.author}
                     </p>
-                    <p className="m-0 mt-2 text-sm">
+                    <p className="m-0 mt-2 text-sm text-ink text-[18px]">
                       {line.quantity} × {formatPrice(line.price)}
                     </p>
                   </div>
                   <button
                     type="button"
-                    className="absolute top-0 right-0 text-lighter hover:text-ink"
+                    className="absolute top-0 right-0 text-lighter hover:text-ink text-[18px]"
                     aria-label={`Remove ${line.title}`}
                     onClick={() => remove(line.bookId)}
                   >
@@ -99,34 +104,47 @@ export function CartDrawer() {
           )}
         </div>
 
-        <div className="border-t border-neutral-200 px-5 py-4">
-          <div className="mb-4 flex items-center justify-between">
-            <span>Subtotal</span>
-            <span className="font-semibold">{formatPrice(total)}</span>
-          </div>
+        {lines.length > 0 && (
+          <div className="border-t border-neutral-200 px-5 py-4">
+            <div className="mb-4 flex items-center justify-between text-[18px]">
+              <strong>Subtotal:</strong>
+              <span className="font-semibold">{formatPrice(total)}</span>
+            </div>
 
-          <Link to="/cart" className="block no-underline" onClick={closeDrawer}>
-            <Button variant="secondary" fullWidth>
-              View cart
-            </Button>
-          </Link>
-
-          <div className="mt-3">
-            {token ? (
-              <Button variant="primary" fullWidth disabled>
-                Checkout
-              </Button>
-            ) : (
-              <Link
-                to="/login"
-                className="block text-center text-accent no-underline"
-                onClick={closeDrawer}
+            <Link
+              to="/cart"
+              className="block no-underline"
+              onClick={closeDrawer}
+            >
+              <Button
+                variant="tertiary"
+                className="transition-colors hover:bg-tertiary-hover"
+                fullWidth
+                uppercase
               >
-                Log in to checkout
-              </Link>
-            )}
+                View Cart
+              </Button>
+            </Link>
+
+            <div className="mt-3 uppercase">
+              {token ? (
+                <Button variant="primary" fullWidth uppercase disabled>
+                  Checkout
+                </Button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="block text-center text-accent no-underline"
+                  onClick={closeDrawer}
+                >
+                  <Button variant="primary" fullWidth uppercase>
+                    Checkout
+                  </Button>
+                </Link>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </aside>
     </>
   );
