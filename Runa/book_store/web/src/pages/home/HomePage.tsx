@@ -3,10 +3,10 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { BookGrid } from '../../components/books/BookGrid';
 import { Pagination } from '../../components/ui/Pagination';
 import { SectionHeader } from '../../components/ui/SectionHeader';
-import { Hero } from '../../components/sections/Hero';
-import { Featured } from '../../components/sections/Featured';
-import { Publishers } from '../../components/sections/Publishers';
-import { Testimonials } from '../../components/sections/Testimonials';
+import { Hero } from './Components/Hero';
+import { Featured } from './Components/Featured';
+import { Publishers } from './Components/Publishers';
+import { Testimonials } from './Components/Testimonials';
 import { Book as BookModel } from '../../models/Book';
 import type { ApiSuccess } from '../../types/api';
 import type { Book, BookListData } from '../../types/book';
@@ -59,8 +59,8 @@ export function HomePage() {
   return (
     <>
       <Hero />
-      <section className="pt-[70px] pb-20">
-        <div className="mx-auto max-w-[1480px] px-[30px]">
+      <section className="pt-17.5 pb-20">
+        <div className="mx-auto max-w-370 px-3.75">
           <SectionHeader
             title={title ? `${total} results for “${title}”` : 'Popular Books'}
             action={

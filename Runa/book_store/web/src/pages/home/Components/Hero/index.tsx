@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import pattern from '../../../assets/images/revslider_bg.jpg';
+import pattern from '../../../../assets/images/revslider_bg.jpg';
 import { HeroCovers } from './HeroCovers';
 import { HeroDots } from './HeroDots';
 import { HeroSlide } from './HeroSlide';

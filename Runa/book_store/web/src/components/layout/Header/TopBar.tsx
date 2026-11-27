@@ -1,14 +1,14 @@
 import { FacebookIcon } from '../../icons/FacebookIcon';
 import { InstagramIcon } from '../../icons/InstagramIcon';
 import { PhoneIcon } from '../../icons/PhoneIcon';
-import { PinterestIcon } from '../../icons/PinterestIcon';
+import { PinterestIconButton } from '../../icons/PinterestIconButton';
 import { TwitterIcon } from '../../icons/TwitterIcon';
 
 const socials = [
   { label: 'Facebook', icon: FacebookIcon },
   { label: 'Twitter', icon: TwitterIcon },
   { label: 'Instagram', icon: InstagramIcon },
-  { label: 'Pinterest', icon: PinterestIcon },
+  { label: 'Pinterest', icon: PinterestIconButton },
   // Add link -> if needed
 ];
 

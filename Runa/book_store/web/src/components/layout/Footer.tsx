@@ -4,14 +4,14 @@ import footerLogo from '../../assets/icons/logo.svg';
 import paymentMarks from '../../assets/images/footer_img.png';
 import { FooterFacebookIcon } from '../icons/FooterFacebookIcon';
 import { InstagramIcon } from '../icons/InstagramIcon';
-import { PinterestIcon } from '../icons/PinterestIcon';
+import { PinterestIconButton } from '../icons/PinterestIconButton';
 import { TwitterIcon } from '../icons/TwitterIcon';
 
 const socials: { label: string; icon: ComponentType }[] = [
   { label: 'Facebook', icon: FooterFacebookIcon },
   { label: 'Twitter', icon: TwitterIcon },
   { label: 'Instagram', icon: InstagramIcon },
-  { label: 'Pinterest', icon: PinterestIcon },
+  { label: 'Pinterest', icon: PinterestIconButton },
 ];
 
 const columns = [

@@ -1,7 +1,7 @@
-import { ChevronIcon } from '../../icons/ChevronIcon';
+import { ChevronIcon } from '../../../../components/icons/ChevronIcon';
 import { HeroEyebrow } from './HeroEyebrow';
 import type { HeroSlideData } from './heroSlides';
-import underline from '../../../assets/images/revslider_vector.png';
+import underline from '../../../../assets/images/revslider_vector.png';
 
 type HeroSlideProps = {
   slide: HeroSlideData;

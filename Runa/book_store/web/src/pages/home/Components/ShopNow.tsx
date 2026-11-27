@@ -1,4 +1,4 @@
-import { ChevronIcon } from '../icons/ChevronIcon';
+import { ChevronIcon } from '../../../components/icons/ChevronIcon';
 
 export function ShopNow() {
   return (

@@ -1,6 +1,6 @@
-import type { SampleBook } from '../../../pages/books/sampleBooks';
-import { SectionHeader } from '../../ui/SectionHeader';
-import { SplitColumns } from '../../ui/SplitColumns';
+import type { SampleBook } from '../../../books/sampleBooks';
+import { SectionHeader } from '../../../../components/ui/SectionHeader';
+import { SplitColumns } from '../SplitColumns';
 import { TopWeek } from './TopWeek';
 import { TrendingNow } from './TrendingNow';
 
@@ -11,7 +11,7 @@ type DailyDealsProps = {
 export function DailyDeals({ books }: DailyDealsProps) {
   return (
     <section className="pb-20" aria-label="Daily Deals">
-      <div className="mx-auto max-w-[1480px] px-[30px]">
+      <div className="mx-auto max-w-370 px-3.75">
         <SectionHeader title="Daily Deals" />
         <SplitColumns
           columns="grid-cols-[minmax(0,1fr)_270px]"

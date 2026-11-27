@@ -9,6 +9,9 @@ import { BookGrid } from '../components/books/BookGrid';
 import { sampleBooks } from './books/sampleBooks';
 import { Pagination } from '../components/ui/Pagination';
 import { QuantityInput } from '../components/forms/QuantityInput';
+import { BookDetailSkeleton } from '../components/books/BookDetailSkeleton';
+import { Breadcrumb } from '../components/ui/Breadcrumb';
+import { StockBadge } from '../components/ui/StockBadge';
 
 export function UiPreviewPage() {
   const [text, setText] = useState<string>('');
@@ -125,6 +128,27 @@ export function UiPreviewPage() {
       <section className="mx-auto max-w-6xl space-y-4 p-8">
         <h2 className="text-2xl font-bold">Quantity control</h2>
         <QuantityInput value={qty} min={1} max={3} onChange={setQty} />
+      </section>
+
+      <section className="mx-auto max-w-6xl space-y-4 p-8">
+        <h2 className="text-2xl font-bold">Book detail</h2>
+        <BookDetailSkeleton />
+      </section>
+
+      <section className="mx-auto max-w-6xl space-y-6 p-8">
+        <h2 className="text-2xl font-bold">Book detail pieces</h2>
+        <Breadcrumb
+          items={[
+            { label: 'Home', to: '/' },
+            { label: 'Books', to: '/' },
+            { label: 'Sample title' },
+          ]}
+        />
+        <div className="flex gap-3">
+          <StockBadge stockQty={5} />
+          <StockBadge stockQty={0} />
+        </div>
+        <BookDetailSkeleton />
       </section>
     </>
   );
