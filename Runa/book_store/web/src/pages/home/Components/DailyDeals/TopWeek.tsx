@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import type { SampleBook } from '../../../books/sampleBooks';
+import type { Book } from '../../../../types/book';
 import { BookCover } from '../../../../components/books/BookCover';
 
 const rankColors = [
@@ -11,7 +11,7 @@ const rankColors = [
 ];
 
 type TopWeekProps = {
-  books: SampleBook[];
+  books: (Book & { cover?: string })[];
 };
 
 export function TopWeek({ books }: TopWeekProps) {
@@ -32,7 +32,11 @@ export function TopWeek({ books }: TopWeekProps) {
               >
                 {index + 1}
               </span>
-              <BookCover src={book.cover} />
+              {book.cover ? (
+                <BookCover src={book.cover} />
+              ) : (
+                <div className="aspect-3/4 w-full rounded-lg bg-neutral-200" />
+              )}
             </span>
             <span className="flex min-w-0 flex-col gap-1">
               <Link

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import type { SampleBook } from '../../../books/sampleBooks';
+import type { Book } from '../../../../types/book';
 
 type MostViewedProps = {
-  books: SampleBook[];
+  books: Book[];
 };
 
 export function MostViewed({ books }: MostViewedProps) {

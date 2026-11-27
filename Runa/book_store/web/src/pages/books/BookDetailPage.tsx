@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 import { BookCard } from '../../components/books/BookCard';
+import { BookDetailSkeleton } from '../../components/books/BookDetailSkeleton';
 import { Button } from '../../components/ui/Button';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { ErrorState } from '../../components/ui/ErrorState';
 import { QuantityInput } from '../../components/forms/QuantityInput';
 import { SectionHeader } from '../../components/ui/SectionHeader';
 import { formatPrice } from '../../helper/format';
-import { sampleBooks } from './sampleBooks';
+import { parseApiError } from '../../helper/errors';
+import { Book as BookModel } from '../../models/Book';
+import type { ApiSuccess } from '../../types/api';
+import type { Book, BookListData } from '../../types/book';
 import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { StockBadge } from '../../components/ui/StockBadge';
 import { CartIcon } from '../../components/icons/CartIcon';
@@ -18,11 +24,59 @@ import { LinkedinIcon } from '../../components/icons/LinkedinIcon';
 
 export function BookDetailPage() {
   const { id } = useParams();
-  const book = sampleBooks.find((item) => item.id === Number(id));
+  const [book, setBook] = useState<Book | null>(null);
+  const [status, setStatus] = useState<
+    'loading' | 'error' | 'notfound' | 'ready'
+  >('loading');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [retryCount, setRetryCount] = useState(0);
   const [tab, setTab] = useState<'description' | 'details'>('description');
   const [quantity, setQuantity] = useState(1);
+  const [related, setRelated] = useState<Book[]>([]);
 
-  if (!book) {
+  useEffect(() => {
+    if (!id) return;
+
+    const load = async () => {
+      setStatus('loading');
+      try {
+        const response = await BookModel.show<ApiSuccess<Book>>(id);
+        const fetched = response.data;
+        setBook(fetched);
+        setStatus('ready');
+        window.scrollTo({ top: 0 });
+
+        try {
+          const list = await BookModel.index<ApiSuccess<BookListData>>({
+            author: fetched.author,
+            per_page: 5,
+          });
+          setRelated(
+            list.data.items
+              .filter((item) => item.id !== fetched.id)
+              .slice(0, 4),
+          );
+        } catch {
+          setRelated([]);
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 404) {
+          setStatus('notfound');
+          return;
+        }
+        setErrorMessage(parseApiError(error).message);
+        setStatus('error');
+      }
+    };
+
+    load();
+  }, [id, retryCount]);
+
+  if (status === 'loading') {
+    return <BookDetailSkeleton />;
+  }
+
+  if (status === 'notfound') {
     return (
       <EmptyState
         message="Book not found"
@@ -35,9 +89,19 @@ export function BookDetailPage() {
     );
   }
 
+  if (status === 'error') {
+    return (
+      <ErrorState
+        message={errorMessage}
+        onRetry={() => setRetryCount((c) => c + 1)}
+      />
+    );
+  }
+
+  if (!book) return null;
+
   const inStock = book.stock_qty > 0;
   const year = book.published_year ?? '—';
-  const related = sampleBooks.filter((item) => item.id !== book.id).slice(0, 4);
 
   return (
     <div className="mx-auto px-7.5 py-10">
@@ -238,20 +302,25 @@ export function BookDetailPage() {
           )}
         </div>
       </div>
-
-      <section className="mt-15">
-        <SectionHeader title="Related books" size="sm" marginBottom="mb-7.5" />
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-          {related.map((item, index) => (
-            <div
-              key={item.id}
-              className={index !== 0 ? 'border-l border-gray-200 pl-6' : ''}
-            >
-              <BookCard book={item} />
-            </div>
-          ))}
-        </div>
-      </section>
+      {related.length > 0 && (
+        <section className="mt-15">
+          <SectionHeader
+            title="Related books"
+            size="sm"
+            marginBottom="mb-7.5"
+          />
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {related.map((item, index) => (
+              <div
+                key={item.id}
+                className={index !== 0 ? 'border-l border-gray-200 pl-6' : ''}
+              >
+                <BookCard book={item} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

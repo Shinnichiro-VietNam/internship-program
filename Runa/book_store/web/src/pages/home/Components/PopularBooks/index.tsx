@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { SampleBook } from '../../../books/sampleBooks';
+import type { Book } from '../../../../types/book';
 import { BookCard } from '../../../../components/books/BookCard';
 import { SectionHeader } from '../../../../components/ui/SectionHeader';
 import { ViewAllLink } from '../ViewAllLink';
@@ -10,7 +10,7 @@ const SLIDE_MS = 600;
 const VISIBLE = 5;
 
 type PopularBooksProps = {
-  books: SampleBook[];
+  books: Book[];
   title?: string;
   action?: ReactNode;
 };
