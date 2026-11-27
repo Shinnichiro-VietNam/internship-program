@@ -8,13 +8,14 @@ import { GuestOnly } from './GuestOnly';
 import { AppLayout } from '../components/layout/AppLayout';
 import { HomePage } from '../pages/home/HomePage';
 import { BookDetailPage } from '../pages/books/BookDetailPage';
+import { CartPage } from '../pages/cart/CartPage';
 
 export const routes: RouteObject[] = [
   {
     element: <AppLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: 'cart', element: <p className="px-4 py-8">Cart</p> },
+      { path: 'cart', element: <CartPage /> },
       { path: 'books/:id', element: <BookDetailPage /> },
       {
         element: <RequireAuth />,

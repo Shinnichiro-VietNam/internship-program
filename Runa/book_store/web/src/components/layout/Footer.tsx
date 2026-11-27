@@ -43,15 +43,11 @@ function stop(event: { preventDefault: () => void }) {
 export function Footer() {
   return (
     <footer className="bg-dark text-white">
-      <div className="px-[30px] pt-20 pb-[70px] max-[767px]:px-[15px] max-[767px]:pt-[60px] max-[767px]:pb-[50px]">
-        <div className="footer-columns mx-auto max-w-[1480px]">
+      <div className="px-7.5 pt-20 pb-17.5 max-[767px]:px-3.75 max-[767px]:pt-15 max-[767px]:pb-12.5">
+        <div className="footer-columns mx-auto max-w-370">
           <div className="footer-brand">
-            <Link to="/" className="mb-[35px] inline-flex">
-              <img
-                src={footerLogo}
-                alt="Bookory"
-                className="h-auto w-[150px]"
-              />
+            <Link to="/" className="mb-8.75 inline-flex">
+              <img src={footerLogo} alt="Bookory" className="h-auto w-37.5" />
             </Link>
             <p className="mb-5 text-lighter">
               1418 River Drive, Suite 35
@@ -61,7 +57,7 @@ export function Footer() {
             <a href="#map" className="footer-map" onClick={stop}>
               show on map
             </a>
-            <div className="footer-social flex items-center gap-[9px]">
+            <div className="footer-social flex items-center gap-2.25">
               {socials.map(({ label, icon: Icon }) => (
                 <a
                   key={label}
@@ -78,7 +74,7 @@ export function Footer() {
 
           <div className="footer-help">
             <h2 className="footer-heading mb-5">Need Help</h2>
-            <p className="footer-phone mb-[35px]">+(84) - 1800 - 4635</p>
+            <p className="footer-phone mb-8.75">+(84) - 1800 - 4635</p>
             <p className="text-lighter">
               Monday – Friday: 9:00-20:00
               <br />
@@ -108,8 +104,8 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-border px-[30px] py-[45px] max-[767px]:px-[15px] max-[767px]:py-[25px]">
-        <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4 max-[767px]:flex-col max-[767px]:items-start">
+      <div className="border-t border-border px-7.5 py-11.25 max-[767px]:px-3.75 max-[767px]:py-6.25">
+        <div className="mx-auto flex max-w-370 items-center justify-between gap-4 max-[767px]:flex-col max-[767px]:items-start">
           <p>
             © 2026{' '}
             <a
@@ -128,7 +124,7 @@ export function Footer() {
               Pavothemes
             </a>
           </p>
-          <img src={paymentMarks} alt="" className="h-[26px] w-auto" />
+          <img src={paymentMarks} alt="" className="h-6.5 w-auto" />
         </div>
       </div>
     </footer>

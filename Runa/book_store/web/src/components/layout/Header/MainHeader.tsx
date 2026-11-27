@@ -14,6 +14,7 @@ import { UserIcon } from '../../icons/UserIcon';
 import { Input } from '../../forms/Input';
 import { CountBadge } from './CountBadge';
 import { UserAvatar } from './UserAvatar';
+import { useCartStore, itemCount } from '../../../stores/cartStore';
 
 export function MainHeader() {
   const token = useAuthStore((s) => s.token);
@@ -21,6 +22,9 @@ export function MainHeader() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const urlTitle = searchParams.get('title') ?? '';
+  const openDrawer = useCartStore((s) => s.openDrawer);
+  const lines = useCartStore((s) => s.lines);
+  const count = itemCount(lines);
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,15 +61,15 @@ export function MainHeader() {
 
   return (
     <div className="relative z-20 border-b border-border">
-      <div className="header-row flex min-h-[114px] items-center">
+      <div className="header-row flex min-h-28.5 items-center">
         <div className="header-logo-col flex shrink-0 items-center">
           <Link to="/" className="inline-flex items-center">
-            <img src={bookoryLogo} alt="Bookory" className="h-auto w-[150px]" />
+            <img src={bookoryLogo} alt="Bookory" className="h-auto w-37.5" />
           </Link>
         </div>
         <div className="header-categories-wrap">
           <Button type="button" className="header-categories">
-            <span className="inline-flex items-center gap-[10px] text-[14px] font-semibold">
+            <span className="inline-flex items-center gap-2.5 text-[14px] font-semibold">
               <GridIcon />
               Categories
             </span>
@@ -116,14 +120,15 @@ export function MainHeader() {
               <CountBadge count={0} />
             </span>
           </span>
-          <Link
-            to="/cart"
+          <button
+            type="button"
             className="relative inline-flex hover:text-accent"
             aria-label="Cart"
+            onClick={openDrawer}
           >
             <CartIcon />
-            <CountBadge count={0} />
-          </Link>
+            {count > 0 ? <CountBadge count={count} /> : null}
+          </button>
         </div>
       </div>
     </div>

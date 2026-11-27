@@ -16,6 +16,8 @@
   --color-star: #f5b400;
   --color-action: #222222;
   --color-success: #0f834d;
+  --color-tertiary: #f7f7f7;
+  --color-tertiary-hover: #efefef;
 }
 
 @layer components {
@@ -36,6 +38,57 @@
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-background);
+}
+
+.loader {
+  --size: 0.5px;
+  position: absolute;
+  width: calc(48 * var(--size));
+  height: calc(48 * var(--size));
+  border: calc(5 * var(--size)) dotted var(--color-background);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+.cart-close-icon::before,
+.cart-close-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-ink);
+  transition: transform 0.2s ease;
+}
+
+/* Two lines of x */
+.cart-close-icon::before {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.cart-close-icon::after {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* When both lines are horizontal, they appear as a horizontal line */
+.group:hover .cart-close-icon::before,
+.group:hover .cart-close-icon::after {
+  transform: translateY(-50%) rotate(0deg);
 }
 
 .input-text {

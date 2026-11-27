@@ -19,12 +19,12 @@ export function BookCard({ book }: BookCardProps) {
           {book.cover ? (
             <BookCover src={book.cover} />
           ) : (
-            <div className="aspect-3/4 w-full rounded-[16px] bg-neutral-200" />
+            <div className="aspect-3/4 w-full rounded-2xl bg-neutral-200" />
           )}
         </Link>
         <BookActions />
       </div>
-      <h3 className="mt-[14px] text-sm font-semibold leading-[1.4]">
+      <h3 className="mt-3.5 text-sm font-semibold leading-[1.4]">
         <Link
           to={`/books/${book.id}`}
           className="block truncate text-ink no-underline hover:text-accent"
@@ -36,9 +36,7 @@ export function BookCard({ book }: BookCardProps) {
       <p className="mt-1 text-[13px] font-normal leading-[1.4] text-lighter">
         {book.author}
       </p>
-      <p className="mt-[6px] text-accent font-semibold leading-[1.3]">
-        {price}
-      </p>
+      <p className="mt-1.5 text-accent font-semibold leading-[1.3]">{price}</p>
     </article>
   );
 }

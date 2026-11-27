@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { CartDrawer } from './CartDrawer';
 
 export function AppLayout() {
   return (
@@ -12,6 +13,7 @@ export function AppLayout() {
       </main>
 
       <Footer />
+      <CartDrawer />
     </div>
   );
 }
